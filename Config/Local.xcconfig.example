@@ -1,0 +1,7 @@
+// Copy to Local.xcconfig (git-ignored) and fill in your own values.
+
+// Your Apple Developer team ID (Xcode › Settings › Accounts, or developer.apple.com › Membership).
+DEVELOPMENT_TEAM = ABCDE12345
+
+// A reverse-DNS prefix you own. Targets append .breathia, .breathia.watchkitapp and .breathia.widgets.
+BUNDLE_ID_PREFIX = com.example

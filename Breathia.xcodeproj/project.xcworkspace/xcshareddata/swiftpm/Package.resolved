@@ -1,0 +1,15 @@
+{
+  "originHash" : "bd18e9d671fbe6ef0cfe5aeaf6dc0c14f984d159639c9d032935e41134169bb8",
+  "pins" : [
+    {
+      "identity" : "navigationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/LinkAndreas/NavigationKit.git",
+      "state" : {
+        "revision" : "a7790c90124740685e1c07fe4c263cfa564f02db",
+        "version" : "1.4.0"
+      }
+    }
+  ],
+  "version" : 3
+}
