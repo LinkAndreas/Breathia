@@ -1,15 +1,23 @@
-# Breathia
+<p align="center">
+  <img src="Docs/Images/AppIcon.png" width="128" height="128" alt="Breathia app icon">
+</p>
 
-![Platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20iPadOS%20%7C%20macOS%20%7C%20watchOS-blue)
-![Minimum OS](https://img.shields.io/badge/OS-27%2B-blue)
-![Swift](https://img.shields.io/badge/Swift-6.4-F05138?logo=swift&logoColor=white)
-![Xcode](https://img.shields.io/badge/Xcode-27%2B-147EFB?logo=xcode&logoColor=white)
-![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-0D96F6)
-![Tests](https://img.shields.io/badge/tests-Swift%20Testing-34C759)
-![Localized](https://img.shields.io/badge/localized-EN%20%7C%20DE%20%7C%20ES%20%7C%20FR-8E8E93)
-[![License: MIT](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
+<h1 align="center">Breathia</h1>
 
-Guided breathing for iPhone, iPad, Mac and Apple Watch, with live heart-rate and HRV biofeedback.
+<p align="center">
+  Guided breathing for iPhone, iPad, Mac and Apple Watch with live heart-rate and HRV biofeedback.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20iPadOS%20%7C%20macOS%20%7C%20watchOS-blue" alt="Platforms: iOS, iPadOS, macOS, watchOS">
+  <img src="https://img.shields.io/badge/OS-27%2B-blue" alt="Minimum OS 27">
+  <img src="https://img.shields.io/badge/Swift-6.4-F05138?logo=swift&amp;logoColor=white" alt="Swift 6.4">
+  <img src="https://img.shields.io/badge/Xcode-27%2B-147EFB?logo=xcode&amp;logoColor=white" alt="Xcode 27 or later">
+  <img src="https://img.shields.io/badge/UI-SwiftUI-0D96F6" alt="SwiftUI">
+  <img src="https://img.shields.io/badge/tests-Swift%20Testing-34C759" alt="Swift Testing">
+  <img src="https://img.shields.io/badge/localized-EN%20%7C%20DE%20%7C%20ES%20%7C%20FR-8E8E93" alt="Localized in English, German, Spanish and French">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow" alt="License: MIT"></a>
+</p>
 
 Breathia paces you through 24 breathing techniques — from Box Breathing and the Physiological
 Sigh to Resonance and Alternate Nostril Breathing — with a breathing circle and haptic and sound
