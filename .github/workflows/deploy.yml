@@ -1,10 +1,19 @@
 name: Deploy to App Store Connect
 
 on:
+  # Every merge into main (a finished release or hotfix) deploys; manual runs stay possible.
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: read
+
+# Never upload two builds at once; a newer run waits for the running one to finish.
+concurrency:
+  group: deploy-app-store-connect
+  cancel-in-progress: false
 
 jobs:
   archive-and-deploy:
