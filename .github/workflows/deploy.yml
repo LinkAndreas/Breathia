@@ -1,0 +1,141 @@
+name: Deploy to App Store Connect
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archive-and-deploy:
+    # Breathia targets iOS and watchOS 27, whose SDKs ship with Xcode 27.
+    runs-on: xcode-27
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install App Store Connect API Key
+        env:
+          API_KEY_BASE64: ${{ secrets.API_KEY_BASE64 }}
+          API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        run: |
+          mkdir -p ~/.private_keys
+          echo -n "$API_KEY_BASE64" | base64 --decode -o ~/.private_keys/AuthKey_$API_KEY_ID.p8
+
+      - name: Install Signing Certificate
+        env:
+          SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
+          SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # Read Signing Certificate
+          echo -n "$SIGNING_CERTIFICATE_BASE64" | base64 --decode -o "$SIGNING_CERTIFICATE_PATH"
+
+          # Create Keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+          # Import Signing Certificate to Keychain
+          security import "$SIGNING_CERTIFICATE_PATH" -P "$SIGNING_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security list-keychain -d user -s "$KEYCHAIN_PATH"
+
+      # One App Store profile per target: the iOS app, the Watch app and the widgets extension.
+      - name: Install Provisioning Profiles
+        env:
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          WATCH_PROVISIONING_PROFILE_BASE64: ${{ secrets.WATCH_PROVISIONING_PROFILE_BASE64 }}
+          WIDGETS_PROVISIONING_PROFILE_BASE64: ${{ secrets.WIDGETS_PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          # Xcode 16 and later read profiles from UserData; older tools still look in MobileDevice.
+          for PROFILES_DIR in ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles ~/Library/MobileDevice/Provisioning\ Profiles; do
+            mkdir -p "$PROFILES_DIR"
+            echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia.mobileprovision"
+            echo -n "$WATCH_PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia_watch.mobileprovision"
+            echo -n "$WIDGETS_PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia_widgets.mobileprovision"
+          done
+
+      - name: Configure ExportOptions.plist
+        env:
+          TEAM_ID: ${{ vars.TEAM_ID }}
+          BUNDLE_ID_PREFIX: ${{ vars.BUNDLE_ID_PREFIX }}
+          PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
+          WATCH_PROVISIONING_PROFILE_NAME: ${{ secrets.WATCH_PROVISIONING_PROFILE_NAME }}
+          WIDGETS_PROVISIONING_PROFILE_NAME: ${{ secrets.WIDGETS_PROVISIONING_PROFILE_NAME }}
+        run: |
+          sed -i '' "s|{{TEAM_ID}}|$TEAM_ID|g" Config/ExportOptions.plist
+          sed -i '' "s|{{BUNDLE_ID_PREFIX}}|$BUNDLE_ID_PREFIX|g" Config/ExportOptions.plist
+          sed -i '' "s|{{PROVISIONING_PROFILE_NAME}}|$PROVISIONING_PROFILE_NAME|g" Config/ExportOptions.plist
+          sed -i '' "s|{{WATCH_PROVISIONING_PROFILE_NAME}}|$WATCH_PROVISIONING_PROFILE_NAME|g" Config/ExportOptions.plist
+          sed -i '' "s|{{WIDGETS_PROVISIONING_PROFILE_NAME}}|$WIDGETS_PROVISIONING_PROFILE_NAME|g" Config/ExportOptions.plist
+
+      # CURRENT_PROJECT_VERSION is set on the command line so the app, Watch app and widgets
+      # share the run number as build number. PROFILE_<target> picks each target's profile.
+      - name: Build, Sign and Archive
+        env:
+          TEAM_ID: ${{ vars.TEAM_ID }}
+          BUNDLE_ID_PREFIX: ${{ vars.BUNDLE_ID_PREFIX }}
+          PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
+          WATCH_PROVISIONING_PROFILE_NAME: ${{ secrets.WATCH_PROVISIONING_PROFILE_NAME }}
+          WIDGETS_PROVISIONING_PROFILE_NAME: ${{ secrets.WIDGETS_PROVISIONING_PROFILE_NAME }}
+        run: |
+          echo "Build number: ${{ github.run_number }}"
+          set -o pipefail && xcodebuild clean archive \
+            -project Breathia.xcodeproj \
+            -scheme "Breathia" \
+            -archivePath $RUNNER_TEMP/Breathia.xcarchive \
+            -configuration Release \
+            -destination generic/platform=iOS \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            BUNDLE_ID_PREFIX="$BUNDLE_ID_PREFIX" \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="iPhone Distribution" \
+            PROFILE_Breathia="$PROVISIONING_PROFILE_NAME" \
+            PROFILE_BreathiaWatch="$WATCH_PROVISIONING_PROFILE_NAME" \
+            PROFILE_BreathiaWidgets="$WIDGETS_PROVISIONING_PROFILE_NAME" \
+            'PROVISIONING_PROFILE_SPECIFIER=$(PROFILE_$(TARGET_NAME))' | xcbeautify
+
+      - name: Export archive
+        run: |
+          set -o pipefail && xcodebuild -exportArchive \
+            -archivePath $RUNNER_TEMP/Breathia.xcarchive \
+            -exportOptionsPlist Config/ExportOptions.plist \
+            -exportPath $RUNNER_TEMP | xcbeautify
+
+      - name: Publish Breathia.ipa file
+        uses: actions/upload-artifact@v7
+        with:
+          name: Breathia.ipa
+          path: ${{ runner.temp }}/Breathia.ipa
+
+      - name: Validate Build Artifact
+        run: |
+          xcrun altool --validate-app \
+            -f ${{ runner.temp }}/Breathia.ipa \
+            -t ios \
+            --apiKey ${{ secrets.API_KEY_ID }} \
+            --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
+
+      - name: Upload Build Artifact to App Store Connect
+        run: |
+          xcrun altool --upload-app \
+            -f ${{ runner.temp }}/Breathia.ipa \
+            -t ios \
+            --apiKey ${{ secrets.API_KEY_ID }} \
+            --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
+
+      - name: Clean up keychain, provisioning profiles and API key
+        if: ${{ always() }}
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true
+          rm -f ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/breathia*.mobileprovision
+          rm -f ~/Library/MobileDevice/Provisioning\ Profiles/breathia*.mobileprovision
+          rm -rf ~/.private_keys
