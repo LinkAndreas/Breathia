@@ -99,8 +99,8 @@ The optional *Support the Developer* tips run against the local StoreKit configu
 
 ### Deploying to App Store Connect
 
-The [Deploy to App Store Connect](.github/workflows/deploy.yml) workflow is started manually from
-the Actions tab. It archives the iOS app with the Watch app and widgets, uses the run number as
+The [Deploy to App Store Connect](.github/workflows/deploy.yml) workflow runs on every merge into
+`main` and can also be started manually from the Actions tab. It archives the iOS app with the Watch app and widgets, uses the run number as
 build number, and uploads the build to App Store Connect. It needs these repository settings:
 
 | Kind     | Name                                                        | Value                                                    |
