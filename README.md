@@ -17,6 +17,7 @@
   <img src="https://img.shields.io/badge/tests-Swift%20Testing-34C759" alt="Swift Testing">
   <img src="https://img.shields.io/badge/localized-EN%20%7C%20DE%20%7C%20ES%20%7C%20FR-8E8E93" alt="Localized in English, German, Spanish and French">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow" alt="License: MIT"></a>
+  <a href="https://github.com/LinkAndreas/Breathia/actions/workflows/deploy.yml"><img src="https://github.com/LinkAndreas/Breathia/actions/workflows/deploy.yml/badge.svg" alt="Deploy to App Store Connect"></a>
 </p>
 
 Breathia paces you through 24 breathing techniques — from Box Breathing and the Physiological
@@ -95,6 +96,26 @@ Then set your `DEVELOPMENT_TEAM` and a `BUNDLE_ID_PREFIX` you own in `Config/Loc
 The optional *Support the Developer* tips run against the local StoreKit configuration
 [`Config/Breathia.storekit`](Config/Breathia.storekit), selected in the Breathia scheme. See
 [`Docs/AppStoreConnect-Support.md`](Docs/AppStoreConnect-Support.md) for the App Store Connect setup.
+
+### Deploying to App Store Connect
+
+The [Deploy to App Store Connect](.github/workflows/deploy.yml) workflow is started manually from
+the Actions tab. It archives the iOS app with the Watch app and widgets, uses the run number as
+build number, and uploads the build to App Store Connect. It needs these repository settings:
+
+| Kind     | Name                                                        | Value                                                    |
+| -------- | ----------------------------------------------------------- | -------------------------------------------------------- |
+| Variable | `TEAM_ID`                                                   | Apple Developer team ID                                  |
+| Variable | `BUNDLE_ID_PREFIX`                                          | Bundle identifier prefix, e.g. `de.linkandreas`          |
+| Secret   | `API_KEY_ID`, `API_KEY_ISSUER_ID`                           | App Store Connect API key ID and issuer ID               |
+| Secret   | `API_KEY_BASE64`                                            | The API key's `.p8` file, base64-encoded                 |
+| Secret   | `SIGNING_CERTIFICATE_BASE64`, `SIGNING_CERTIFICATE_PASSWORD` | Apple Distribution certificate as `.p12`, and its password |
+| Secret   | `KEYCHAIN_PASSWORD`                                         | Any password for the temporary CI keychain               |
+| Secret   | `PROVISIONING_PROFILE_BASE64`, `PROVISIONING_PROFILE_NAME`  | App Store profile for `<prefix>.breathia`                |
+| Secret   | `WATCH_PROVISIONING_PROFILE_BASE64`, `WATCH_PROVISIONING_PROFILE_NAME` | App Store profile for `<prefix>.breathia.watchkitapp` |
+| Secret   | `WIDGETS_PROVISIONING_PROFILE_BASE64`, `WIDGETS_PROVISIONING_PROFILE_NAME` | App Store profile for `<prefix>.breathia.widgets` |
+
+Encode files with `base64 -i <file> | pbcopy`.
 
 ## Tests
 
