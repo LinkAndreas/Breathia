@@ -109,7 +109,7 @@ build number, and uploads the build to App Store Connect. It needs these reposit
 | Variable | `BUNDLE_ID_PREFIX`                                          | Bundle identifier prefix, e.g. `de.linkandreas`          |
 | Secret   | `API_KEY_ID`, `API_KEY_ISSUER_ID`                           | App Store Connect API key ID and issuer ID               |
 | Secret   | `API_KEY_BASE64`                                            | The API key's `.p8` file, base64-encoded                 |
-| Secret   | `SIGNING_CERTIFICATE_BASE64`, `SIGNING_CERTIFICATE_PASSWORD` | Apple Distribution certificate as `.p12`, and its password |
+| Secret   | `SIGNING_CERTIFICATE_BASE64`, `SIGNING_CERTIFICATE_PASSWORD` | iPhone/Apple Distribution certificate as `.p12`, and its password |
 | Secret   | `KEYCHAIN_PASSWORD`                                         | Any password for the temporary CI keychain               |
 | Secret   | `PROVISIONING_PROFILE_BASE64`, `PROVISIONING_PROFILE_NAME`  | App Store profile for `<prefix>.breathia`                |
 | Secret   | `WATCH_PROVISIONING_PROFILE_BASE64`, `WATCH_PROVISIONING_PROFILE_NAME` | App Store profile for `<prefix>.breathia.watchkitapp` |
