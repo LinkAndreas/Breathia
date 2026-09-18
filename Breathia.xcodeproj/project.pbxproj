@@ -520,6 +520,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Breathia-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Breathia;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Breathia uses Bluetooth to connect to your heart-rate sensor.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Breathia reads your heart rate during breathing sessions to show live feedback.";
@@ -574,6 +575,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Breathia-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Breathia;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Breathia uses Bluetooth to connect to your heart-rate sensor.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Breathia reads your heart rate during breathing sessions to show live feedback.";
