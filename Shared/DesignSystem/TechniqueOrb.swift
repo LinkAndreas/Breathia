@@ -5,11 +5,18 @@ struct TechniqueOrb: View {
     let technique: Technique
     var size: CGFloat = 48
 
+    @Environment(\.isLuminanceReduced) private var isLuminanceReduced
+
     var body: some View {
         Circle()
             .fill(technique.tint)
             .frame(width: size, height: size)
-            .shadow(color: technique.glowColor.opacity(0.8), radius: size / 7)
+            // Always On: drop the glow, which only smears on the dimmed screen.
+            // A shadow costs no layout, so the orb keeps its size either way.
+            .shadow(
+                color: technique.glowColor.opacity(isLuminanceReduced ? 0 : 0.8),
+                radius: isLuminanceReduced ? 0 : size / 7
+            )
             .accessibilityHidden(true)
     }
 }
