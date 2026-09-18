@@ -32,7 +32,10 @@ private struct WatchTechniqueRow: View {
                     .foregroundStyle(.secondary)
             }
         }
-        .padding(.vertical, 2)
+        // Keep the text clear of the row's rounded edge. The insets do not change
+        // in Always On, so the list holds its shape as the screen dims.
+        .padding(.vertical, 7)
+        .padding(.trailing, 4)
     }
 }
 
