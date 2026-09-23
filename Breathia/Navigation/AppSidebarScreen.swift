@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The iPad sidebar: the app's sections. Selecting one swaps the split view's
+/// The split view's sidebar: the app's sections. Selecting one swaps the split view's
 /// content and detail columns.
 struct AppSidebarScreen: View {
     @Binding var selection: AppTab?

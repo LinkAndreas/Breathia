@@ -5,7 +5,7 @@ import Foundation
 // screens never construct navigation themselves — they only report intents
 // through closures.
 
-/// The iPad sidebar listing the app's sections.
+/// The split view's sidebar listing the app's sections.
 enum AppSidebarRoute: Hashable {
     case sections
 }
@@ -13,22 +13,22 @@ enum AppSidebarRoute: Hashable {
 enum BreatheRoute: Hashable {
     /// The searchable, filterable technique list.
     case home
-    /// A technique's explanations and its Start button — pushed on iPhone, shown
-    /// in the detail column next to `home` on iPad.
+    /// A technique's explanations and its Start button — pushed in the tab bar,
+    /// shown in the detail column next to `home` in the split view.
     case technique(Technique.ID)
 }
 
 enum HistoryRoute: Hashable {
     case list
     case session(SessionRecord.ID)
-    /// The iPad detail column before a session is chosen.
+    /// The detail column before a session is chosen.
     case noSelection
 }
 
 enum SettingsRoute: Hashable {
-    /// iPhone: every setting in one form.
+    /// Tab bar: every setting in one form.
     case form
-    /// iPad content column: the categories, like the Settings app.
+    /// Split view content column: the categories, like the Settings app.
     case categories
     case page(SettingsPage)
 }

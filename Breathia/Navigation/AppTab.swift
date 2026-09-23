@@ -1,6 +1,6 @@
 import NavigationKit
 
-/// The app's top-level sections: the tabs on iPhone, the sidebar items on iPad.
+/// The app's top-level sections: the tabs in a narrow window, the sidebar items in a wide one.
 enum AppTab: CaseIterable, Hashable {
     case breathe
     case history
@@ -25,7 +25,7 @@ enum AppTab: CaseIterable, Hashable {
         }
     }
 
-    /// The stack this section's tab starts with on iPhone.
+    /// The stack this section's tab starts with.
     func makeTabNavigator() -> StackNavigator {
         switch self {
         case .breathe: StackNavigator(root: BreatheRoute.home)

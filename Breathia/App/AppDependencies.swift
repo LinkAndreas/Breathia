@@ -1,9 +1,6 @@
 import NavigationKit
 import OSLog
 import SwiftUI
-#if os(iOS)
-import UIKit
-#endif
 
 /// Composition root. Builds the object graph once — the only place that picks
 /// concrete storage, Bluetooth, HealthKit, StoreKit, and WatchConnectivity types —
@@ -76,7 +73,7 @@ final class AppDependencies {
         let support = SupportStore(service: supportService)
         support.startObservingTransactions()
 
-        let navigator = AppNavigator(usesSplitLayout: Self.usesSplitLayout)
+        let navigator = AppNavigator()
         let ratingFlow = RatingFlow(
             prompter: ReviewPrompter(
                 repository: reviewPromptRepository,
@@ -112,10 +109,8 @@ final class AppDependencies {
 
     #if os(macOS)
     private static let sessionSource = SessionSource.mac
-    private static let usesSplitLayout = true
     #else
     private static let sessionSource = SessionSource.iPhone
-    private static var usesSplitLayout: Bool { UIDevice.current.userInterfaceIdiom == .pad }
     #endif
 
     static func live() -> AppDependencies {
