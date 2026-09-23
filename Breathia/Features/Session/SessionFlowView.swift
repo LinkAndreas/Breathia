@@ -28,8 +28,6 @@ struct SessionFlowView: View {
             if let model {
                 stageView(for: model)
                     .animation(.smooth, value: model.stage)
-                    // Lets the session keep its circle and controls off a partly folded display's crease.
-                    .readsDisplayFold()
             }
         }
         .onAppear(perform: startIfNeeded)
@@ -107,24 +105,25 @@ private struct SessionCountdownView: View {
     let technique: Technique
     let onCancel: () -> Void
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Environment(\.displayFold) private var displayFold
-    @Environment(\.layoutDirection) private var layoutDirection
-
     var body: some View {
-        GeometryReader { proxy in
-            let layout = SessionLayout(in: proxy.frame(in: .global), fold: displayFold, layoutDirection: layoutDirection)
-            content(for: layout)
-                .frame(width: proxy.size.width, height: proxy.size.height)
-                .background {
-                    // Over the whole screen, so the tint wash isn't cut to the content's width.
-                    RadialGradient(
-                        colors: [technique.tint.opacity(0.16), .clear],
-                        center: ringCenter(in: layout, size: proxy.size),
-                        startRadius: 0,
-                        endRadius: 380
-                    )
-                    .ignoresSafeArea()
-                }
+        SessionArrangement {
+            // The ring where the session's circle appears, the words beside or below it.
+            ring
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } secondary: {
+            VStack(spacing: 28) {
+                heading
+                firstPhase
+                #if os(macOS)
+                // A standard push button, as in Mac sheets; Escape cancels too.
+                Button("common.cancel", role: .cancel, action: onCancel)
+                    .keyboardShortcut(.cancelAction)
+                    .controlSize(.large)
+                #endif
+            }
+            .padding(.horizontal, 24)
+            .padding(.vertical, 32)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         #if os(iOS)
         // The system's close button in the navigation bar, shown for the countdown only.
@@ -134,58 +133,6 @@ private struct SessionCountdownView: View {
             }
         }
         #endif
-    }
-
-    @ViewBuilder
-    private func content(for layout: SessionLayout) -> some View {
-        switch layout {
-        case .stacked:
-            VStack(spacing: 0) {
-                Spacer()
-
-                VStack(spacing: 28) {
-                    heading
-                    ring
-                    firstPhase
-                }
-                .padding(.horizontal, 24)
-
-                Spacer()
-
-                #if os(macOS)
-                // A standard push button, as in Mac sheets; Escape cancels too.
-                Button("common.cancel", role: .cancel, action: onCancel)
-                    .keyboardShortcut(.cancelAction)
-                    .controlSize(.large)
-                    .padding(.bottom, 32)
-                #else
-                Spacer()
-                #endif
-            }
-        // The ring where the session's circle appears, the words beside or below it.
-        case let .sideBySide(leadingWidth, gap):
-            HStack(spacing: gap) {
-                ring
-                    .frame(width: leadingWidth)
-                VStack(spacing: 28) {
-                    heading
-                    firstPhase
-                }
-                .padding(.horizontal, 24)
-                .frame(maxWidth: .infinity)
-            }
-            .frame(maxHeight: .infinity)
-        case let .aboveAndBelow(topHeight, gap):
-            VStack(spacing: gap) {
-                VStack(spacing: 28) {
-                    heading
-                    ring
-                }
-                .frame(height: topHeight)
-                firstPhase
-                    .frame(maxHeight: .infinity)
-            }
-        }
     }
 
     private var heading: some View {
@@ -222,6 +169,18 @@ private struct SessionCountdownView: View {
                 .animation(.snappy, value: value)
         }
         .frame(width: 220, height: 220)
+        .background {
+            // Centred on the ring and wider than it, so the tint wash reaches past
+            // its pane.
+            RadialGradient(
+                colors: [technique.tint.opacity(0.16), .clear],
+                center: .center,
+                startRadius: 0,
+                endRadius: 380
+            )
+            .frame(width: 760, height: 760)
+            .allowsHitTesting(false)
+        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(value, format: .number))
     }
@@ -239,19 +198,6 @@ private struct SessionCountdownView: View {
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
             .background(Theme.Palette.elevated, in: .capsule)
-        }
-    }
-
-    /// Where the tint wash centres: on the ring.
-    private func ringCenter(in layout: SessionLayout, size: CGSize) -> UnitPoint {
-        switch layout {
-        case .stacked:
-            return .center
-        case let .sideBySide(leadingWidth, _):
-            let x = leadingWidth / 2 / max(size.width, 1)
-            return UnitPoint(x: layoutDirection == .rightToLeft ? 1 - x : x, y: 0.5)
-        case let .aboveAndBelow(topHeight, _):
-            return UnitPoint(x: 0.5, y: topHeight * 0.6 / max(size.height, 1))
         }
     }
 
