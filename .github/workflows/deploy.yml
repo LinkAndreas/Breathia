@@ -18,7 +18,7 @@ concurrency:
 jobs:
   archive-and-deploy:
     # Breathia targets iOS and watchOS 27, whose SDKs ship with Xcode 27.
-    runs-on: xcode-27
+    runs-on: [self-hosted, xcode-27]
 
     steps:
       - name: Checkout repository
