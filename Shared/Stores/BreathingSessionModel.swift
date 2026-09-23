@@ -190,9 +190,18 @@ final class BreathingSessionModel {
         tick()
 
         while !Task.isCancelled, stage == .running {
-            try? await Task.sleep(for: .milliseconds(200))
+            try? await Task.sleep(for: .seconds(nextTickDelay()))
             tick()
         }
+    }
+
+    /// How long to wait for the next tick: a fifth of a second, but never past the
+    /// end of the current phase. Cues land on the turn of the breath instead of up
+    /// to a tick late — which a one-second phase would plainly feel.
+    private func nextTickDelay() -> TimeInterval {
+        guard !isPaused else { return 0.2 }
+        let untilPhaseEnd = clock.position(at: activeElapsed(at: now())).timeUntilPhaseEnd
+        return min(0.2, max(0.01, untilPhaseEnd))
     }
 
     private func tick() {

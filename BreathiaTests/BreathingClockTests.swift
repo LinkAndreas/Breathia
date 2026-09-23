@@ -83,6 +83,13 @@ struct BreathingClockTests {
         #expect(fast.position(at: 0.25).scale > 1.0)
     }
 
+    @Test func timeUntilPhaseEndCountsDownToTheBoundary() {
+        let clock = BreathingClock(technique: .testTechnique(phases: [.inhale(4), .exhale(4)]))
+        #expect(clock.position(at: 0).timeUntilPhaseEnd == 4)
+        #expect(clock.position(at: 3.5).timeUntilPhaseEnd == 0.5)
+        #expect(clock.position(at: 4).timeUntilPhaseEnd == 4)
+    }
+
     @Test func progressGoesFromZeroToOneWithinAPhase() {
         let clock = BreathingClock(technique: .testTechnique(phases: [.inhale(4), .exhale(4)]))
         #expect(clock.position(at: 0).phaseProgress == 0)

@@ -37,6 +37,10 @@ struct BreathingClock {
         let phaseProgress: Double
         /// Circle scale, eased from the previous phase's scale to this one's.
         let scale: Double
+
+        /// Time left until the phase turns over — how long the session loop may
+        /// sleep before it owes the user a cue.
+        var timeUntilPhaseEnd: TimeInterval { Double(phase.seconds) * (1 - phaseProgress) }
     }
 
     /// A breath shorter than this can't be counted down — `4…1` would collapse to a
