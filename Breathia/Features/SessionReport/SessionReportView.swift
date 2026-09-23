@@ -11,26 +11,22 @@ struct SessionReportPage<Header: View, Action: View>: View {
     /// scrolling column.
     @ViewBuilder let action: Action
 
-    @Environment(\.displayFold) private var displayFold
-    @Environment(\.layoutDirection) private var layoutDirection
-
     var body: some View {
-        GeometryReader { proxy in
-            let layout = SessionLayout(in: proxy.frame(in: .global), fold: displayFold, layoutDirection: layoutDirection)
-            if case let .sideBySide(leadingWidth, gap) = layout {
-                HStack(spacing: gap) {
-                    pane(height: proxy.size.height) {
-                        header
-                        SessionTakeaway(session: session)
-                        action
-                    }
-                    .frame(width: leadingWidth)
-                    pane(height: proxy.size.height) {
-                        SessionMeasurements(session: session)
-                    }
+        // Only side by side: one above the other, each half would scroll on its own.
+        // A tall screen shows the whole page in one column instead.
+        SessionArrangement(axes: .horizontal) { isSplit in
+            if isSplit {
+                pane {
+                    header
+                    SessionTakeaway(session: session)
+                    action
                 }
             } else {
                 column
+            }
+        } secondary: {
+            pane {
+                SessionMeasurements(session: session)
             }
         }
     }
@@ -57,14 +53,15 @@ struct SessionReportPage<Header: View, Action: View>: View {
     }
 
     /// One side of the page, centred on the screen, scrolling if it outgrows it.
-    private func pane(height: CGFloat, @ViewBuilder content: () -> some View) -> some View {
+    private func pane(@ViewBuilder content: () -> some View) -> some View {
         ScrollView {
             VStack(spacing: 20, content: content)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
                 .frame(maxWidth: 520)
-                .frame(maxWidth: .infinity, minHeight: height)
+                .frame(maxWidth: .infinity)
         }
+        .defaultScrollAnchor(.center, for: .alignment)
         .scrollBounceBehavior(.basedOnSize)
     }
 }

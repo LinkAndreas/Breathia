@@ -24,9 +24,6 @@ struct AppRootView: View {
         .formStyle(.grouped)
         #endif
         .preferredColorScheme(settingsStore.settings.appearance.colorScheme)
-        // Lets pages such as a session's report keep their content off a partly folded
-        // display's crease.
-        .readsDisplayFold()
     }
 }
 

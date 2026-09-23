@@ -1,52 +1,93 @@
 import SwiftUI
 
-/// How the session screens divide the screen. The countdown, the live session, and
-/// the report share it, so the countdown's ring sits where the breathing circle
-/// takes over, and a finished session is laid out the same way.
-enum SessionLayout {
-    /// One column, circle in the middle.
-    case stacked
-    /// The circle in the leading pane; everything else beside it.
-    case sideBySide(leadingWidth: CGFloat, gap: CGFloat)
-    /// The circle above, the controls below.
-    case aboveAndBelow(topHeight: CGFloat, gap: CGFloat)
+/// How the session screens divide the screen: the circle (primary) and everything
+/// else (secondary), side by side on a wide screen and one above the other on a
+/// tall one. On a partly folded display the split follows the crease, so nothing
+/// sits on the bend: the circle faces the user and the controls lie within reach.
+///
+/// The countdown, the live session, and the report share it, so the countdown's
+/// ring sits where the breathing circle takes over, and a finished session is laid
+/// out the same way.
+struct SessionArrangement<Primary: View, Secondary: View>: View {
+    /// The axes the split may use. Limited to `.horizontal`, a tall screen shows
+    /// the primary view alone.
+    private let axes: Axis.Set
+    /// The primary view, told whether the secondary view is shown beside or below it.
+    private let primary: (_ isSplit: Bool) -> Primary
+    private let secondary: Secondary
 
-    /// Room kept clear either side of a display's crease.
-    private static let creaseGap: CGFloat = 48
-    private static let paneGap: CGFloat = 24
-    /// The least a pane beside the crease needs; a narrower one — a split view
-    /// column that only just reaches over the crease — isn't worth splitting.
-    private static let minimumPaneLength: CGFloat = 280
+    #if os(iOS)
+    @State private var isSplit = false
+    #endif
 
-    /// Splits the screen at a partly folded display's crease, so nothing sits on
-    /// the bend: the circle faces the user and the controls lie within reach. A
-    /// wide screen — an unfolded iPhone or an iPad in landscape — sets the circle
-    /// beside the rest instead of leaving the sides empty.
-    ///
-    /// - Parameter frame: The screen's content area, in the global coordinate space.
-    init(in frame: CGRect, fold: DisplayFold?, layoutDirection: LayoutDirection) {
-        if let fold {
-            let margin = Self.minimumPaneLength + Self.creaseGap / 2
-            switch fold.axis {
-            case .vertical where frame.minX + margin <= fold.position && fold.position <= frame.maxX - margin:
-                let leadingWidth = layoutDirection == .rightToLeft
-                    ? frame.maxX - fold.position
-                    : fold.position - frame.minX
-                self = .sideBySide(leadingWidth: leadingWidth - Self.creaseGap / 2, gap: Self.creaseGap)
-                return
-            case .horizontal where frame.minY + margin <= fold.position && fold.position <= frame.maxY - margin:
-                self = .aboveAndBelow(topHeight: fold.position - frame.minY - Self.creaseGap / 2, gap: Self.creaseGap)
-                return
-            default:
-                break
+    init(
+        axes: Axis.Set = [.horizontal, .vertical],
+        @ViewBuilder primary: @escaping (_ isSplit: Bool) -> Primary,
+        @ViewBuilder secondary: () -> Secondary
+    ) {
+        self.axes = axes
+        self.primary = primary
+        self.secondary = secondary()
+    }
+
+    /// An arrangement whose primary view is the same whether or not the secondary
+    /// view is shown.
+    init(
+        axes: Axis.Set = [.horizontal, .vertical],
+        @ViewBuilder primary: () -> Primary,
+        @ViewBuilder secondary: () -> Secondary
+    ) {
+        let primary = primary()
+        self.init(axes: axes, primary: { _ in primary }, secondary: secondary)
+    }
+
+    var body: some View {
+        #if os(iOS)
+        ArrangementView {
+            primary(isSplit)
+        } secondary: {
+            secondary
+                // Under the circle, the controls take the height they need and the
+                // circle the rest; beside it, each takes half.
+                .splitArrangementFixedLayoutSize(horizontal: false, vertical: true)
+                // An arrangement that leaves the secondary view out doesn't build
+                // it, so this only arrives while it's shown.
+                .preference(key: SecondaryShownKey.self, value: true)
+        }
+        .arrangementViewStyle(.split.axes(axes))
+        .onPreferenceChange(SecondaryShownKey.self) { isSplit = $0 }
+        #else
+        // TODO: Use ArrangementView on the Mac too once the macOS SDK has it (it's
+        // iOS-only in Xcode 27.1), and remove this path with its GeometryReader.
+        GeometryReader { proxy in
+            // Tall enough for the controls and cards beside the circle.
+            let isWide = proxy.size.width > proxy.size.height * 1.2 && proxy.size.height >= 480
+            if isWide && axes.contains(.horizontal) {
+                HStack(spacing: 24) {
+                    primary(true)
+                        .frame(width: (proxy.size.width - 24) / 2)
+                    secondary
+                }
+            } else if axes.contains(.vertical) {
+                VStack(spacing: 0) {
+                    primary(true)
+                    secondary
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            } else {
+                primary(false)
             }
         }
-        // Tall enough for the controls and cards beside the circle; a phone in
-        // landscape isn't.
-        if frame.width > frame.height * 1.2 && frame.height >= 480 {
-            self = .sideBySide(leadingWidth: (frame.width - Self.paneGap) / 2, gap: Self.paneGap)
-        } else {
-            self = .stacked
-        }
+        #endif
     }
 }
+
+#if os(iOS)
+private struct SecondaryShownKey: PreferenceKey {
+    static let defaultValue = false
+
+    static func reduce(value: inout Bool, nextValue: () -> Bool) {
+        value = value || nextValue()
+    }
+}
+#endif
