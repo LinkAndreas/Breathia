@@ -3207,6 +3207,63 @@
         }
       }
     },
+    "session.breathAccessibilityLabel %@ %lld %lld" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, Atemzug %lld von %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, breath %lld of %lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, respiración %lld de %lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, respiration %lld sur %lld"
+          }
+        }
+      }
+    },
+    "session.breathOf %lld" : {
+      "comment" : "Caption under the breath number in the breathing circle, e.g. 'of 60'",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "von %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "of %lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "de %lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sur %lld"
+          }
+        }
+      }
+    },
     "session.countdown.firstPhase %@" : {
       "localizations" : {
         "de" : {
@@ -14225,6 +14282,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fréquence cardiaque et Santé"
+          }
+        }
+      }
+    },
+    "watch.session.breathAccessibilityLabel %@ %lld %lld" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, Atemzug %lld von %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, breath %lld of %lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, respiración %lld de %lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, respiration %lld sur %lld"
           }
         }
       }

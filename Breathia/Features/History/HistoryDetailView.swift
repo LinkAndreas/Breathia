@@ -10,14 +10,8 @@ struct HistoryDetailView: View {
 
     var body: some View {
         if let session = history.session(withID: sessionID) {
-            ScrollView {
-                VStack(spacing: 16) {
-                    SessionHeader(technique: session.technique, subtitle: Formatters.clock(session.duration))
-                    SessionReportView(session: session)
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 30)
-                .readableContentWidth()
+            SessionReportPage(session: session) {
+                SessionHeader(technique: session.technique, subtitle: Formatters.clock(session.duration))
             }
             .background(Theme.Palette.background)
             .navigationTitle(Formatters.relativeDay(session.date))

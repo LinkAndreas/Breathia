@@ -59,7 +59,7 @@ final class AppRoutes {
                     usesSelection: self.navigator.usesSplitLayout,
                     selectedTechniqueID: self.navigator.selectedTechniqueID,
                     onOpen: { self.navigator.openTechnique($0, from: stack) },
-                    onShowSensor: { self.navigator.showSensor(from: stack) }
+                    onShowSensor: { self.navigator.showSensor() }
                 )
                 .contentColumnWidth()
                 .environment(self.heartRateMonitor)
@@ -70,7 +70,7 @@ final class AppRoutes {
                 }
                 #if os(iOS)
                 // Give the page and its floating Start button the whole screen on
-                // iPhone; the split layout on iPad has no tab bar to hide.
+                // iPhone; the split layout has no tab bar to hide.
                 .toolbar(.hidden, for: .tabBar)
                 #endif
                 .id(id)
@@ -119,8 +119,8 @@ final class AppRoutes {
             switch route {
             case .form:
                 SettingsView(
-                    onShowSupport: { self.navigator.showSupport(from: stack) },
-                    onShowSensor: { self.navigator.showSensor(from: stack) },
+                    onShowSupport: { self.navigator.showSupport() },
+                    onShowSensor: { self.navigator.showSensor() },
                     onOpenPage: { stack.push(SettingsRoute.page($0)) },
                     onShowOnboarding: { self.navigator.showOnboarding() }
                 )
@@ -137,7 +137,7 @@ final class AppRoutes {
                             if let page { self.navigator.showDetail(SettingsRoute.page(page), from: stack) }
                         }
                     ),
-                    onShowSupport: { self.navigator.showSupport(from: stack) },
+                    onShowSupport: { self.navigator.showSupport() },
                     onShowOnboarding: { self.navigator.showOnboarding() }
                 )
                 .contentColumnWidth()
@@ -193,9 +193,7 @@ final class AppRoutes {
                         }
                     }
                 )
-                #if os(iOS)
-                .toolbar(.hidden, for: .navigationBar)
-                #else
+                #if os(macOS)
                 // A sheet on the Mac: large enough for the breathing circle.
                 .frame(minWidth: 560, idealWidth: 720, minHeight: 680, idealHeight: 760)
                 #endif
