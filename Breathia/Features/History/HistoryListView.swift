@@ -30,7 +30,18 @@ struct HistoryListView: View {
                 }
             }
             .navigationTitle("history.title")
+            #if os(macOS)
+            // A Mac window has one title, taken from this column; the open session's
+            // day shows as its subtitle, as the selected mailbox's details do in Mail.
+            .navigationSubtitle(selectedSession.map { Formatters.relativeDay($0.date) } ?? "")
+            #endif
     }
+
+    #if os(macOS)
+    private var selectedSession: SessionRecord? {
+        selectedSessionID.flatMap { history.session(withID: $0) }
+    }
+    #endif
 
     @ViewBuilder
     private var list: some View {
