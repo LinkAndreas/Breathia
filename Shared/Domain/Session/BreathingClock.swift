@@ -85,7 +85,7 @@ struct BreathingClock {
                         ? .breathNumber(cycle + 1)
                         : .secondsLeft(secondsLeftOfBreath(at: index, offset: min(offset, length))),
                     phaseProgress: progress,
-                    scale: previous.scale + (phase.scale - previous.scale) * Self.ease(progress)
+                    scale: previous.scale + (phase.scale - previous.scale) * ease(progress)
                 )
             }
             offset -= length
@@ -118,8 +118,10 @@ struct BreathingClock {
         max(1, Int((length - offset).rounded(.up)))
     }
 
-    /// Smoothstep — breaths start and finish gently rather than at constant speed.
-    private static func ease(_ t: Double) -> Double {
-        t * t * (3 - 2 * t)
+    /// Slow breaths start and finish gently rather than at constant speed. Fast ones
+    /// take off at once and settle, so the turn of each phase stays legible at a
+    /// pace where the number can't keep up.
+    private func ease(_ t: Double) -> Double {
+        isFast ? 1 - pow(1 - t, 3) : t * t * (3 - 2 * t)
     }
 }

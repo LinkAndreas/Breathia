@@ -73,6 +73,16 @@ struct BreathingClockTests {
         #expect(abs(clock.position(at: 3.999).scale - 1.2) < 0.001)
     }
 
+    /// Slow patterns ease in and out; fast ones take off at once, so the turn of
+    /// each phase stays legible at a pace the number can't keep up with.
+    @Test func fastPatternsReachTheirSizeSoonerThanSlowOnes() {
+        let slow = BreathingClock(technique: .testTechnique(phases: [.inhale(4, scale: 1.2), .exhale(4, scale: 0.8)]))
+        let fast = BreathingClock(technique: .testTechnique(phases: [.inhale(1, scale: 1.2), .exhale(1, scale: 0.8)]))
+        // A quarter of the way into the inhale, both start at 0.8 and head for 1.2.
+        #expect(slow.position(at: 1).scale < 1.0)
+        #expect(fast.position(at: 0.25).scale > 1.0)
+    }
+
     @Test func progressGoesFromZeroToOneWithinAPhase() {
         let clock = BreathingClock(technique: .testTechnique(phases: [.inhale(4), .exhale(4)]))
         #expect(clock.position(at: 0).phaseProgress == 0)
