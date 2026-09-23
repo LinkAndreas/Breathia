@@ -12,11 +12,9 @@ struct BreathingSessionView: View {
     private let isRegular = true
     #endif
 
-    @Environment(\.displayFold) private var displayFold
-    @Environment(\.layoutDirection) private var layoutDirection
-
     private var tint: Color { model.technique.tint }
-    private var maximumCircleDiameter: CGFloat { isRegular ? 420 : 290 }
+    /// The circle's limit in its pane.
+    private static let maximumCircleDiameter: CGFloat = 640
     /// The smallest the circle gets in this technique (the end of an exhale).
     private var smallestScale: Double { model.technique.phases.map(\.scale).min() ?? 1 }
     /// Breaths a full session takes. Shown under the breath number in techniques
@@ -27,65 +25,17 @@ struct BreathingSessionView: View {
     }
 
     var body: some View {
-        GeometryReader { proxy in
-            let frame = proxy.frame(in: .global)
-            switch SessionLayout(in: frame, fold: displayFold, layoutDirection: layoutDirection) {
-            case .stacked:
-                stacked
-            case let .sideBySide(leadingWidth, gap):
-                HStack(spacing: gap) {
-                    breathingCircle(maximumDiameter: Self.paneCircleDiameter)
-                        .frame(width: leadingWidth)
-                    panel
-                        .frame(maxWidth: 440)
-                        .frame(maxWidth: .infinity)
-                }
-            case let .aboveAndBelow(topHeight, gap):
-                VStack(spacing: gap) {
-                    VStack(spacing: 0) {
-                        header
-                        breathingCircle(maximumDiameter: Self.paneCircleDiameter)
-                    }
-                    .frame(height: topHeight)
-                    // The half lying flat: its controls centred, well within reach.
-                    VStack(spacing: 0) {
-                        feedbackPill
-                            .padding(.bottom, 14)
-                        metrics
-                        controls
-                            .padding(.top, 4)
-                    }
-                    .frame(maxHeight: .infinity)
-                }
-                .readableContentWidth(560)
-            }
+        SessionArrangement {
+            breathingCircle
+        } secondary: {
+            panel
+                .frame(maxWidth: 440)
+                .frame(maxWidth: .infinity)
         }
     }
 
-    /// The circle's limit when it has a pane to itself.
-    private static let paneCircleDiameter: CGFloat = 640
-
-    private var stacked: some View {
-        VStack(spacing: 0) {
-            header
-
-            breathingCircle(maximumDiameter: maximumCircleDiameter)
-
-            feedbackPill
-                .padding(.top, 4)
-                .padding(.bottom, 14)
-
-            metrics
-
-            controls
-                .padding(.top, 4)
-                .padding(.bottom, 24)
-        }
-        .readableContentWidth(560)
-    }
-
-    /// Everything but the circle, in the pane beside it: one group, centred on the
-    /// circle, so nothing is stranded at the pane's top or bottom edge.
+    /// Everything but the circle, in the pane beside or below it: one group, centred
+    /// on the circle, so nothing is stranded at the pane's top or bottom edge.
     private var panel: some View {
         VStack(spacing: 0) {
             Spacer(minLength: 24)
@@ -116,13 +66,13 @@ struct BreathingSessionView: View {
         }
     }
 
-    private func breathingCircle(maximumDiameter: CGFloat) -> some View {
+    private var breathingCircle: some View {
         GeometryReader { proxy in
             TimelineView(.animation(paused: model.isPaused)) { context in
                 BreathingCircle(
                     position: model.position(at: context.date),
                     tint: tint,
-                    diameter: min(maximumDiameter, min(proxy.size.width, proxy.size.height) / 1.2),
+                    diameter: min(Self.maximumCircleDiameter, min(proxy.size.width, proxy.size.height) / 1.2),
                     smallestScale: smallestScale,
                     totalBreaths: totalBreaths
                 )
@@ -267,6 +217,12 @@ struct BreathingSessionView: View {
         return Int((values.reduce(0, +) / Double(values.count)).rounded())
     }
 }
+
+#if DEBUG
+#Preview {
+    BreathingSessionView(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+}
+#endif
 
 private struct BreathingCircle: View {
     let position: BreathingClock.Position
