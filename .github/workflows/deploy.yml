@@ -54,7 +54,13 @@ jobs:
 
           # Import Signing Certificate to Keychain
           security import "$SIGNING_CERTIFICATE_PATH" -P "$SIGNING_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
-          security list-keychain -d user -s "$KEYCHAIN_PATH"
+
+          # Let codesign use the key without a UI prompt; without this it fails with errSecInternalComponent.
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH" > /dev/null
+
+          # Add the keychain to the search list rather than replacing it: the runner is a regular Mac
+          # whose login keychain must stay searchable once the cleanup deletes this one.
+          security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | tr -d '"')
 
       # One App Store profile per target: the iOS app, the Watch app and the widgets extension.
       - name: Install Provisioning Profiles
