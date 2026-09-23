@@ -18,6 +18,7 @@ struct SessionArrangement<Primary: View, Secondary: View>: View {
 
     #if os(iOS)
     @State private var isSplit = false
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     #endif
 
     init(
@@ -43,19 +44,22 @@ struct SessionArrangement<Primary: View, Secondary: View>: View {
 
     var body: some View {
         #if os(iOS)
-        ArrangementView {
-            primary(isSplit)
-        } secondary: {
-            secondary
-                // Under the circle, the controls take the height they need and the
-                // circle the rest; beside it, each takes half.
-                .splitArrangementFixedLayoutSize(horizontal: false, vertical: true)
-                // An arrangement that leaves the secondary view out doesn't build
-                // it, so this only arrives while it's shown.
-                .preference(key: SecondaryShownKey.self, value: true)
+        if verticalSizeClass == .compact {
+            // Where the height is compact — a phone on its side, iPhone Duo's outer
+            // display — an arrangement collapses to its primary view, as a split
+            // view does. The session needs both, so they sit side by side; the
+            // report, which splits only side by side anyway, shows one column.
+            if axes.contains(.vertical) {
+                HStack(spacing: 0) {
+                    primary(true)
+                    secondary
+                }
+            } else {
+                primary(false)
+            }
+        } else {
+            arrangement
         }
-        .arrangementViewStyle(.split.axes(axes))
-        .onPreferenceChange(SecondaryShownKey.self) { isSplit = $0 }
         #else
         // TODO: Use ArrangementView on the Mac too once the macOS SDK has it (it's
         // iOS-only in Xcode 27.1), and remove this path with its GeometryReader.
@@ -80,6 +84,24 @@ struct SessionArrangement<Primary: View, Secondary: View>: View {
         }
         #endif
     }
+
+    #if os(iOS)
+    private var arrangement: some View {
+        ArrangementView {
+            primary(isSplit)
+        } secondary: {
+            secondary
+                // Under the circle, the controls take the height they need and the
+                // circle the rest; beside it, each takes half.
+                .splitArrangementFixedLayoutSize(horizontal: false, vertical: true)
+                // An arrangement that leaves the secondary view out doesn't build
+                // it, so this only arrives while it's shown.
+                .preference(key: SecondaryShownKey.self, value: true)
+        }
+        .arrangementViewStyle(.split.axes(axes))
+        .onPreferenceChange(SecondaryShownKey.self) { isSplit = $0 }
+    }
+    #endif
 }
 
 #if os(iOS)
