@@ -193,9 +193,7 @@ final class AppRoutes {
                         }
                     }
                 )
-                #if os(iOS)
-                .toolbar(.hidden, for: .navigationBar)
-                #else
+                #if os(macOS)
                 // A sheet on the Mac: large enough for the breathing circle.
                 .frame(minWidth: 560, idealWidth: 720, minHeight: 680, idealHeight: 760)
                 #endif
