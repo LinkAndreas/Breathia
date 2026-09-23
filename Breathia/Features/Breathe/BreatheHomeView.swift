@@ -47,6 +47,11 @@ struct BreatheHomeView: View {
         }
         .background(Theme.Palette.background)
         .navigationTitle("common.breathe")
+        #if os(macOS)
+        // A Mac window has one title, taken from this column; the open technique
+        // shows as its subtitle, as the selected mailbox's details do in Mail.
+        .navigationSubtitle(selectedTechniqueID.map { TechniqueCatalog.technique(withID: $0).name } ?? "")
+        #endif
         .searchable(text: $query, placement: Self.searchPlacement, prompt: Text("breathe.searchTechniques"))
         .scrollDismissesKeyboard(.immediately)
         .toolbar {

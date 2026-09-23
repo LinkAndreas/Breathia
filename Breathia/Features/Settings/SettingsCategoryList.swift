@@ -72,6 +72,11 @@ struct SettingsCategoryList: View {
         .background(Theme.Palette.background)
         #endif
         .navigationTitle("settings.title")
+        #if os(macOS)
+        // A Mac window has one title, taken from this column; the open page shows as
+        // its subtitle, as the selected mailbox's details do in Mail.
+        .navigationSubtitle(selection?.title ?? "")
+        #endif
     }
 
     private func row(_ page: SettingsPage, in position: GroupPosition) -> some View {
