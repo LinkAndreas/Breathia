@@ -59,6 +59,9 @@ struct TechniqueFilterBar: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 2)
             }
+            // A scroll view draws into the safe area along its axis; stop at the edge
+            // instead, so the chips don't run under a vertical status bar.
+            .clipped()
         }
     }
 
