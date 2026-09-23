@@ -13,6 +13,13 @@ struct WatchBreathingView: View {
         return (scales.min() ?? 1, scales.max() ?? 1)
     }
 
+    /// Breaths a full session takes. Shown under the breath number in techniques
+    /// whose breaths are too short to count in seconds.
+    private var totalBreaths: Int {
+        let cycle = model.technique.cycleDuration
+        return cycle > 0 ? max(1, Int(model.targetDuration) / cycle) : 1
+    }
+
     var body: some View {
         GeometryReader { proxy in
             let side = min(proxy.size.width, proxy.size.height)
@@ -23,7 +30,8 @@ struct WatchBreathingView: View {
                     tint: model.technique.tint,
                     // At its largest the circle just fills the screen.
                     diameter: side * 0.97 / scaleRange.largest,
-                    smallestScale: scaleRange.smallest
+                    smallestScale: scaleRange.smallest,
+                    totalBreaths: totalBreaths
                 )
                 .frame(width: proxy.size.width, height: proxy.size.height)
                 .opacity(model.isPaused ? 0.45 : 1)
@@ -81,6 +89,8 @@ private struct WatchBreathingCircle: View {
     /// The smallest scale the circle reaches in this technique (end of an exhale).
     /// The label is fitted inside the circle at that size, so it never crowds the ring.
     let smallestScale: Double
+    /// Breaths in the whole session — the "of 60" under a breath number.
+    let totalBreaths: Int
 
     /// Side of the square the label may use: the square inscribed in the smallest
     /// circle (≈ 0.71 × its diameter), shrunk a little to keep a margin to the ring.
@@ -88,6 +98,19 @@ private struct WatchBreathingCircle: View {
 
 
     private var isHolding: Bool { position.phase.kind == .hold }
+
+    private var countsBreaths: Bool {
+        if case .breathNumber = position.readout { true } else { false }
+    }
+
+    private var accessibilityLabel: LocalizedStringKey {
+        switch position.readout {
+        case .secondsLeft:
+            "watch.session.phaseAccessibilityLabel \(position.phase.kind.title) \(position.secondsRemaining)"
+        case let .breathNumber(breath):
+            "watch.session.breathAccessibilityLabel \(position.phase.kind.title) \(breath) \(totalBreaths)"
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -118,20 +141,28 @@ private struct WatchBreathingCircle: View {
                     .tracking(0.8)
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                // Up while breathing in and holding, down while breathing out. Quieter
-                // during a hold, where the draining ring shows the time left.
-                Text(position.count, format: .number)
-                    .font(.system(size: labelSide * 0.56, weight: .light, design: .rounded))
+                // Seconds left in the breath, or — where they'd never change — which
+                // breath this is. Quieter during a hold, where the draining ring
+                // already shows the time left. The breath number gives up a little
+                // size to the "of N" underneath it.
+                Text(position.readout.value, format: .number)
+                    .font(.system(size: labelSide * (countsBreaths ? 0.44 : 0.56), weight: .light, design: .rounded))
                     .foregroundStyle(isHolding ? .secondary : .primary)
                     .monospacedDigit()
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                    .contentTransition(.numericText(countsDown: position.countsDown))
-                    .animation(.snappy, value: position.count)
+                    .contentTransition(.numericText(countsDown: position.readout.countsDown))
+                    .animation(.snappy, value: position.readout.value)
+                if countsBreaths {
+                    Text("session.breathOf \(totalBreaths)")
+                        .font(.system(size: labelSide * 0.14))
+                        .foregroundStyle(.tertiary)
+                        .lineLimit(1)
+                }
             }
             .frame(width: labelSide, height: labelSide)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("watch.session.phaseAccessibilityLabel \(position.phase.kind.title) \(position.secondsRemaining)")
+        .accessibilityLabel(accessibilityLabel)
     }
 }

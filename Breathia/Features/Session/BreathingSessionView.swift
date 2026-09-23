@@ -16,6 +16,12 @@ struct BreathingSessionView: View {
     private var maximumCircleDiameter: CGFloat { isRegular ? 420 : 290 }
     /// The smallest the circle gets in this technique (the end of an exhale).
     private var smallestScale: Double { model.technique.phases.map(\.scale).min() ?? 1 }
+    /// Breaths a full session takes. Shown under the breath number in techniques
+    /// whose breaths are too short to count in seconds.
+    private var totalBreaths: Int {
+        let cycle = model.technique.cycleDuration
+        return cycle > 0 ? max(1, Int(model.targetDuration) / cycle) : 1
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -33,7 +39,8 @@ struct BreathingSessionView: View {
                         position: model.position(at: context.date),
                         tint: tint,
                         diameter: min(maximumCircleDiameter, min(proxy.size.width, proxy.size.height) / 1.2),
-                        smallestScale: smallestScale
+                        smallestScale: smallestScale,
+                        totalBreaths: totalBreaths
                     )
                     .frame(width: proxy.size.width, height: proxy.size.height)
                 }
@@ -190,6 +197,8 @@ private struct BreathingCircle: View {
     /// The smallest scale the circle reaches in this technique. The label is fitted
     /// inside the circle at that size, so it never crowds the ring.
     let smallestScale: Double
+    /// Breaths in the whole session — the "of 60" under a breath number.
+    let totalBreaths: Int
 
 
     /// The square the label may use: well inside the square inscribed in the
@@ -197,6 +206,25 @@ private struct BreathingCircle: View {
     private var labelSide: CGFloat { diameter * smallestScale * 0.56 }
 
     private var isHolding: Bool { position.phase.kind == .hold }
+
+    /// Names the unit of the number above it: which cycle of the session this is,
+    /// or how far through the set of breaths.
+    @ViewBuilder
+    private var caption: some View {
+        switch position.readout {
+        case .secondsLeft: Text("session.cycle \(position.cycle)")
+        case .breathNumber: Text("session.breathOf \(totalBreaths)")
+        }
+    }
+
+    private var accessibilityLabel: LocalizedStringKey {
+        switch position.readout {
+        case .secondsLeft:
+            "session.phaseAccessibilityLabel \(position.phase.kind.title) \(position.secondsRemaining) \(position.cycle)"
+        case let .breathNumber(breath):
+            "session.breathAccessibilityLabel \(position.phase.kind.title) \(breath) \(totalBreaths)"
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -227,17 +255,18 @@ private struct BreathingCircle: View {
                     .tracking(1.5)
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                // Up while breathing in and holding, down while breathing out. Quieter
-                // during a hold, where the draining ring shows the time left.
-                Text(position.count, format: .number)
+                // Seconds left in the breath, or — where they'd never change — which
+                // breath this is. Quieter during a hold, where the draining ring
+                // already shows the time left.
+                Text(position.readout.value, format: .number)
                     .font(.system(size: labelSide * 0.5, weight: isHolding ? .regular : .semibold, design: .rounded))
                     .foregroundStyle(isHolding ? .secondary : .primary)
                     .monospacedDigit()
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                    .contentTransition(.numericText(countsDown: position.countsDown))
-                    .animation(.snappy, value: position.count)
-                Text("session.cycle \(position.cycle)")
+                    .contentTransition(.numericText(countsDown: position.readout.countsDown))
+                    .animation(.snappy, value: position.readout.value)
+                caption
                     .font(.system(size: labelSide * 0.1))
                     .foregroundStyle(.tertiary)
                     .lineLimit(1)
@@ -245,7 +274,7 @@ private struct BreathingCircle: View {
             .frame(width: labelSide, height: labelSide)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("session.phaseAccessibilityLabel \(position.phase.kind.title) \(position.secondsRemaining) \(position.cycle)")
+        .accessibilityLabel(accessibilityLabel)
     }
 }
 

@@ -10,20 +10,47 @@ struct BreathingClockTests {
         let cycle = phases.reduce(0) { $0 + $1.seconds }
         return (0..<cycle).map { second in
             let position = clock.position(at: Double(second) + 0.5)
-            return "\(position.phase.kind.rawValue.prefix(1).uppercased())\(position.count)"
+            return "\(position.phase.kind.rawValue.prefix(1).uppercased())\(position.readout.value)"
         }
     }
 
-    @Test func countsUpWhileBreathingInAndDownWhileBreathingOut() {
-        #expect(counts([.inhale(4), .exhale(4)]) == ["I1", "I2", "I3", "I4", "E4", "E3", "E2", "E1"])
+    @Test func everyPhaseCountsDown() {
+        #expect(counts([.inhale(4), .exhale(4)]) == ["I4", "I3", "I2", "I1", "E4", "E3", "E2", "E1"])
     }
 
-    @Test func holdsCountUp() {
-        #expect(counts([.inhale(2), .hold(3, scale: 1.15), .exhale(2)]) == ["I1", "I2", "H1", "H2", "H3", "E2", "E1"])
+    @Test func holdsCountDown() {
+        #expect(counts([.inhale(2), .hold(3, scale: 1.15), .exhale(2)]) == ["I2", "I1", "H3", "H2", "H1", "E2", "E1"])
     }
 
     @Test func consecutiveInhalesCountAsOneBreath() {
-        #expect(counts([.inhale(2, scale: 1), .inhale(1), .exhale(3)]) == ["I1", "I2", "I3", "E3", "E2", "E1"])
+        #expect(counts([.inhale(2, scale: 1), .inhale(1), .exhale(3)]) == ["I3", "I2", "I1", "E3", "E2", "E1"])
+    }
+
+    /// A one-second breath leaves a countdown with a single number to show, so the
+    /// circle counts breaths instead — see `Position.Readout`.
+    @Test func breathsTooShortToCountDownCountBreathsInstead() {
+        let clock = BreathingClock(technique: .testTechnique(phases: [.inhale(1), .exhale(1)]))
+        #expect(clock.position(at: 0.5).readout == .breathNumber(1))
+        #expect(clock.position(at: 1.5).readout == .breathNumber(1))
+        #expect(clock.position(at: 2.5).readout == .breathNumber(2))
+        #expect(clock.position(at: 59.5).readout == .breathNumber(30))
+    }
+
+    /// The readout keeps one meaning for the whole session: a pattern with one fast
+    /// phase counts breaths in its long phases too, rather than swapping units.
+    @Test func aSingleShortPhaseMakesTheWholePatternCountBreaths() {
+        let clock = BreathingClock(technique: .testTechnique(phases: [.inhale(1), .exhale(6)]))
+        #expect(clock.position(at: 0.5).readout == .breathNumber(1))
+        #expect(clock.position(at: 4).readout == .breathNumber(1))
+    }
+
+    @Test func twoSecondBreathsStillCountDown() {
+        #expect(counts([.inhale(2), .exhale(2)]) == ["I2", "I1", "E2", "E1"])
+    }
+
+    @Test func secondsCountDownAndBreathsCountUp() {
+        #expect(BreathingClock.Position.Readout.secondsLeft(3).countsDown)
+        #expect(!BreathingClock.Position.Readout.breathNumber(3).countsDown)
     }
 
     @Test func secondsRemainingCountsDownToOne() {
@@ -44,6 +71,23 @@ struct BreathingClockTests {
         let clock = BreathingClock(technique: .testTechnique(phases: [.inhale(4, scale: 1.2), .exhale(4, scale: 0.8)]))
         #expect(clock.position(at: 0).scale == 0.8)
         #expect(abs(clock.position(at: 3.999).scale - 1.2) < 0.001)
+    }
+
+    /// Slow patterns ease in and out; fast ones take off at once, so the turn of
+    /// each phase stays legible at a pace the number can't keep up with.
+    @Test func fastPatternsReachTheirSizeSoonerThanSlowOnes() {
+        let slow = BreathingClock(technique: .testTechnique(phases: [.inhale(4, scale: 1.2), .exhale(4, scale: 0.8)]))
+        let fast = BreathingClock(technique: .testTechnique(phases: [.inhale(1, scale: 1.2), .exhale(1, scale: 0.8)]))
+        // A quarter of the way into the inhale, both start at 0.8 and head for 1.2.
+        #expect(slow.position(at: 1).scale < 1.0)
+        #expect(fast.position(at: 0.25).scale > 1.0)
+    }
+
+    @Test func timeUntilPhaseEndCountsDownToTheBoundary() {
+        let clock = BreathingClock(technique: .testTechnique(phases: [.inhale(4), .exhale(4)]))
+        #expect(clock.position(at: 0).timeUntilPhaseEnd == 4)
+        #expect(clock.position(at: 3.5).timeUntilPhaseEnd == 0.5)
+        #expect(clock.position(at: 4).timeUntilPhaseEnd == 4)
     }
 
     @Test func progressGoesFromZeroToOneWithinAPhase() {

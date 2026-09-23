@@ -258,7 +258,7 @@ enum TechniqueCatalog {
             id: "bellows", name: t("technique.bellows.name"),
             summary: t("technique.bellows.summary"), purpose: t("technique.bellows.purpose"),
             category: .energy, isBeginnerFriendly: false, recommendedDuration: 120,
-            phases: [.inhale(1, scale: 1.1), .exhale(1, scale: 0.85)],
+            phases: [.inhale(1), .exhale(1)],
             howItWorks: t("technique.bellows.howItWorks"),
             bestFor: [t("technique.bellows.bestFor.1"), t("technique.bellows.bestFor.2"), t("technique.bellows.bestFor.3")],
             steps: [t("technique.bellows.steps.1"), t("technique.bellows.steps.2"), t("technique.bellows.steps.3"), t("technique.bellows.steps.4")],
