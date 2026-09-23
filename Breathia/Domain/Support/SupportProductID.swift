@@ -7,13 +7,13 @@ import Foundation
 /// without an app update. See `Docs/AppStoreConnect-Support.md`.
 enum SupportProductID: String, CaseIterable, Identifiable, Sendable {
     // One-time support (consumables, so people can support more than once).
-    case small = "support_small"
-    case medium = "support_medium"
-    case generous = "support_generous"
+    case small = "de.linkandreas.breathia.support.small"
+    case medium = "de.linkandreas.breathia.support.medium"
+    case generous = "de.linkandreas.breathia.support.generous"
 
     // Recurring support (auto-renewable subscriptions in one group).
-    case monthly = "support_monthly"
-    case yearly = "support_yearly"
+    case monthly = "de.linkandreas.breathia.support.monthly"
+    case yearly = "de.linkandreas.breathia.support.yearly"
 
     enum Kind: Sendable {
         case oneTime
