@@ -1,4 +1,4 @@
-// Signing and bundle identifiers, shared by every target.
+// Signing, bundle identifiers, and the version, shared by every target.
 //
 // To build on a device, copy Local.xcconfig.example to Local.xcconfig (git-ignored)
 // and set your own team and bundle identifier prefix. Simulator builds work as is.
@@ -6,4 +6,5 @@
 DEVELOPMENT_TEAM =
 BUNDLE_ID_PREFIX = de.linkandreas
 
+#include "Version.xcconfig"
 #include? "Local.xcconfig"
