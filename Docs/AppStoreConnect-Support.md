@@ -24,11 +24,11 @@ without an app update.
 Consumables, so people can support more than once. They are not restorable, which
 is expected for tips (Restore Purchases applies to subscriptions).
 
-| Product ID         | Reference name   | Proposed price | Suggested display name |
-|--------------------|------------------|----------------|------------------------|
-| `support_small`    | Small Support    | €2.99          | ☕ Small Support        |
-| `support_medium`   | Support          | €5.99          | ❤️ Support             |
-| `support_generous` | Generous Support | €9.99          | ⭐ Generous Support     |
+| Product ID                                 | Reference name   | Proposed price | Suggested display name |
+|--------------------------------------------|------------------|----------------|------------------------|
+| `de.linkandreas.breathia.support.small`    | Small Support    | €2.99          | ☕ Small Support        |
+| `de.linkandreas.breathia.support.medium`   | Support          | €5.99          | ❤️ Support             |
+| `de.linkandreas.breathia.support.generous` | Generous Support | €9.99          | ⭐ Generous Support     |
 
 The app adds the emoji itself, so leave it out of the display name in App Store Connect.
 
@@ -36,10 +36,10 @@ The app adds the emoji itself, so leave it out of the display name in App Store 
 
 Create one subscription group, **Support**, containing both subscriptions.
 
-| Product ID        | Reference name  | Duration | Proposed price | Group level |
-|-------------------|-----------------|----------|----------------|-------------|
-| `support_yearly`  | Yearly Support  | 1 year   | €14.99         | 1           |
-| `support_monthly` | Monthly Support | 1 month  | €1.99          | 2           |
+| Product ID                                | Reference name  | Duration | Proposed price | Group level |
+|-------------------------------------------|-----------------|----------|----------------|-------------|
+| `de.linkandreas.breathia.support.yearly`  | Yearly Support  | 1 year   | €14.99         | 1           |
+| `de.linkandreas.breathia.support.monthly` | Monthly Support | 1 month  | €1.99          | 2           |
 
 - No free trials or introductory offers — this is support, not access.
 - Family Sharing: off.

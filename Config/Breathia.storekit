@@ -15,7 +15,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "support_small",
+      "productID" : "de.linkandreas.breathia.support.small",
       "referenceName" : "Small Support",
       "type" : "Consumable"
     },
@@ -30,7 +30,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "support_medium",
+      "productID" : "de.linkandreas.breathia.support.medium",
       "referenceName" : "Support",
       "type" : "Consumable"
     },
@@ -45,7 +45,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "support_generous",
+      "productID" : "de.linkandreas.breathia.support.generous",
       "referenceName" : "Generous Support",
       "type" : "Consumable"
     }
@@ -85,7 +85,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "support_yearly",
+          "productID" : "de.linkandreas.breathia.support.yearly",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Yearly Support",
           "subscriptionGroupID" : "21500001",
@@ -113,7 +113,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "support_monthly",
+          "productID" : "de.linkandreas.breathia.support.monthly",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Monthly Support",
           "subscriptionGroupID" : "21500001",
