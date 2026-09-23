@@ -1,8 +1,82 @@
 import SwiftUI
 
-/// The cards describing a finished session — shared by the results screen and
-/// the History detail screen.
-struct SessionReportView: View {
+/// A finished session's page — shared by the results screen and the History
+/// detail screen. One scrolling column; on a wide screen, or either side of a
+/// partly folded display's crease, the summary beside the measurements.
+struct SessionReportPage<Header: View, Action: View>: View {
+    let session: SessionRecord
+    /// What the page is about: the technique and how long it ran.
+    @ViewBuilder let header: Header
+    /// The page's one action, such as Done; kept in reach at the bottom of a
+    /// scrolling column.
+    @ViewBuilder let action: Action
+
+    @Environment(\.displayFold) private var displayFold
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    var body: some View {
+        GeometryReader { proxy in
+            let layout = SessionLayout(in: proxy.frame(in: .global), fold: displayFold, layoutDirection: layoutDirection)
+            if case let .sideBySide(leadingWidth, gap) = layout {
+                HStack(spacing: gap) {
+                    pane(height: proxy.size.height) {
+                        header
+                        SessionTakeaway(session: session)
+                        action
+                    }
+                    .frame(width: leadingWidth)
+                    pane(height: proxy.size.height) {
+                        SessionMeasurements(session: session)
+                    }
+                }
+            } else {
+                column
+            }
+        }
+    }
+
+    private var column: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                header
+                SessionMeasurements(session: session)
+                SessionTakeaway(session: session)
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 30)
+            .readableContentWidth()
+        }
+        .safeAreaBar(edge: .bottom) {
+            if Action.self != EmptyView.self {
+                action
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 8)
+                    .readableContentWidth()
+            }
+        }
+    }
+
+    /// One side of the page, centred on the screen, scrolling if it outgrows it.
+    private func pane(height: CGFloat, @ViewBuilder content: () -> some View) -> some View {
+        ScrollView {
+            VStack(spacing: 20, content: content)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 24)
+                .frame(maxWidth: 520)
+                .frame(maxWidth: .infinity, minHeight: height)
+        }
+        .scrollBounceBehavior(.basedOnSize)
+    }
+}
+
+extension SessionReportPage where Action == EmptyView {
+    init(session: SessionRecord, @ViewBuilder header: () -> Header) {
+        self.init(session: session, header: header, action: { EmptyView() })
+    }
+}
+
+/// The heart rate and HRV cards, or a note that no sensor was connected.
+private struct SessionMeasurements: View {
     let session: SessionRecord
 
     var body: some View {
@@ -16,7 +90,16 @@ struct SessionReportView: View {
             if let hrv = session.hrv {
                 HRVSummaryCard(stats: hrv)
             }
+        }
+    }
+}
 
+/// The breathing pattern and what the session showed.
+private struct SessionTakeaway: View {
+    let session: SessionRecord
+
+    var body: some View {
+        VStack(spacing: 20) {
             Pill(text: session.technique.patternLabel, tint: session.technique.tint)
 
             Callout(text: session.summaryText)
