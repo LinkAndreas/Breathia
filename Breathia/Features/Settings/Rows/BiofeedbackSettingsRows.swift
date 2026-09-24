@@ -26,3 +26,12 @@ struct BiofeedbackSettingsRows: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        BiofeedbackSettingsRows()
+    }
+    .environment(PreviewStores.settingsStore())
+}
+#endif

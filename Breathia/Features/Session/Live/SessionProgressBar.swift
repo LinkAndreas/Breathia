@@ -33,3 +33,10 @@ struct SessionProgressBar: View {
         .accessibilityLabel(Text(verbatim: "\(Formatters.clock(model.elapsed)) / \(Formatters.clock(model.targetDuration))"))
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionProgressBar(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+        .padding()
+}
+#endif

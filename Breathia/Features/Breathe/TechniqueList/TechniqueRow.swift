@@ -42,3 +42,13 @@ struct TechniqueRow: View {
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
+
+#if DEBUG
+#Preview {
+    VStack(spacing: 10) {
+        TechniqueRow(technique: TechniqueCatalog.all[1], isSelected: false, showsDisclosure: true) {}
+        TechniqueRow(technique: TechniqueCatalog.all[0], isSelected: true, showsDisclosure: false) {}
+    }
+    .padding()
+}
+#endif

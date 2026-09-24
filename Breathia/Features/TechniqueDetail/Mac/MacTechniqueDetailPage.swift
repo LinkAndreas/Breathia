@@ -44,3 +44,9 @@ struct MacTechniqueDetailPage: View {
     }
 }
 #endif
+
+#if DEBUG && os(macOS)
+#Preview {
+    MacTechniqueDetailPage(technique: TechniqueCatalog.all[1], onStart: { _ in })
+}
+#endif

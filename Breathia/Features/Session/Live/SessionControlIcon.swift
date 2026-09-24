@@ -12,3 +12,9 @@ struct SessionControlIcon: View {
             .frame(width: diameter, height: diameter)
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionControlIcon(systemImage: "pause.fill", diameter: 84)
+}
+#endif

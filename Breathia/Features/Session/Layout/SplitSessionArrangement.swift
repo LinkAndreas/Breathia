@@ -37,3 +37,17 @@ private struct SecondaryShownKey: PreferenceKey {
     }
 }
 #endif
+
+#if DEBUG && os(iOS)
+#Preview {
+    SplitSessionArrangement(
+        axes: [.horizontal, .vertical],
+        primary: { isSplit in
+            Circle().fill(.teal.opacity(isSplit ? 0.3 : 0.6)).padding()
+        },
+        secondary: Text(verbatim: "Secondary")
+            .frame(maxWidth: .infinity, minHeight: 200)
+            .background(.gray.opacity(0.2))
+    )
+}
+#endif

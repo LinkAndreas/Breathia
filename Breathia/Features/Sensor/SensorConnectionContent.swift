@@ -90,3 +90,12 @@ struct SensorConnectionContent: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        SensorConnectionContent()
+    }
+    .environment(PreviewStores.heartRateMonitor())
+}
+#endif

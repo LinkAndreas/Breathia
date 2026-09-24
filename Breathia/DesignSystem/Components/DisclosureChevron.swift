@@ -9,3 +9,10 @@ struct DisclosureChevron: View {
             .accessibilityHidden(true)
     }
 }
+
+#if DEBUG
+#Preview {
+    DisclosureChevron()
+        .padding()
+}
+#endif

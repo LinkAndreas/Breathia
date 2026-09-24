@@ -24,3 +24,12 @@ struct BreathingSettingsRows: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        BreathingSettingsRows()
+    }
+    .environment(PreviewStores.settingsStore())
+}
+#endif

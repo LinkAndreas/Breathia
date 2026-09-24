@@ -25,3 +25,9 @@ struct OnboardingSlideView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+
+#if DEBUG
+#Preview {
+    OnboardingSlideView(slide: OnboardingSlide.all[1])
+}
+#endif

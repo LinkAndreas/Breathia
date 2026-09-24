@@ -48,3 +48,9 @@ struct WatchSessionSummaryView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    WatchSessionSummaryView(session: WatchPreviewData.session, wasRecorded: true, onDone: {})
+}
+#endif

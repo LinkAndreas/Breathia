@@ -29,3 +29,10 @@ struct SessionStatusBar: View {
         return model.liveHeartRate.map { String(localized: "common.bpm \($0)") } ?? "—"
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionStatusBar(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+        .padding()
+}
+#endif

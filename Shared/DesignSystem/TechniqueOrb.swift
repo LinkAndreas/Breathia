@@ -20,3 +20,14 @@ struct TechniqueOrb: View {
             .accessibilityHidden(true)
     }
 }
+
+#if DEBUG
+#Preview {
+    HStack(spacing: 16) {
+        TechniqueOrb(technique: TechniqueCatalog.all[0], size: 24)
+        TechniqueOrb(technique: TechniqueCatalog.all[1])
+        TechniqueOrb(technique: TechniqueCatalog.all[2], size: 64)
+    }
+    .padding()
+}
+#endif

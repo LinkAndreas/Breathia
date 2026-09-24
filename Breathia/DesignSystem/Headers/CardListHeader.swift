@@ -17,3 +17,11 @@ struct CardListHeader<Title: View>: View {
             .accessibilityAddTraits(.isHeader)
     }
 }
+
+#if DEBUG
+#Preview {
+    CardListHeader {
+        Text(verbatim: "Today")
+    }
+}
+#endif

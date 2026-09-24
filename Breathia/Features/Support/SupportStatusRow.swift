@@ -35,3 +35,13 @@ private extension SupportStoreError {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        SupportStatusRow(status: .thankYou)
+        SupportStatusRow(status: .pending)
+        SupportStatusRow(status: .failed(.storeUnavailable))
+    }
+}
+#endif

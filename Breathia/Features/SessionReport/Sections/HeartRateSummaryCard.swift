@@ -23,3 +23,10 @@ struct HeartRateSummaryCard: View {
         .cardSurface(verticalPadding: 14)
     }
 }
+
+#if DEBUG
+#Preview {
+    HeartRateSummaryCard(stats: PreviewData.sessions[0].heartRate!, trace: PreviewData.sessions[0].heartRateTrace, tint: PreviewData.sessions[0].technique.tint)
+        .padding()
+}
+#endif

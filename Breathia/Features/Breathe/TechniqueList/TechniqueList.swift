@@ -34,3 +34,17 @@ struct TechniqueList: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    ScrollView {
+        TechniqueList(
+            groups: TechniqueGroup.grouping(TechniqueCatalog.all),
+            filter: .all,
+            usesSelection: false,
+            selectedTechniqueID: nil,
+            onOpen: { _ in }
+        )
+    }
+}
+#endif

@@ -81,3 +81,9 @@ struct WatchBreathingView: View {
         return "\(heartRate)"
     }
 }
+
+#if DEBUG
+#Preview {
+    WatchBreathingView(model: WatchPreviewData.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+}
+#endif

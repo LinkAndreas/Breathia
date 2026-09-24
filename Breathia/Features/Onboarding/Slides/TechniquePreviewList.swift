@@ -29,3 +29,10 @@ struct TechniquePreviewList: View {
         .frame(width: 260)
     }
 }
+
+#if DEBUG
+#Preview {
+    TechniquePreviewList()
+        .padding()
+}
+#endif

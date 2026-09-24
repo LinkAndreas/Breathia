@@ -47,3 +47,16 @@ struct OnboardingIllustration: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    ScrollView {
+        VStack(spacing: 32) {
+            ForEach(OnboardingSlide.all.indices, id: \.self) { index in
+                OnboardingIllustration(slide: OnboardingSlide.all[index])
+            }
+        }
+        .padding()
+    }
+}
+#endif

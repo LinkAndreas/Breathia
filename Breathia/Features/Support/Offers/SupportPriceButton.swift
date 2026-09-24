@@ -45,3 +45,13 @@ struct SupportPriceButton: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    HStack {
+        SupportPriceButton(offer: PreviewSupportService.sampleOffers[0], isProminent: true, isPurchasing: false, isDisabled: false) {}
+        SupportPriceButton(offer: PreviewSupportService.sampleOffers[0], isProminent: false, isPurchasing: true, isDisabled: false) {}
+    }
+    .padding()
+}
+#endif

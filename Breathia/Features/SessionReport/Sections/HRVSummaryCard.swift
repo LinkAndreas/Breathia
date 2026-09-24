@@ -27,3 +27,10 @@ struct HRVSummaryCard: View {
         .cardSurface(verticalPadding: 14)
     }
 }
+
+#if DEBUG
+#Preview {
+    HRVSummaryCard(stats: PreviewData.sessions[0].hrv!)
+        .padding()
+}
+#endif

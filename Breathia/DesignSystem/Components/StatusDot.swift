@@ -10,3 +10,13 @@ struct StatusDot: View {
             .accessibilityHidden(true)
     }
 }
+
+#if DEBUG
+#Preview {
+    HStack(spacing: 12) {
+        StatusDot(isActive: true)
+        StatusDot(isActive: false)
+    }
+    .padding()
+}
+#endif

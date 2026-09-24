@@ -9,3 +9,11 @@ struct PrivacyInfoView: View {
         ])
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        PrivacyInfoView()
+    }
+}
+#endif

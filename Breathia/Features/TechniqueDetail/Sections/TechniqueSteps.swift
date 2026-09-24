@@ -20,3 +20,10 @@ struct TechniqueSteps: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    TechniqueSteps(technique: TechniqueCatalog.all[1])
+        .padding()
+}
+#endif

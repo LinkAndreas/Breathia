@@ -25,3 +25,12 @@ struct AppearanceSettingsRows: View {
         #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        AppearanceSettingsRows()
+    }
+    .environment(PreviewStores.settingsStore())
+}
+#endif

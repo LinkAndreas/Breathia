@@ -22,3 +22,13 @@ struct HealthAccessOutcome: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    VStack(spacing: 16) {
+        HealthAccessOutcome(state: .allowed)
+        HealthAccessOutcome(state: .declined)
+    }
+    .padding()
+}
+#endif

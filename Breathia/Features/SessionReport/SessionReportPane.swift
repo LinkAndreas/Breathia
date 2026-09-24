@@ -22,3 +22,11 @@ struct SessionReportPane<Content: View>: View {
         .scrollBounceBehavior(.basedOnSize)
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionReportPane {
+        SessionMeasurements(session: PreviewData.sessions[0])
+    }
+}
+#endif

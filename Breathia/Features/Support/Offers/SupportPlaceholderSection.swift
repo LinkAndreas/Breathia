@@ -44,3 +44,11 @@ struct SupportPlaceholderSection: View {
         )
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        SupportPlaceholderSection(oneTime: true, header: "support.oneTimeSupport", footer: "support.aSinglePaymentNothing")
+    }
+}
+#endif

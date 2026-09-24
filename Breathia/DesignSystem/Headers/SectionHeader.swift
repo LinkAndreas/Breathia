@@ -15,3 +15,9 @@ struct SectionHeader: View {
             .accessibilityAddTraits(.isHeader)
     }
 }
+
+#if DEBUG
+#Preview {
+    SectionHeader(title: "technique.detail.howItWorks")
+}
+#endif

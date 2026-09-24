@@ -30,3 +30,9 @@ struct LiveBreathingCircle: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    LiveBreathingCircle(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+}
+#endif

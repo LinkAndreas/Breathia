@@ -50,3 +50,10 @@ struct SettingsPageContent: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SettingsPageContent(page: .biofeedback)
+        .environment(PreviewStores.settingsStore())
+}
+#endif

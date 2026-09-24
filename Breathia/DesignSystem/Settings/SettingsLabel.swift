@@ -34,3 +34,12 @@ struct SettingsLabel: View {
         #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        SettingsLabel("settings.sound", systemImage: "speaker.wave.2.fill", color: .pink)
+        SettingsLabel(verbatim: "Polar H10", systemImage: "antenna.radiowaves.left.and.right", color: .red)
+    }
+}
+#endif

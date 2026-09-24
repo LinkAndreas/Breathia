@@ -15,3 +15,11 @@ struct ActivityRow: View {
         .listRowBackground(Color.clear)
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        ActivityRow(text: "sensor.searchingForNearbySensors")
+    }
+}
+#endif

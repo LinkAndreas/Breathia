@@ -18,3 +18,10 @@ struct PageIndicator: View {
         .accessibilityLabel("onboarding.pageIndicator \(current + 1) \(count)")
     }
 }
+
+#if DEBUG
+#Preview {
+    PageIndicator(count: 5, current: 1, tint: .teal)
+        .padding()
+}
+#endif

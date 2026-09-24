@@ -76,3 +76,13 @@ struct HistoryRow: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    VStack(spacing: 10) {
+        HistoryRow(session: PreviewData.sessions[0], period: .yesterday, isSelected: false, showsDisclosure: true) {}
+        HistoryRow(session: PreviewData.sessions[4], period: .previous30Days, isSelected: true, showsDisclosure: false) {}
+    }
+    .padding()
+}
+#endif

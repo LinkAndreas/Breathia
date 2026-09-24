@@ -16,3 +16,10 @@ struct NoSensorDataCard: View {
         .background(Theme.Palette.elevated, in: .rect(cornerRadius: Theme.Radius.card))
     }
 }
+
+#if DEBUG
+#Preview {
+    NoSensorDataCard()
+        .padding()
+}
+#endif

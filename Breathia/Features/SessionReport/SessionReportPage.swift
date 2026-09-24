@@ -37,3 +37,13 @@ extension SessionReportPage where Action == EmptyView {
         self.init(session: session, header: header, action: { EmptyView() })
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionReportPage(session: PreviewData.sessions[0]) {
+        HistorySessionHeader(technique: PreviewData.sessions[0].technique, subtitle: Formatters.clock(PreviewData.sessions[0].duration))
+    } action: {
+        PrimaryActionButton(title: "common.done") {}
+    }
+}
+#endif

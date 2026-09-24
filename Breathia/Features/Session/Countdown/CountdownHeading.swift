@@ -15,3 +15,10 @@ struct CountdownHeading: View {
         .multilineTextAlignment(.center)
     }
 }
+
+#if DEBUG
+#Preview {
+    CountdownHeading(technique: TechniqueCatalog.all[1])
+        .padding()
+}
+#endif

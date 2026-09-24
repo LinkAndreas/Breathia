@@ -33,3 +33,13 @@ struct InfoPage: View {
         #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        InfoPage(title: "common.privacy", sections: [
+            .init(heading: "settings.info.yourDataStays", body: "settings.info.heartRateReadingsHRV"),
+        ])
+    }
+}
+#endif

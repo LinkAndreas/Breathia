@@ -33,3 +33,10 @@ struct LiveSessionControls: View {
         .sensoryFeedback(.impact(weight: .medium), trigger: model.isPaused)
     }
 }
+
+#if DEBUG
+#Preview {
+    LiveSessionControls(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+        .padding()
+}
+#endif

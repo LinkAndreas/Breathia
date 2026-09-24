@@ -16,3 +16,12 @@ struct SettingsCategoryRow: View {
             .tag(page)
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        SettingsCategoryRow(page: .breathing, position: .first)
+        SettingsCategoryRow(page: .appearance, position: .last)
+    }
+}
+#endif

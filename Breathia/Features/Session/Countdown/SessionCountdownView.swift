@@ -40,3 +40,11 @@ struct SessionCountdownView: View {
         #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SessionCountdownView(value: 3, startedAt: .now, technique: TechniqueCatalog.all[1], onCancel: {})
+    }
+}
+#endif

@@ -16,3 +16,12 @@ struct SettingsPageRow: View {
         .tint(.primary)
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        SettingsPageRow(page: .privacy) {}
+        SettingsPageRow(page: .aboutSensor) {}
+    }
+}
+#endif

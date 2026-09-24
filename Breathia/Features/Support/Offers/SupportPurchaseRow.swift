@@ -20,3 +20,12 @@ struct SupportPurchaseRow: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        SupportPurchaseRow(offer: PreviewSupportService.sampleOffers[0], isProminent: true)
+    }
+    .environment(SupportStore(service: PreviewSupportService()))
+}
+#endif
