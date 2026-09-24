@@ -145,24 +145,13 @@ final class AppRoutes {
                 .environment(self.supportStore)
 
             case let .page(page):
-                self.settingsPage(page)
+                SettingsPageDestination(
+                    page: page,
+                    heartRateMonitor: self.heartRateMonitor,
+                    settingsStore: self.settingsStore,
+                    mindfulMinutes: self.mindfulMinutes
+                )
             }
-        }
-    }
-
-    /// A settings page, given only the stores that page reads.
-    @ViewBuilder
-    private func settingsPage(_ page: SettingsPage) -> some View {
-        let detail = SettingsDetailView(page: page).id(page)
-        switch page {
-        case .sensor:
-            detail.environment(heartRateMonitor)
-        case .breathing, .biofeedback, .appearance:
-            detail.environment(settingsStore)
-        case .health:
-            detail.environment(settingsStore).environment(mindfulMinutes)
-        case .privacy, .aboutSensor:
-            detail
         }
     }
 

@@ -1,0 +1,36 @@
+import SwiftUI
+
+/// A settings row title with its `SettingsIcon`.
+struct SettingsLabel: View {
+    private let title: Text
+    private let systemImage: String
+    private let color: Color
+
+    init(_ title: LocalizedStringKey, systemImage: String, color: Color) {
+        self.title = Text(title)
+        self.systemImage = systemImage
+        self.color = color
+    }
+
+    init(verbatim title: String, systemImage: String, color: Color) {
+        self.title = Text(verbatim: title)
+        self.systemImage = systemImage
+        self.color = color
+    }
+
+    var body: some View {
+        #if os(macOS)
+        // Lists on the Mac don't space a custom label icon from its title.
+        HStack(spacing: 8) {
+            SettingsIcon(systemImage: systemImage, color: color)
+            title
+        }
+        #else
+        Label {
+            title
+        } icon: {
+            SettingsIcon(systemImage: systemImage, color: color)
+        }
+        #endif
+    }
+}

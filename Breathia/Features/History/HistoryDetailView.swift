@@ -11,7 +11,7 @@ struct HistoryDetailView: View {
     var body: some View {
         if let session = history.session(withID: sessionID) {
             SessionReportPage(session: session) {
-                SessionHeader(technique: session.technique, subtitle: Formatters.clock(session.duration))
+                HistorySessionHeader(technique: session.technique, subtitle: Formatters.clock(session.duration))
             }
             .background(Theme.Palette.background)
             .navigationTitle(Formatters.relativeDay(session.date))
@@ -36,31 +36,6 @@ struct HistoryDetailView: View {
         } else {
             ContentUnavailableView("history.detail.sessionNotFound", systemImage: "clock.badge.questionmark")
         }
-    }
-}
-
-private struct SessionHeader: View {
-    let technique: Technique
-    let subtitle: String
-
-    var body: some View {
-        VStack(spacing: 6) {
-            TechniqueOrb(technique: technique, size: 44)
-            Text(technique.name)
-                .font(.title2.bold())
-                .multilineTextAlignment(.center)
-            Text(subtitle)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity)
-        // On a Mac the page scrolls right under the toolbar, which would cut off the
-        // orb's glow; give it room.
-        #if os(macOS)
-        .padding(.top, 24)
-        #else
-        .padding(.top, 6)
-        #endif
     }
 }
 

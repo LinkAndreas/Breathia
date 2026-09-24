@@ -15,8 +15,14 @@ struct WatchSessionFlowView: View {
     var body: some View {
         NavigationStack {
             if let session {
-                stageView(for: session)
-                    .animation(.smooth, value: session.stage)
+                WatchSessionStageView(
+                    session: session,
+                    technique: technique,
+                    runner: runner,
+                    onCancel: onCancel,
+                    onDone: onDone
+                )
+                .animation(.smooth, value: session.stage)
             }
         }
         .onAppear {
@@ -30,48 +36,6 @@ struct WatchSessionFlowView: View {
         .onChange(of: session?.stage) { _, stage in
             guard case .completed? = stage, let session else { return }
             runner.complete(session)
-        }
-    }
-
-    @ViewBuilder
-    private func stageView(for session: BreathingSessionModel) -> some View {
-        switch session.stage {
-        case let .countdown(value):
-            WatchCountdownView(value: value, technique: technique)
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("common.cancel", systemImage: "xmark") {
-                            runner.close(session)
-                            onCancel()
-                        }
-                    }
-                }
-        case .running:
-            WatchBreathingView(model: session)
-        case let .completed(record):
-            WatchSessionSummaryView(session: record, wasRecorded: session.wasRecorded, onDone: onDone)
-        }
-    }
-}
-
-private struct WatchCountdownView: View {
-    let value: Int
-    let technique: Technique
-
-    var body: some View {
-        VStack(spacing: 4) {
-            Text("common.getReady")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-            Text(value, format: .number)
-                .font(.system(size: 64, weight: .light, design: .rounded))
-                .monospacedDigit()
-                .contentTransition(.numericText(countsDown: true))
-                .animation(.snappy, value: value)
-            Text(technique.name)
-                .font(.footnote)
-                .foregroundStyle(technique.tint)
-                .lineLimit(1)
         }
     }
 }
