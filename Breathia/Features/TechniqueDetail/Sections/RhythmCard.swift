@@ -31,3 +31,10 @@ struct RhythmCard: View {
         .background(Theme.Palette.elevated, in: .rect(cornerRadius: Theme.Radius.card))
     }
 }
+
+#if DEBUG
+#Preview {
+    RhythmCard(technique: TechniqueCatalog.all[1])
+        .padding()
+}
+#endif

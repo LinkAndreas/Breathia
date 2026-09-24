@@ -18,3 +18,10 @@ struct SessionMeasurements: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionMeasurements(session: PreviewData.sessions[0])
+        .padding()
+}
+#endif

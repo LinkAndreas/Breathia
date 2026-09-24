@@ -20,3 +20,13 @@ struct SettingsIcon: View {
             .accessibilityHidden(true)
     }
 }
+
+#if DEBUG
+#Preview {
+    HStack {
+        SettingsIcon(systemImage: "wind", color: .teal)
+        SettingsIcon(systemImage: "heart.fill", color: .pink)
+    }
+    .padding()
+}
+#endif

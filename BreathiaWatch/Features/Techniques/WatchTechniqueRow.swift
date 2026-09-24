@@ -21,3 +21,11 @@ struct WatchTechniqueRow: View {
         .padding(.trailing, 4)
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        WatchTechniqueRow(technique: TechniqueCatalog.all[1])
+    }
+}
+#endif

@@ -19,3 +19,17 @@ struct SensorToolbarWidget: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        Color.clear
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    SensorToolbarWidget {}
+                }
+            }
+    }
+    .environment(PreviewStores.heartRateMonitor())
+}
+#endif

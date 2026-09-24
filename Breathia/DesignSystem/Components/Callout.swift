@@ -15,3 +15,13 @@ struct Callout: View {
             .background(Theme.Palette.calloutFill, in: .rect(cornerRadius: Theme.Radius.callout))
     }
 }
+
+#if DEBUG
+#Preview {
+    VStack(spacing: 12) {
+        Callout(text: "Your HRV rose during the session — a sign your body relaxed.")
+        Callout(text: "Stop if you feel dizzy or light-headed.", isSecondary: true)
+    }
+    .padding()
+}
+#endif

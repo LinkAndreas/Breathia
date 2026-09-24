@@ -18,3 +18,10 @@ struct PrimaryActionButton: View {
         .tint(tint)
     }
 }
+
+#if DEBUG
+#Preview {
+    PrimaryActionButton(title: "technique.detail.startThisTechnique", tint: .teal) {}
+        .padding()
+}
+#endif

@@ -30,3 +30,10 @@ struct ParticleView: View {
             }
     }
 }
+
+#if DEBUG
+#Preview {
+    ParticleView(particle: .calm, area: CGSize(width: 300, height: 400))
+        .frame(width: 300, height: 400)
+}
+#endif

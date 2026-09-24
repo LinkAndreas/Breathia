@@ -16,3 +16,13 @@ struct Pill: View {
             .background(Theme.Palette.subtleFill, in: .capsule)
     }
 }
+
+#if DEBUG
+#Preview {
+    VStack(spacing: 12) {
+        Pill(text: "4 · 4 · 4 · 4", tint: .teal)
+        Pill(text: "4 · 4 · 4 · 4", tint: .teal, size: .small)
+    }
+    .padding()
+}
+#endif

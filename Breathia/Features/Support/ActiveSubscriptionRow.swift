@@ -19,3 +19,11 @@ struct ActiveSubscriptionRow: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        ActiveSubscriptionRow(subscription: ActiveSupportSubscription(productID: .yearly, expirationDate: .now.addingTimeInterval(200 * 86_400), willAutoRenew: true))
+    }
+}
+#endif

@@ -10,3 +10,9 @@ struct TechniqueCategoryHeader: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    TechniqueCategoryHeader(category: TechniqueCatalog.all[1].category)
+}
+#endif

@@ -45,3 +45,13 @@ struct SessionControlButton: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    HStack(spacing: 48) {
+        SessionControlButton(title: "common.pause", systemImage: "pause.fill", role: .primary(.teal), diameter: 84) {}
+        SessionControlButton(title: "common.end", systemImage: "stop.fill", role: .destructive, diameter: 84) {}
+    }
+    .padding()
+}
+#endif

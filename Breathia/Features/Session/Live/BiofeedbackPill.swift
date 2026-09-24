@@ -35,3 +35,10 @@ struct BiofeedbackPill: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    BiofeedbackPill(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+        .padding()
+}
+#endif

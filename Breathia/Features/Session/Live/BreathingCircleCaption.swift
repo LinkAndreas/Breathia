@@ -14,3 +14,10 @@ struct BreathingCircleCaption: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    BreathingCircleCaption(position: BreathingClock(technique: TechniqueCatalog.all[1]).position(at: 2), totalBreaths: 60)
+        .padding()
+}
+#endif

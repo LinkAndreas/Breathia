@@ -12,3 +12,10 @@ struct SessionTakeaway: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionTakeaway(session: PreviewData.sessions[0])
+        .padding()
+}
+#endif

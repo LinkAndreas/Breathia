@@ -14,3 +14,9 @@ struct OnboardingPageView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    OnboardingPageView(page: .slide(0), healthState: .undecided)
+}
+#endif

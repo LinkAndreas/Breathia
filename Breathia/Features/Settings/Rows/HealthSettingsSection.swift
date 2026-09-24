@@ -37,3 +37,13 @@ struct HealthSettingsSection: View {
         )
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        HealthSettingsSection()
+    }
+    .environment(PreviewStores.settingsStore())
+    .environment(PreviewStores.mindfulMinutes())
+}
+#endif

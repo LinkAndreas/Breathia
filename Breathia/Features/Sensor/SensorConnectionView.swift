@@ -37,3 +37,12 @@ struct SensorConnectionView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SensorConnectionView(scansOnAppear: false)
+    }
+    .environment(PreviewStores.heartRateMonitor())
+}
+#endif

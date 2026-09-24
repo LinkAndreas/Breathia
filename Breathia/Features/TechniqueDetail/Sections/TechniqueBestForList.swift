@@ -18,3 +18,10 @@ struct TechniqueBestForList: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    TechniqueBestForList(technique: TechniqueCatalog.all[1])
+        .padding()
+}
+#endif

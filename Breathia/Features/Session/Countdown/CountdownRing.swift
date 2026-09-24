@@ -58,3 +58,10 @@ struct CountdownRing: View {
         return max(0, 1 - date.timeIntervalSince(startedAt) / length)
     }
 }
+
+#if DEBUG
+#Preview {
+    CountdownRing(value: 3, startedAt: .now, tint: TechniqueCatalog.all[1].tint)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+}
+#endif

@@ -8,3 +8,13 @@ struct AppearanceOptions: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    Picker("settings.appearance", selection: .constant(Appearance.allCases[0])) {
+        AppearanceOptions()
+    }
+    .pickerStyle(.segmented)
+    .padding()
+}
+#endif

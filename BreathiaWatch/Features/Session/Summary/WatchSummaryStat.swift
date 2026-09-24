@@ -18,3 +18,12 @@ struct WatchSummaryStat: View {
         .accessibilityElement(children: .combine)
     }
 }
+
+#if DEBUG
+#Preview {
+    HStack {
+        WatchSummaryStat(label: "common.start", value: 74)
+        WatchSummaryStat(label: "watch.summary.avg", value: 68)
+    }
+}
+#endif

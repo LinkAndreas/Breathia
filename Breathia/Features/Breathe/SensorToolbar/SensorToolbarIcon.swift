@@ -19,3 +19,11 @@ struct SensorToolbarIcon: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SensorToolbarIcon()
+        .padding()
+        .environment(PreviewStores.heartRateMonitor())
+}
+#endif

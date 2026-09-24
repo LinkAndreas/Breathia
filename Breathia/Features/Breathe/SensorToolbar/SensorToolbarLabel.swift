@@ -20,3 +20,11 @@ struct SensorToolbarLabel: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SensorToolbarLabel()
+        .padding()
+        .environment(PreviewStores.heartRateMonitor())
+}
+#endif

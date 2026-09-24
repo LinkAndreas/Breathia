@@ -57,3 +57,24 @@ struct SupportOfferRow: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        SupportOfferRow(
+            offer: PreviewSupportService.sampleOffers[0],
+            isProminent: true,
+            isActive: false,
+            isPurchasing: false,
+            isDisabled: false
+        ) {}
+        SupportOfferRow(
+            offer: PreviewSupportService.sampleOffers[3],
+            isProminent: false,
+            isActive: true,
+            isPurchasing: false,
+            isDisabled: false
+        ) {}
+    }
+}
+#endif

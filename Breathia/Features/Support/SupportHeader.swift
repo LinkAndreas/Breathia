@@ -20,3 +20,10 @@ struct SupportHeader: View {
         .padding(.vertical, 4)
     }
 }
+
+#if DEBUG
+#Preview {
+    SupportHeader()
+        .padding()
+}
+#endif

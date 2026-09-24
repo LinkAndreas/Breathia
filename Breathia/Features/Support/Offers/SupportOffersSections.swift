@@ -49,3 +49,12 @@ struct SupportOffersSections: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        SupportOffersSections()
+    }
+    .environment(SupportStore(service: PreviewSupportService()))
+}
+#endif

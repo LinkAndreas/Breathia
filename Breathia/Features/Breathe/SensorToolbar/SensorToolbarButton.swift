@@ -28,3 +28,11 @@ struct SensorToolbarButton: View {
         .accessibilityHint(Text("breathe.opensHeartRateSensor"))
     }
 }
+
+#if DEBUG
+#Preview {
+    SensorToolbarButton {}
+        .padding()
+        .environment(PreviewStores.heartRateMonitor())
+}
+#endif

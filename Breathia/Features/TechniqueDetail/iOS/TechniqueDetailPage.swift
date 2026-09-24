@@ -47,3 +47,11 @@ struct TechniqueDetailPage: View {
     }
 }
 #endif
+
+#if DEBUG && !os(macOS)
+#Preview {
+    NavigationStack {
+        TechniqueDetailPage(technique: TechniqueCatalog.all[1], onStart: { _ in })
+    }
+}
+#endif

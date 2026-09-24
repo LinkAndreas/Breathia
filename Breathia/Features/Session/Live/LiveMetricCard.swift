@@ -25,3 +25,10 @@ struct LiveMetricCard: View {
         .background(Theme.Palette.elevated, in: .rect(cornerRadius: Theme.Radius.row))
     }
 }
+
+#if DEBUG
+#Preview {
+    LiveMetricCard(value: "66 bpm avg", label: "common.heartRate", values: PreviewData.sessions[0].heartRateTrace, tint: .red)
+        .padding()
+}
+#endif

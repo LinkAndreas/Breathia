@@ -25,3 +25,9 @@ struct HistorySessionHeader: View {
         #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    HistorySessionHeader(technique: PreviewData.sessions[0].technique, subtitle: Formatters.clock(PreviewData.sessions[0].duration))
+}
+#endif

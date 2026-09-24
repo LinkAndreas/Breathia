@@ -77,3 +77,10 @@ struct BreathingCircle: View {
         .accessibilityLabel(accessibilityLabel)
     }
 }
+
+#if DEBUG
+#Preview {
+    BreathingCircle(position: BreathingClock(technique: TechniqueCatalog.all[1]).position(at: 2), tint: TechniqueCatalog.all[1].tint, diameter: 280, smallestScale: 0.6, totalBreaths: 60)
+        .frame(width: 320, height: 320)
+}
+#endif

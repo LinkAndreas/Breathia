@@ -34,3 +34,10 @@ struct MacTechniqueDetailHeader: View {
     }
 }
 #endif
+
+#if DEBUG && os(macOS)
+#Preview {
+    MacTechniqueDetailHeader(technique: TechniqueCatalog.all[1], onStart: { _ in })
+        .padding()
+}
+#endif

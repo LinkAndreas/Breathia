@@ -25,3 +25,12 @@ struct SensorSettingsRow: View {
         .tint(.primary)
     }
 }
+
+#if DEBUG
+#Preview {
+    Form {
+        SensorSettingsRow {}
+    }
+    .environment(PreviewStores.heartRateMonitor())
+}
+#endif

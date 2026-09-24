@@ -21,3 +21,10 @@ struct HealthTile: View {
             .accessibilityHidden(true)
     }
 }
+
+#if DEBUG
+#Preview {
+    HealthTile()
+        .padding()
+}
+#endif

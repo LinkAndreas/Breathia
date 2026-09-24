@@ -22,3 +22,9 @@ struct WatchCountdownView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    WatchCountdownView(value: 3, technique: TechniqueCatalog.all[1])
+}
+#endif

@@ -33,3 +33,13 @@ struct OnboardingControls: View {
         .animation(.easeInOut(duration: 0.4), value: page)
     }
 }
+
+#if DEBUG
+#Preview {
+    VStack(spacing: 32) {
+        OnboardingControls(page: 0, tint: .teal, isLastPage: false, isOnPendingHealthStep: false, isRequestingHealth: false, onConnectHealth: {}, onDeclineHealth: {}, onAdvance: {})
+        OnboardingControls(page: 3, tint: .pink, isLastPage: false, isOnPendingHealthStep: true, isRequestingHealth: false, onConnectHealth: {}, onDeclineHealth: {}, onAdvance: {})
+    }
+    .padding()
+}
+#endif

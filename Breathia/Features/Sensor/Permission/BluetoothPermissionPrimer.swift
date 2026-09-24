@@ -66,3 +66,11 @@ struct BluetoothPermissionPrimer: View {
         .listRowBackground(Color.clear)
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        BluetoothPermissionPrimer(isRequesting: false, onContinue: {})
+    }
+}
+#endif

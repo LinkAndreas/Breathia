@@ -19,3 +19,9 @@ struct SessionPanel: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionPanel(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+}
+#endif

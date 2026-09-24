@@ -12,3 +12,12 @@ struct SettingsDetailView: View {
             #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SettingsDetailView(page: .breathing)
+    }
+    .environment(PreviewStores.settingsStore())
+}
+#endif

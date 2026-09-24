@@ -18,3 +18,9 @@ struct SessionStatusHeader: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionStatusHeader(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+}
+#endif

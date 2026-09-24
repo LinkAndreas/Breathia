@@ -21,3 +21,12 @@ struct MacTechniqueSection<Content: View>: View {
     }
 }
 #endif
+
+#if DEBUG && os(macOS)
+#Preview {
+    MacTechniqueSection("technique.detail.howItWorks") {
+        TechniqueHowItWorks(technique: TechniqueCatalog.all[1])
+    }
+    .padding()
+}
+#endif

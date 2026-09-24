@@ -29,3 +29,13 @@ struct SessionReportColumn<Header: View, Action: View>: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionReportColumn(
+        session: PreviewData.sessions[0],
+        header: HistorySessionHeader(technique: PreviewData.sessions[0].technique, subtitle: Formatters.clock(PreviewData.sessions[0].duration)),
+        action: PrimaryActionButton(title: "common.done") {}
+    )
+}
+#endif

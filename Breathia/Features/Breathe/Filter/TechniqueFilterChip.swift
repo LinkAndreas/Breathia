@@ -32,3 +32,14 @@ struct TechniqueFilterChip: View {
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
+
+#if DEBUG
+#Preview {
+    @Previewable @Namespace var namespace
+    HStack {
+        TechniqueFilterChip(filter: .all, isSelected: true, namespace: namespace) {}
+        TechniqueFilterChip(filter: .category(TechniqueCatalog.all[1].category), isSelected: false, namespace: namespace) {}
+    }
+    .padding()
+}
+#endif

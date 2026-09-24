@@ -79,3 +79,12 @@ struct SettingsCategoryList: View {
         #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SettingsCategoryList(selection: .constant(.breathing), onShowSupport: {}, onShowOnboarding: {})
+    }
+    .environment(PreviewStores.mindfulMinutes())
+}
+#endif

@@ -34,3 +34,11 @@ struct BluetoothAccessDeniedView: View {
         .listRowBackground(Color.clear)
     }
 }
+
+#if DEBUG
+#Preview {
+    List {
+        BluetoothAccessDeniedView()
+    }
+}
+#endif

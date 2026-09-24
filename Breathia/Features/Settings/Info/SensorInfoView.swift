@@ -10,3 +10,11 @@ struct SensorInfoView: View {
         ])
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SensorInfoView()
+    }
+}
+#endif

@@ -84,3 +84,15 @@ struct SessionArrangement<Primary: View, Secondary: View>: View {
         #endif
     }
 }
+
+#if DEBUG
+#Preview {
+    SessionArrangement {
+        Circle().fill(.teal.opacity(0.3)).padding()
+    } secondary: {
+        Text(verbatim: "Secondary")
+            .frame(maxWidth: .infinity, minHeight: 200)
+            .background(.gray.opacity(0.2))
+    }
+}
+#endif

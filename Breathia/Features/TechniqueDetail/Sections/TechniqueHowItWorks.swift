@@ -10,3 +10,10 @@ struct TechniqueHowItWorks: View {
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
+
+#if DEBUG
+#Preview {
+    TechniqueHowItWorks(technique: TechniqueCatalog.all[1])
+        .padding()
+}
+#endif

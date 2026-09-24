@@ -30,3 +30,10 @@ struct MetricTile: View {
         .accessibilityElement(children: .combine)
     }
 }
+
+#if DEBUG
+#Preview {
+    MetricTile(value: 4, unit: "technique.secondsUnit", caption: "Inhale", tint: .teal)
+        .padding()
+}
+#endif

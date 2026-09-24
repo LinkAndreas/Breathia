@@ -19,3 +19,10 @@ struct CountdownFirstPhase: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    CountdownFirstPhase(technique: TechniqueCatalog.all[1])
+        .padding()
+}
+#endif

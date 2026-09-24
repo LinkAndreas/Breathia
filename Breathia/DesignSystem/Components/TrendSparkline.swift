@@ -44,3 +44,10 @@ struct TrendSparkline: View {
         return (low - padding)...(high + padding)
     }
 }
+
+#if DEBUG
+#Preview {
+    TrendSparkline(values: PreviewData.sessions[0].heartRateTrace, tint: .red)
+        .padding()
+}
+#endif

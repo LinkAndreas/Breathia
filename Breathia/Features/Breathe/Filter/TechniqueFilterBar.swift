@@ -30,3 +30,9 @@ struct TechniqueFilterBar: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    TechniqueFilterBar(selection: .constant(.all))
+}
+#endif

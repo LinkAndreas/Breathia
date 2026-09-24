@@ -30,3 +30,9 @@ struct LiveMetrics: View {
         return Int((values.reduce(0, +) / Double(values.count)).rounded())
     }
 }
+
+#if DEBUG
+#Preview {
+    LiveMetrics(model: PreviewStores.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+}
+#endif

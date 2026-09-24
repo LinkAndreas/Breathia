@@ -84,3 +84,9 @@ struct WatchBreathingCircle: View {
         .accessibilityLabel(accessibilityLabel)
     }
 }
+
+#if DEBUG
+#Preview {
+    WatchBreathingCircle(position: BreathingClock(technique: TechniqueCatalog.all[1]).position(at: 2), tint: TechniqueCatalog.all[1].tint, diameter: 150, smallestScale: 0.6, totalBreaths: 60)
+}
+#endif
