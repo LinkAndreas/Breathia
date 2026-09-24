@@ -57,6 +57,7 @@ struct SupportView: View {
                 #endif
                 .disabled(store.isBusy)
 
+                Link("support.termsOfUse", destination: SupportLinks.termsOfUse)
                 Link("support.privacyPolicy", destination: SupportLinks.privacyPolicy)
             }
         }
