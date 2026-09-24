@@ -7,10 +7,32 @@ struct HistoryListView: View {
     let selectedSessionID: SessionRecord.ID?
     let onOpen: (SessionRecord.ID) -> Void
     let onDeleted: (SessionRecord.ID) -> Void
+    /// Leaves the empty History for Breathe, where the first session starts.
+    let onStartSession: () -> Void
 
     @Environment(SessionHistory.self) private var history
 
     var body: some View {
+        content
+            .background(Theme.Palette.background)
+            .navigationTitle("history.title")
+            #if os(macOS)
+            // A Mac window has one title, taken from this column; the open session's
+            // day shows as its subtitle, as the selected mailbox's details do in Mail.
+            .navigationSubtitle(selectedSession.map { Formatters.relativeDay($0.date) } ?? "")
+            #endif
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        if history.sessions.isEmpty {
+            HistoryEmptyView(onStartSession: onStartSession)
+        } else {
+            sessionList
+        }
+    }
+
+    private var sessionList: some View {
         ScrollView {
             // Laid out like the techniques in Breathe: cards grouped under headers,
             // here by when the sessions happened, newest first.
@@ -41,22 +63,6 @@ struct HistoryListView: View {
             }
             .padding(.bottom, 16)
         }
-        .background(Theme.Palette.background)
-        .overlay {
-            if history.sessions.isEmpty {
-                ContentUnavailableView(
-                    "history.noSessionsYet",
-                    systemImage: "clock",
-                    description: Text("history.completedBreathingSessions")
-                )
-            }
-        }
-        .navigationTitle("history.title")
-        #if os(macOS)
-        // A Mac window has one title, taken from this column; the open session's
-        // day shows as its subtitle, as the selected mailbox's details do in Mail.
-        .navigationSubtitle(selectedSession.map { Formatters.relativeDay($0.date) } ?? "")
-        #endif
     }
 
     #if os(macOS)
@@ -74,7 +80,7 @@ struct HistoryListView: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        HistoryListView(usesSelection: false, selectedSessionID: nil, onOpen: { _ in }, onDeleted: { _ in })
+        HistoryListView(usesSelection: false, selectedSessionID: nil, onOpen: { _ in }, onDeleted: { _ in }, onStartSession: {})
     }
     .environment(PreviewStores.sessionHistory())
 }
@@ -83,7 +89,7 @@ struct HistoryListView: View {
 #if DEBUG
 #Preview("Empty") {
     NavigationStack {
-        HistoryListView(usesSelection: false, selectedSessionID: nil, onOpen: { _ in }, onDeleted: { _ in })
+        HistoryListView(usesSelection: false, selectedSessionID: nil, onOpen: { _ in }, onDeleted: { _ in }, onStartSession: {})
     }
     .environment(PreviewStores.sessionHistory(sessions: []))
 }

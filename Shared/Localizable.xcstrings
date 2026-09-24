@@ -849,25 +849,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abgeschlossene Atemsitzungen werden hier angezeigt."
+            "value" : "Deine abgeschlossenen Atemsitzungen erscheinen hier, damit du auf jede einzelne zurückblicken kannst."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Completed breathing sessions will appear here."
+            "value" : "Your completed breathing sessions will appear here, so you can look back on how each one went."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Las sesiones de respiración completadas aparecerán aquí."
+            "value" : "Tus sesiones de respiración completadas aparecerán aquí para que puedas repasar cómo fue cada una."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les séances de respiration terminées apparaîtront ici."
+            "value" : "Vos séances de respiration terminées apparaîtront ici, pour revoir comment chacune s'est passée."
           }
         }
       }
@@ -1152,6 +1152,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "30 jours précédents"
+          }
+        }
+      }
+    },
+    "history.startASession" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sitzung starten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a Session"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar una sesión"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer une séance"
           }
         }
       }
