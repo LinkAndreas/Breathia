@@ -1,14 +1,19 @@
 import Foundation
 
 /// Links shown with the purchase options, as App Review requires for subscriptions.
+/// Both pages are published in every language the app supports and open in the
+/// language the app runs in.
 enum SupportLinks {
-    /// Apple's standard license agreement. Replace if you publish custom terms.
-    static let termsOfUse = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
+    static var termsOfUse: URL { page("termsofuse") }
+    static var privacyPolicy: URL { page("privacy") }
 
-    /// The privacy policy in the app's language: published in German and English,
-    /// so every other language gets English.
-    static var privacyPolicy: URL {
-        let language = Bundle.main.preferredLocalizations.first?.hasPrefix("de") == true ? "de" : "en"
-        return URL(string: "https://www.linkandreas.de/breathia/privacy/\(language)")!
+    /// The app's languages, each with its own page; any other language gets English.
+    private static let languages: Set<String> = ["de", "en", "es", "fr"]
+
+    private static func page(_ name: String) -> URL {
+        let language = Bundle.main.preferredLocalizations.first
+            .flatMap { Locale(identifier: $0).language.languageCode?.identifier }
+            .flatMap { languages.contains($0) ? $0 : nil } ?? "en"
+        return URL(string: "https://www.linkandreas.de/breathia/\(name)/\(language)")!
     }
 }

@@ -63,10 +63,13 @@ Create one subscription group, **Support**, containing both subscriptions.
 - A clear statement that subscriptions renew automatically, how to cancel, and
   that they unlock nothing (footer of the Recurring Support section).
 - **Restore Purchases** button.
-- Links to the **Terms of Use** (Apple's standard EULA) and **Privacy Policy**.
-  The policy is published in German and English (`SupportLinks.privacyPolicy` in
-  `Breathia/Features/Support/SupportLinks.swift` picks the one matching the app language). Enter
-  https://www.linkandreas.de/breathia/privacy/en in App Store Connect › App Privacy.
+- Links to the **Terms of Use** and **Privacy Policy**, both published in German, English,
+  Spanish and French at `https://www.linkandreas.de/breathia/termsofuse/<language>` and
+  `…/privacy/<language>`. `SupportLinks` in `Breathia/Features/Support/SupportLinks.swift`
+  opens the page in the app's language, and English for any other. Enter
+  https://www.linkandreas.de/breathia/privacy/en in App Store Connect › App Privacy, and
+  https://www.linkandreas.de/breathia/termsofuse/en as the custom license agreement (EULA)
+  in App Store Connect › App Information.
 - Manage Subscription opens the system subscription management sheet.
 
 ## Testing
