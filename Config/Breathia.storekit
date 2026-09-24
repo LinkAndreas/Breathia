@@ -1,4 +1,14 @@
 {
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
   "identifier" : "7A3E1C52-4B8D-4F2A-9E61-2D5B8C0F1A77",
   "nonRenewingSubscriptions" : [
 
@@ -13,6 +23,21 @@
           "description" : "Buy the developer a coffee.",
           "displayName" : "Small Support",
           "locale" : "en_US"
+        },
+        {
+          "description" : "Spendiere dem Entwickler einen Kaffee.",
+          "displayName" : "Kleine Unterstützung",
+          "locale" : "de"
+        },
+        {
+          "description" : "Invita al desarrollador a un café.",
+          "displayName" : "Pequeño apoyo",
+          "locale" : "es_ES"
+        },
+        {
+          "description" : "Offrez un café au développeur.",
+          "displayName" : "Petit soutien",
+          "locale" : "fr"
         }
       ],
       "productID" : "de.linkandreas.breathia.support.small",
@@ -28,6 +53,21 @@
           "description" : "Help keep Breathia growing.",
           "displayName" : "Support",
           "locale" : "en_US"
+        },
+        {
+          "description" : "Hilf mit, dass Breathia weiter wächst.",
+          "displayName" : "Unterstützung",
+          "locale" : "de"
+        },
+        {
+          "description" : "Ayuda a que Breathia siga creciendo.",
+          "displayName" : "Apoyo",
+          "locale" : "es_ES"
+        },
+        {
+          "description" : "Aidez Breathia à continuer de grandir.",
+          "displayName" : "Soutien",
+          "locale" : "fr"
         }
       ],
       "productID" : "de.linkandreas.breathia.support.medium",
@@ -43,6 +83,21 @@
           "description" : "A big thank you.",
           "displayName" : "Generous Support",
           "locale" : "en_US"
+        },
+        {
+          "description" : "Ein großes Dankeschön.",
+          "displayName" : "Großzügige Unterstützung",
+          "locale" : "de"
+        },
+        {
+          "description" : "Un gran agradecimiento.",
+          "displayName" : "Apoyo generoso",
+          "locale" : "es_ES"
+        },
+        {
+          "description" : "Un grand merci.",
+          "displayName" : "Soutien généreux",
+          "locale" : "fr"
         }
       ],
       "productID" : "de.linkandreas.breathia.support.generous",
@@ -51,24 +106,61 @@
     }
   ],
   "settings" : {
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_disableDialogs" : false,
     "_failTransactionsEnabled" : false,
-    "_locale" : "de_DE",
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
     "_storefront" : "DEU",
     "_storeKitErrors" : [
 
-    ]
+    ],
+    "_timeRate" : 0
   },
+  "subscriptionBundleGroups" : [
+
+  ],
   "subscriptionGroups" : [
     {
       "id" : "21500001",
       "localizations" : [
-
+        {
+          "description" : "",
+          "displayName" : "Support Breathia",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "",
+          "displayName" : "Breathia unterstützen",
+          "locale" : "de"
+        },
+        {
+          "description" : "",
+          "displayName" : "Apoya a Breathia",
+          "locale" : "es_ES"
+        },
+        {
+          "description" : "",
+          "displayName" : "Soutenir Breathia",
+          "locale" : "fr"
+        }
       ],
       "name" : "Support",
       "subscriptions" : [
         {
           "adHocOffers" : [
 
+          ],
+          "billingPlans" : [
+            {
+              "billingPlanType" : "BILLED_UPFRONT",
+              "commitmentDisplayPrice" : "14.99",
+              "displayPrice" : "14.99",
+              "internalID" : "A1756BDC",
+              "isEnabled" : true
+            }
           ],
           "codeOffers" : [
 
@@ -77,12 +169,29 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "6740000005",
-          "introductoryOffer" : null,
+          "introductoryOffers" : [
+
+          ],
           "localizations" : [
             {
-              "description" : "Ongoing support, every year.",
+              "description" : "Support Breathia once a year.",
               "displayName" : "Yearly Support",
               "locale" : "en_US"
+            },
+            {
+              "description" : "Unterstütze Breathia einmal im Jahr.",
+              "displayName" : "Jährliche Unterstützung",
+              "locale" : "de"
+            },
+            {
+              "description" : "Apoya a Breathia una vez al año.",
+              "displayName" : "Apoyo anual",
+              "locale" : "es_ES"
+            },
+            {
+              "description" : "Soutenez Breathia une fois par an.",
+              "displayName" : "Soutien annuel",
+              "locale" : "fr"
             }
           ],
           "productID" : "de.linkandreas.breathia.support.yearly",
@@ -98,6 +207,15 @@
           "adHocOffers" : [
 
           ],
+          "billingPlans" : [
+            {
+              "billingPlanType" : "BILLED_UPFRONT",
+              "commitmentDisplayPrice" : "1.99",
+              "displayPrice" : "1.99",
+              "internalID" : "45BE005A",
+              "isEnabled" : true
+            }
+          ],
           "codeOffers" : [
 
           ],
@@ -105,12 +223,29 @@
           "familyShareable" : false,
           "groupNumber" : 2,
           "internalID" : "6740000004",
-          "introductoryOffer" : null,
+          "introductoryOffers" : [
+
+          ],
           "localizations" : [
             {
-              "description" : "Ongoing support, every month.",
+              "description" : "Support Breathia every month.",
               "displayName" : "Monthly Support",
               "locale" : "en_US"
+            },
+            {
+              "description" : "Unterstütze Breathia jeden Monat.",
+              "displayName" : "Monatliche Unterstützung",
+              "locale" : "de"
+            },
+            {
+              "description" : "Apoya a Breathia cada mes.",
+              "displayName" : "Apoyo mensual",
+              "locale" : "es_ES"
+            },
+            {
+              "description" : "Soutenez Breathia chaque mois.",
+              "displayName" : "Soutien mensuel",
+              "locale" : "fr"
             }
           ],
           "productID" : "de.linkandreas.breathia.support.monthly",
@@ -125,8 +260,11 @@
       ]
     }
   ],
+  "subscriptionSuiteGroups" : [
+
+  ],
   "version" : {
-    "major" : 4,
-    "minor" : 0
+    "major" : 6,
+    "minor" : 3
   }
 }
