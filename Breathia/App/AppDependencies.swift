@@ -28,7 +28,8 @@ final class AppDependencies {
         reviewRequester: ReviewRequesting,
         feedbackMailer: FeedbackMailing,
         appMetadata: AppMetadataProviding,
-        syncsWithWatch: Bool
+        syncsWithWatch: Bool,
+        showsLiveActivities: Bool
     ) {
         #if os(iOS) // ActivityKit is importable on macOS, but unavailable.
         // Live Activities left behind by a session the app was quit during.
@@ -64,7 +65,7 @@ final class AppDependencies {
             },
             makeActivity: {
                 #if os(iOS) // ActivityKit is importable on macOS, but unavailable.
-                return ActivityKitSessionActivity()
+                return showsLiveActivities ? ActivityKitSessionActivity() as SessionActivityReporting : NoSessionActivity()
                 #else
                 return NoSessionActivity()
                 #endif
@@ -124,7 +125,8 @@ final class AppDependencies {
             reviewRequester: StoreKitReviewRequester(),
             feedbackMailer: SystemFeedbackMailer(),
             appMetadata: DeviceAppMetadataProvider(),
-            syncsWithWatch: true
+            syncsWithWatch: true,
+            showsLiveActivities: true
         )
     }
 
@@ -153,12 +155,13 @@ final class AppDependencies {
     #if DEBUG
     static func preview(
         sessions: [SessionRecord] = PreviewData.sessions,
-        hasCompletedOnboarding: Bool = true
+        hasCompletedOnboarding: Bool = true,
+        heartRateSource: HeartRateSource = SimulatedHeartRateSource(defaults: UserDefaults(suiteName: "preview") ?? .standard)
     ) -> AppDependencies {
         var settings = AppSettings()
         settings.hasCompletedOnboarding = hasCompletedOnboarding
         return AppDependencies(
-            heartRateSource: SimulatedHeartRateSource(defaults: UserDefaults(suiteName: "preview") ?? .standard),
+            heartRateSource: heartRateSource,
             sessionRepository: InMemorySessionRepository(sessions: sessions),
             settingsRepository: InMemorySettingsRepository(settings: settings),
             mindfulMinutesService: InMemoryMindfulMinutesService(),
@@ -167,7 +170,8 @@ final class AppDependencies {
             reviewRequester: StoreKitReviewRequester(),
             feedbackMailer: SystemFeedbackMailer(),
             appMetadata: DeviceAppMetadataProvider(),
-            syncsWithWatch: false
+            syncsWithWatch: false,
+            showsLiveActivities: false
         )
     }
     #endif

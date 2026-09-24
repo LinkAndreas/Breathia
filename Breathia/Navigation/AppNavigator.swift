@@ -258,6 +258,45 @@ final class AppNavigator {
     }
 }
 
+#if DEBUG
+extension AppNavigator {
+    /// Opens the screen asked for with `-screenshot`, once the layout is on screen.
+    func showForScreenshots() async {
+        guard let screen = ScreenshotScreen.requested else { return }
+        try? await Task.sleep(for: .seconds(1))
+        let technique = TechniqueCatalog.technique(withID: ScreenshotScreen.techniqueID)
+        let session = PreviewData.sessions[0]
+        let breathe = tabs?.navigator(for: AppTab.breathe) ?? split?.detail
+        switch screen {
+        case .breathe:
+            showBreathe()
+        case .technique:
+            if let breathe { openTechnique(technique.id, from: breathe) }
+        case .session:
+            if let breathe {
+                openTechnique(technique.id, from: breathe)
+                startSession(with: technique, from: breathe)
+            }
+        case .history:
+            showHistory(with: session.id)
+        case .historyDetail:
+            showHistory(with: session.id)
+            tabs?.navigator(for: AppTab.history)?.push(HistoryRoute.session(session.id))
+        case .settings:
+            tabs?.select(AppTab.settings)
+            if let split {
+                show(.settings, in: split)
+                split.showDetail(SettingsRoute.page(.breathing))
+            }
+        case .sensor:
+            showSensor()
+        case .support:
+            showSupport()
+        }
+    }
+}
+#endif
+
 extension View {
     /// Width of the content column (the section's list) on iPad and Mac.
     func contentColumnWidth() -> some View {
