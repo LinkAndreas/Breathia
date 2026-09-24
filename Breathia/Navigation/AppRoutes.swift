@@ -90,7 +90,8 @@ final class AppRoutes {
                         if self.navigator.selectedSessionID == id {
                             self.navigator.showDetail(HistoryRoute.noSelection, from: stack)
                         }
-                    }
+                    },
+                    onStartSession: { self.navigator.showBreathe() }
                 )
                 .contentColumnWidth()
                 .environment(self.sessionHistory)
