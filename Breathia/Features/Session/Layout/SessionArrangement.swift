@@ -56,31 +56,15 @@ struct SessionArrangement<Primary: View, Secondary: View>: View {
             } else {
                 primary(false)
             }
-        } else {
+        } else if #available(iOS 27.1, *) {
             SplitSessionArrangement(axes: axes, primary: primary, secondary: secondary)
+        } else {
+            ProportionalSessionArrangement(axes: axes, primary: primary, secondary: secondary)
         }
         #else
         // TODO: Use ArrangementView on the Mac too once the macOS SDK has it (it's
-        // iOS-only in Xcode 27.1), and remove this path with its GeometryReader.
-        GeometryReader { proxy in
-            // Tall enough for the controls and cards beside the circle.
-            let isWide = proxy.size.width > proxy.size.height * 1.2 && proxy.size.height >= 480
-            if isWide && axes.contains(.horizontal) {
-                HStack(spacing: 24) {
-                    primary(true)
-                        .frame(width: (proxy.size.width - 24) / 2)
-                    secondary
-                }
-            } else if axes.contains(.vertical) {
-                VStack(spacing: 0) {
-                    primary(true)
-                    secondary
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            } else {
-                primary(false)
-            }
-        }
+        // iOS-only in Xcode 27.1).
+        ProportionalSessionArrangement(axes: axes, primary: primary, secondary: secondary)
         #endif
     }
 }

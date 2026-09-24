@@ -3,6 +3,7 @@ import SwiftUI
 #if os(iOS)
 /// A session arrangement as a split: the primary view and the secondary view side
 /// by side or one above the other, along the crease on a partly folded display.
+@available(iOS 27.1, *)
 struct SplitSessionArrangement<Primary: View, Secondary: View>: View {
     /// The axes the split may use.
     let axes: Axis.Set
@@ -39,6 +40,7 @@ private struct SecondaryShownKey: PreferenceKey {
 #endif
 
 #if DEBUG && os(iOS)
+@available(iOS 27.1, *)
 #Preview {
     SplitSessionArrangement(
         axes: [.horizontal, .vertical],

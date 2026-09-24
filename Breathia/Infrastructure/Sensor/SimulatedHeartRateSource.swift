@@ -60,6 +60,18 @@ final class SimulatedHeartRateSource: HeartRateSource {
         }
     }
 
+    /// Remembers the permission as granted, as the prompt would.
+    func grantPermission() {
+        defaults.set(true, forKey: Self.permissionKey)
+        status = .idle
+    }
+
+    /// Connects to the simulated strap and streams, without scanning first.
+    func startStreaming() {
+        status = .connected(isStreaming: true)
+        run { try await self.stream() }
+    }
+
     func disconnect() {
         guard status != .needsPermission, status != .denied else { return }
         task?.cancel()

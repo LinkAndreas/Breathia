@@ -25,6 +25,61 @@ Sigh to Resonance and Alternate Nostril Breathing — with a breathing circle an
 cues. Connect a Bluetooth chest strap such as the Polar H10 to see your heart rate and HRV
 respond while you breathe.
 
+## Screenshots
+
+### iPhone
+
+<table>
+  <tr>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/iphone-session-dark.png"><img src="Docs/Images/Screenshots/iphone-session-light.png" width="260" alt="Live session with biofeedback"></picture><br><sub>Live session with biofeedback</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/iphone-breathe-dark.png"><img src="Docs/Images/Screenshots/iphone-breathe-light.png" width="260" alt="24 techniques by category"></picture><br><sub>24 techniques by category</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/iphone-technique-dark.png"><img src="Docs/Images/Screenshots/iphone-technique-light.png" width="260" alt="How each technique works"></picture><br><sub>How each technique works</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/iphone-historyDetail-dark.png"><img src="Docs/Images/Screenshots/iphone-historyDetail-light.png" width="260" alt="Session report"></picture><br><sub>Session report</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/iphone-history-dark.png"><img src="Docs/Images/Screenshots/iphone-history-light.png" width="260" alt="History"></picture><br><sub>History</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/iphone-settings-dark.png"><img src="Docs/Images/Screenshots/iphone-settings-light.png" width="260" alt="Settings"></picture><br><sub>Settings</sub></td>
+  </tr>
+</table>
+
+### iPad
+
+<table>
+  <tr>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/ipad-session-dark.png"><img src="Docs/Images/Screenshots/ipad-session-light.png" width="260" alt="Live session"></picture><br><sub>Live session</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/ipad-breathe-dark.png"><img src="Docs/Images/Screenshots/ipad-breathe-light.png" width="260" alt="Techniques beside their details"></picture><br><sub>Techniques beside their details</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/ipad-technique-dark.png"><img src="Docs/Images/Screenshots/ipad-technique-light.png" width="260" alt="Technique details"></picture><br><sub>Technique details</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/ipad-history-dark.png"><img src="Docs/Images/Screenshots/ipad-history-light.png" width="260" alt="History with the session report"></picture><br><sub>History with the session report</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/ipad-settings-dark.png"><img src="Docs/Images/Screenshots/ipad-settings-light.png" width="260" alt="Settings"></picture><br><sub>Settings</sub></td>
+  </tr>
+</table>
+
+### Mac
+
+<table>
+  <tr>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/mac-session-dark.png"><img src="Docs/Images/Screenshots/mac-session-light.png" width="400" alt="Live session"></picture><br><sub>Live session</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/mac-breathe-dark.png"><img src="Docs/Images/Screenshots/mac-breathe-light.png" width="400" alt="Techniques"></picture><br><sub>Techniques</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/mac-history-dark.png"><img src="Docs/Images/Screenshots/mac-history-light.png" width="400" alt="History"></picture><br><sub>History</sub></td>
+    <td align="center" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="Docs/Images/Screenshots/mac-settings-dark.png"><img src="Docs/Images/Screenshots/mac-settings-light.png" width="400" alt="Settings"></picture><br><sub>Settings</sub></td>
+  </tr>
+</table>
+
+### Apple Watch
+
+<table>
+  <tr>
+    <td align="center" valign="top"><img src="Docs/Images/Screenshots/watch-session.png" width="180" alt="Session on the wrist"><br><sub>Session on the wrist</sub></td>
+    <td align="center" valign="top"><img src="Docs/Images/Screenshots/watch-list.png" width="180" alt="Techniques"><br><sub>Techniques</sub></td>
+    <td align="center" valign="top"><img src="Docs/Images/Screenshots/watch-technique.png" width="180" alt="Technique"><br><sub>Technique</sub></td>
+    <td align="center" valign="top"><img src="Docs/Images/Screenshots/watch-summary.png" width="180" alt="Summary"><br><sub>Summary</sub></td>
+  </tr>
+</table>
+
 ## Features
 
 - **24 techniques** in seven categories, each with how it works, what it's best for,
