@@ -45,8 +45,8 @@ struct SettingsView: View {
             }
 
             Section {
-                pageRow(.privacy)
-                pageRow(.aboutSensor)
+                SettingsPageRow(page: .privacy) { onOpenPage(.privacy) }
+                SettingsPageRow(page: .aboutSensor) { onOpenPage(.aboutSensor) }
                 Button(action: onShowOnboarding) {
                     SettingsLabel("settings.showOnboarding", systemImage: "sparkles", color: .purple)
                 }
@@ -62,19 +62,6 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("settings.title")
-    }
-
-    private func pageRow(_ page: SettingsPage) -> some View {
-        Button {
-            onOpenPage(page)
-        } label: {
-            HStack {
-                SettingsLabel(verbatim: page.title, systemImage: page.systemImage, color: page.iconColor)
-                Spacer()
-                DisclosureChevron()
-            }
-        }
-        .tint(.primary)
     }
 }
 

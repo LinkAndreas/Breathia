@@ -38,9 +38,15 @@ struct BreatheHomeView: View {
                 // each row into place; the ZStack overlaps outgoing and incoming lists
                 // so neither pushes the other down. Search results update instantly.
                 ZStack(alignment: .top) {
-                    techniqueList
-                        .id(filter)
-                        .transition(.opacity)
+                    TechniqueList(
+                        groups: groups,
+                        filter: filter,
+                        usesSelection: usesSelection,
+                        selectedTechniqueID: selectedTechniqueID,
+                        onOpen: onOpen
+                    )
+                    .id(filter)
+                    .transition(.opacity)
                 }
             }
             .padding(.bottom, 16)
@@ -64,146 +70,6 @@ struct BreatheHomeView: View {
                 ContentUnavailableView.search(text: query)
             }
         }
-    }
-
-    private var techniqueList: some View {
-        VStack(spacing: 0) {
-            ForEach(groups) { group in
-                // A single chosen category needs no header of its own.
-                if filter == .all {
-                    TechniqueCategoryHeader(category: group.category)
-                }
-                LazyVStack(spacing: 10) {
-                    ForEach(group.techniques) { technique in
-                        TechniqueRow(
-                            technique: technique,
-                            isSelected: usesSelection && technique.id == selectedTechniqueID,
-                            showsDisclosure: !usesSelection
-                        ) {
-                            onOpen(technique.id)
-                        }
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.top, filter == .all ? 0 : 12)
-            }
-        }
-    }
-}
-
-/// The sensor's state as a navigation bar widget, and the way to connect it:
-/// the sensor symbol and "HR Sensor" while disconnected, progress while searching or connecting, and —
-/// once a sensor is connected — a green, filled capsule with the live heart rate,
-/// so a connected sensor is obvious at a glance. Tapping it opens the sensor sheet.
-private struct SensorToolbarWidget: View {
-    let action: () -> Void
-
-    @Environment(HeartRateMonitor.self) private var monitor
-
-    var body: some View {
-        if monitor.isConnected {
-            button
-                .buttonStyle(.glassProminent)
-                .tint(Theme.Palette.connected)
-        } else {
-            button
-        }
-    }
-
-    private var button: some View {
-        Button(action: action) {
-            HStack(spacing: 6) {
-                icon
-                label
-                    .monospacedDigit()
-                    .contentTransition(.numericText())
-            }
-            #if os(iOS)
-            .font(.subheadline.weight(.semibold))
-            #else
-            .padding(.horizontal, 8)
-            .padding(.vertical, 3)
-            #endif
-            .animation(.snappy, value: monitor.heartRate)
-            .animation(.snappy, value: monitor.status)
-        }
-        .accessibilityLabel(Text("common.heartRateSensor"))
-        .accessibilityValue(Text(monitor.statusDetail))
-        .accessibilityHint(Text("breathe.opensHeartRateSensor"))
-    }
-
-    @ViewBuilder
-    private var icon: some View {
-        switch monitor.status {
-        case .connected:
-            Image(systemName: "heart.fill")
-                .symbolEffect(.pulse, isActive: monitor.heartRate != nil)
-        case .scanning, .connecting, .reconnecting, .disconnecting:
-            ProgressView()
-                .controlSize(.small)
-        case .idle, .failed, .unavailable, .needsPermission, .denied:
-            // The sensor symbol; the heart appears once a sensor is connected.
-            Image(systemName: "antenna.radiowaves.left.and.right")
-        }
-    }
-
-    @ViewBuilder
-    private var label: some View {
-        switch monitor.status {
-        case .connected:
-            if let heartRate = monitor.heartRate {
-                Text("common.bpm \(heartRate)")
-            } else {
-                Text(monitor.status.summary)
-            }
-        case .scanning, .connecting, .reconnecting, .disconnecting:
-            Text(monitor.status.summary)
-        case .idle, .failed, .unavailable, .needsPermission, .denied:
-            Text("breathe.hrSensor", comment: "Short label of the heart-rate sensor button while none is connected")
-        }
-    }
-}
-
-private struct TechniqueRow: View {
-    let technique: Technique
-    let isSelected: Bool
-    let showsDisclosure: Bool
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 14) {
-                TechniqueOrb(technique: technique, size: 48)
-
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(technique.name)
-                        .font(.body.weight(.semibold))
-                        .foregroundStyle(.primary)
-                    Text(verbatim: "\(technique.patternLabel) · \(technique.durationLabel)")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                if showsDisclosure {
-                    DisclosureChevron()
-                }
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-            .background(Theme.Palette.elevated, in: .rect(cornerRadius: Theme.Radius.row))
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.row)
-                    .strokeBorder(isSelected ? technique.tint : .clear, lineWidth: 2)
-            }
-            .contentShape(.rect(cornerRadius: Theme.Radius.row))
-        }
-        .buttonStyle(.plain)
-        #if os(iOS)
-        // Highlights the card under the pointer on iPad.
-        .hoverEffect(.highlight)
-        #endif
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 

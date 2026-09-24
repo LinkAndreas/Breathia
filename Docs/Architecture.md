@@ -25,10 +25,25 @@ Breathia/
   Domain/          Repositories/, Sensor/, HeartRate/, Support/, Rating/
   Infrastructure/  Persistence/SwiftData/, Bluetooth/, Sensor/, StoreKit/, WatchConnectivity/, Feedback/, Rating/, InMemory/
   Stores/          SessionHistory, HeartRateMonitor, SupportStore, ReviewPrompter
-  Features/  Navigation/  DesignSystem/  Preview/
+  Features/        One folder per screen area (Breathe, TechniqueDetail, Session,
+                   SessionReport, History, Settings, Support, Sensor, Onboarding)
+  DesignSystem/    Components/, Headers/, Settings/, Celebration/, Layout/, Theme
+  Navigation/  Preview/
 BreathiaWatch/
-  App/  Domain/  Infrastructure/  Stores/  Features/  Navigation/
+  App/  Domain/  Infrastructure/  Stores/  Navigation/
+  Features/        Techniques/, Session/ (Countdown/, Live/, Summary/), Health/
+BreathiaWidgets/
+  LiveActivity/    The activity and its views
 ```
+
+Within a feature, the screen's root view sits at the top of its folder and the parts
+of the screen are grouped in sub-folders named after what they make up — for example
+`Session/Countdown/`, `Session/Live/` and `Session/Layout/`, or `Settings/Rows/` and
+`Settings/Info/`. Platform-only parts go in `iOS/` or `Mac/` (`TechniqueDetail/`).
+Every view is its own `View` struct in its own file, named after the type; helper
+properties or functions returning `some View` aren't used. View modifiers and
+presentation extensions on models (`HRVTrend+Presentation`) live next to the views
+that use them.
 
 ## Platforms
 

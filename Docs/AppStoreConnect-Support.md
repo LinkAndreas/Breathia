@@ -65,7 +65,7 @@ Create one subscription group, **Support**, containing both subscriptions.
 - **Restore Purchases** button.
 - Links to the **Terms of Use** (Apple's standard EULA) and **Privacy Policy**.
   The policy is published in German and English (`SupportLinks.privacyPolicy` in
-  `Breathia/Features/Support/SupportView.swift` picks the one matching the app language). Enter
+  `Breathia/Features/Support/SupportLinks.swift` picks the one matching the app language). Enter
   https://www.linkandreas.de/breathia/privacy/en in App Store Connect › App Privacy.
 - Manage Subscription opens the system subscription management sheet.
 
