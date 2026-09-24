@@ -1096,50 +1096,20 @@
         }
       }
     },
-    "history.section.previous30Days" : {
-      "comment" : "History section header: sessions from 7 to 29 days ago",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Previous 30 Days"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Letzte 30 Tage"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "30 días anteriores"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "30 jours précédents"
-          }
-        }
-      }
-    },
     "history.section.previous7Days" : {
       "comment" : "History section header: sessions from 2 to 6 days ago",
       "extractionState" : "manual",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Previous 7 Days"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Letzte 7 Tage"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous 7 Days"
           }
         },
         "es" : {
@@ -1152,6 +1122,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "7 jours précédents"
+          }
+        }
+      }
+    },
+    "history.section.previous30Days" : {
+      "comment" : "History section header: sessions from 7 to 29 days ago",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzte 30 Tage"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous 30 Days"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 días anteriores"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 jours précédents"
           }
         }
       }
@@ -3548,34 +3548,6 @@
         }
       }
     },
-    "settings.appNameAndVersion %@" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
-          }
-        }
-      }
-    },
     "settings.appearance" : {
       "localizations" : {
         "de" : {
@@ -3632,6 +3604,34 @@
         }
       }
     },
+    "settings.appNameAndVersion %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        }
+      }
+    },
     "settings.biofeedback" : {
       "localizations" : {
         "de" : {
@@ -3660,34 +3660,6 @@
         }
       }
     },
-    "settings.breathing" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Atmung"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathing"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Respiración"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Respiration"
-          }
-        }
-      }
-    },
     "settings.breathiaIsntAllowed" : {
       "localizations" : {
         "de" : {
@@ -3712,6 +3684,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Breathia n'est pas autorisé à écrire dans Santé. Activez l'accès dans l'app Santé sous Profil › Apps › Breathia."
+          }
+        }
+      }
+    },
+    "settings.breathing" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atmung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathing"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Respiración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Respiration"
           }
         }
       }
@@ -4674,34 +4674,6 @@
         }
       }
     },
-    "support.aSinglePaymentNothing" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eine einmalige Zahlung. Nichts verlängert sich."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A single payment. Nothing renews."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un único pago. No se renueva."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un paiement unique, sans renouvellement."
-          }
-        }
-      }
-    },
     "support.active" : {
       "localizations" : {
         "de" : {
@@ -4726,6 +4698,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Actif"
+          }
+        }
+      }
+    },
+    "support.aSinglePaymentNothing" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine einmalige Zahlung. Nichts verlängert sich."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A single payment. Nothing renews."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un único pago. No se renueva."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un paiement unique, sans renouvellement."
           }
         }
       }
@@ -5230,34 +5230,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Les options de soutien n'ont pas pu être chargées. Vérifiez votre connexion Internet et réessayez."
-          }
-        }
-      }
-    },
-    "support.termsOfUse" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nutzungsbedingungen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terms of Use"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Condiciones de uso"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Conditions d'utilisation"
           }
         }
       }

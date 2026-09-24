@@ -3,9 +3,6 @@ import SwiftUI
 
 /// Links shown with the purchase options, as App Review requires for subscriptions.
 enum SupportLinks {
-    /// Apple's standard license agreement. Replace if you publish custom terms.
-    static let termsOfUse = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
-
     /// The privacy policy in the app's language: published in German and English,
     /// so every other language gets English.
     static var privacyPolicy: URL {
@@ -70,7 +67,6 @@ struct SupportView: View {
                 #endif
                 .disabled(store.isBusy)
 
-                Link("support.termsOfUse", destination: SupportLinks.termsOfUse)
                 Link("support.privacyPolicy", destination: SupportLinks.privacyPolicy)
             }
         }
