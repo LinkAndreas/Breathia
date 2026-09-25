@@ -10,6 +10,8 @@
     <true/>
     <key>signingStyle</key>
     <string>manual</string>
+    <key>signingCertificate</key>
+    <string>{{SIGNING_IDENTITY}}</string>
     <key>provisioningProfiles</key>
     <dict>
         <key>{{BUNDLE_ID_PREFIX}}.breathia</key>
