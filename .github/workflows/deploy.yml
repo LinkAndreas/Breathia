@@ -61,6 +61,7 @@ jobs:
       - name: Install Signing Certificates
         env:
           PLATFORM: ${{ matrix.platform }}
+          CODE_SIGN_IDENTITY: ${{ matrix.code_sign_identity }}
           SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
           SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
           MAC_SIGNING_CERTIFICATE_BASE64: ${{ secrets.MAC_SIGNING_CERTIFICATE_BASE64 }}
@@ -99,6 +100,17 @@ jobs:
           # whose login keychain must stay searchable once the cleanup deletes this one.
           security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | tr -d '"')
 
+          # Sign with the full name of the certificate imported above. A generic name such as
+          # "iPhone Distribution" also matches the Apple Distribution certificate in the runner's
+          # login keychain, which the iOS profiles don't include.
+          SIGNING_IDENTITY=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | grep -o "\"$CODE_SIGN_IDENTITY: [^\"]*\"" | head -n 1 | tr -d '"')
+          if [ -z "$SIGNING_IDENTITY" ]; then
+            echo "No \"$CODE_SIGN_IDENTITY\" certificate found in the imported signing certificates."
+            exit 1
+          fi
+          echo "Signing identity: $SIGNING_IDENTITY"
+          echo "SIGNING_IDENTITY=$SIGNING_IDENTITY" >> "$GITHUB_ENV"
+
       # iOS needs one App Store profile per target: the iOS app, the Watch app and the widgets
       # extension. macOS needs a Mac App Store profile for the app alone.
       - name: Install Provisioning Profiles
@@ -132,6 +144,7 @@ jobs:
           MAC_PROVISIONING_PROFILE_NAME: ${{ secrets.MAC_PROVISIONING_PROFILE_NAME }}
         run: |
           sed -i '' "s|{{TEAM_ID}}|$TEAM_ID|g" "$EXPORT_OPTIONS"
+          sed -i '' "s|{{SIGNING_IDENTITY}}|$SIGNING_IDENTITY|g" "$EXPORT_OPTIONS"
           sed -i '' "s|{{BUNDLE_ID_PREFIX}}|$BUNDLE_ID_PREFIX|g" "$EXPORT_OPTIONS"
           sed -i '' "s|{{PROVISIONING_PROFILE_NAME}}|$PROVISIONING_PROFILE_NAME|g" "$EXPORT_OPTIONS"
           sed -i '' "s|{{WATCH_PROVISIONING_PROFILE_NAME}}|$WATCH_PROVISIONING_PROFILE_NAME|g" "$EXPORT_OPTIONS"
@@ -145,7 +158,6 @@ jobs:
         env:
           PLATFORM: ${{ matrix.platform }}
           DESTINATION: ${{ matrix.destination }}
-          CODE_SIGN_IDENTITY: ${{ matrix.code_sign_identity }}
           TEAM_ID: ${{ vars.TEAM_ID }}
           BUNDLE_ID_PREFIX: ${{ vars.BUNDLE_ID_PREFIX }}
           PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
@@ -170,7 +182,7 @@ jobs:
             DEVELOPMENT_TEAM="$TEAM_ID" \
             BUNDLE_ID_PREFIX="$BUNDLE_ID_PREFIX" \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" \
+            CODE_SIGN_IDENTITY="$SIGNING_IDENTITY" \
             PROFILE_Breathia="$APP_PROFILE_NAME" \
             PROFILE_BreathiaWatch="$WATCH_PROVISIONING_PROFILE_NAME" \
             PROFILE_BreathiaWidgets="$WIDGETS_PROVISIONING_PROFILE_NAME" \
