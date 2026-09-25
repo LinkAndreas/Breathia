@@ -17,8 +17,31 @@ concurrency:
 
 jobs:
   archive-and-deploy:
-    # Breathia targets iOS and watchOS 27, whose SDKs ship with Xcode 27.
+    name: Archive and deploy (${{ matrix.platform }})
+    # Breathia targets iOS, watchOS and macOS 27, whose SDKs ship with Xcode 27.
     runs-on: [self-hosted, xcode-27]
+
+    # One job per platform, so a failed Mac upload can be re-run without uploading the iOS build
+    # again. They run one after the other because both change the runner's keychain search list.
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          # The iOS app embeds the Watch app and the widgets extension.
+          - platform: iOS
+            destination: generic/platform=iOS
+            code_sign_identity: iPhone Distribution
+            export_options: Config/ExportOptions.plist
+            package: Breathia.ipa
+            altool_type: ios
+          # The native Mac app is the Breathia target alone; the Watch app and widgets are iOS-only.
+          - platform: macOS
+            destination: generic/platform=macOS
+            code_sign_identity: Apple Distribution
+            export_options: Config/ExportOptions-Mac.plist
+            package: Breathia.pkg
+            altool_type: macos
 
     steps:
       - name: Checkout repository
@@ -35,25 +58,39 @@ jobs:
           mkdir -p ~/.private_keys
           echo -n "$API_KEY_BASE64" | base64 --decode -o ~/.private_keys/AuthKey_$API_KEY_ID.p8
 
-      - name: Install Signing Certificate
+      - name: Install Signing Certificates
         env:
+          PLATFORM: ${{ matrix.platform }}
           SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
           SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
+          MAC_SIGNING_CERTIFICATE_BASE64: ${{ secrets.MAC_SIGNING_CERTIFICATE_BASE64 }}
+          MAC_SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.MAC_SIGNING_CERTIFICATE_PASSWORD }}
+          MAC_INSTALLER_CERTIFICATE_BASE64: ${{ secrets.MAC_INSTALLER_CERTIFICATE_BASE64 }}
+          MAC_INSTALLER_CERTIFICATE_PASSWORD: ${{ secrets.MAC_INSTALLER_CERTIFICATE_PASSWORD }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
-          SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-
-          # Read Signing Certificate
-          echo -n "$SIGNING_CERTIFICATE_BASE64" | base64 --decode -o "$SIGNING_CERTIFICATE_PATH"
 
           # Create Keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
-          # Import Signing Certificate to Keychain
-          security import "$SIGNING_CERTIFICATE_PATH" -P "$SIGNING_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          # Decode a base64 .p12 and import it into the keychain.
+          import_certificate() {
+            local CERTIFICATE_PATH=$RUNNER_TEMP/$1.p12
+            echo -n "$2" | base64 --decode -o "$CERTIFICATE_PATH"
+            security import "$CERTIFICATE_PATH" -P "$3" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          }
+
+          if [ "$PLATFORM" = "iOS" ]; then
+            import_certificate signing_certificate "$SIGNING_CERTIFICATE_BASE64" "$SIGNING_CERTIFICATE_PASSWORD"
+          else
+            # The Mac app is signed with an Apple Distribution certificate, the .pkg around it
+            # with a Mac Installer Distribution certificate.
+            import_certificate mac_signing_certificate "$MAC_SIGNING_CERTIFICATE_BASE64" "$MAC_SIGNING_CERTIFICATE_PASSWORD"
+            import_certificate mac_installer_certificate "$MAC_INSTALLER_CERTIFICATE_BASE64" "$MAC_INSTALLER_CERTIFICATE_PASSWORD"
+          fi
 
           # Let codesign use the key without a UI prompt; without this it fails with errSecInternalComponent.
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH" > /dev/null
@@ -62,58 +99,79 @@ jobs:
           # whose login keychain must stay searchable once the cleanup deletes this one.
           security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | tr -d '"')
 
-      # One App Store profile per target: the iOS app, the Watch app and the widgets extension.
+      # iOS needs one App Store profile per target: the iOS app, the Watch app and the widgets
+      # extension. macOS needs a Mac App Store profile for the app alone.
       - name: Install Provisioning Profiles
         env:
+          PLATFORM: ${{ matrix.platform }}
           PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
           WATCH_PROVISIONING_PROFILE_BASE64: ${{ secrets.WATCH_PROVISIONING_PROFILE_BASE64 }}
           WIDGETS_PROVISIONING_PROFILE_BASE64: ${{ secrets.WIDGETS_PROVISIONING_PROFILE_BASE64 }}
+          MAC_PROVISIONING_PROFILE_BASE64: ${{ secrets.MAC_PROVISIONING_PROFILE_BASE64 }}
         run: |
           # Xcode 16 and later read profiles from UserData; older tools still look in MobileDevice.
           for PROFILES_DIR in ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles ~/Library/MobileDevice/Provisioning\ Profiles; do
             mkdir -p "$PROFILES_DIR"
-            echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia.mobileprovision"
-            echo -n "$WATCH_PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia_watch.mobileprovision"
-            echo -n "$WIDGETS_PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia_widgets.mobileprovision"
+            if [ "$PLATFORM" = "iOS" ]; then
+              echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia.mobileprovision"
+              echo -n "$WATCH_PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia_watch.mobileprovision"
+              echo -n "$WIDGETS_PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia_widgets.mobileprovision"
+            else
+              echo -n "$MAC_PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROFILES_DIR/breathia_mac.provisionprofile"
+            fi
           done
 
-      - name: Configure ExportOptions.plist
+      - name: Configure export options
         env:
+          EXPORT_OPTIONS: ${{ matrix.export_options }}
           TEAM_ID: ${{ vars.TEAM_ID }}
           BUNDLE_ID_PREFIX: ${{ vars.BUNDLE_ID_PREFIX }}
           PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
           WATCH_PROVISIONING_PROFILE_NAME: ${{ secrets.WATCH_PROVISIONING_PROFILE_NAME }}
           WIDGETS_PROVISIONING_PROFILE_NAME: ${{ secrets.WIDGETS_PROVISIONING_PROFILE_NAME }}
+          MAC_PROVISIONING_PROFILE_NAME: ${{ secrets.MAC_PROVISIONING_PROFILE_NAME }}
         run: |
-          sed -i '' "s|{{TEAM_ID}}|$TEAM_ID|g" Config/ExportOptions.plist
-          sed -i '' "s|{{BUNDLE_ID_PREFIX}}|$BUNDLE_ID_PREFIX|g" Config/ExportOptions.plist
-          sed -i '' "s|{{PROVISIONING_PROFILE_NAME}}|$PROVISIONING_PROFILE_NAME|g" Config/ExportOptions.plist
-          sed -i '' "s|{{WATCH_PROVISIONING_PROFILE_NAME}}|$WATCH_PROVISIONING_PROFILE_NAME|g" Config/ExportOptions.plist
-          sed -i '' "s|{{WIDGETS_PROVISIONING_PROFILE_NAME}}|$WIDGETS_PROVISIONING_PROFILE_NAME|g" Config/ExportOptions.plist
+          sed -i '' "s|{{TEAM_ID}}|$TEAM_ID|g" "$EXPORT_OPTIONS"
+          sed -i '' "s|{{BUNDLE_ID_PREFIX}}|$BUNDLE_ID_PREFIX|g" "$EXPORT_OPTIONS"
+          sed -i '' "s|{{PROVISIONING_PROFILE_NAME}}|$PROVISIONING_PROFILE_NAME|g" "$EXPORT_OPTIONS"
+          sed -i '' "s|{{WATCH_PROVISIONING_PROFILE_NAME}}|$WATCH_PROVISIONING_PROFILE_NAME|g" "$EXPORT_OPTIONS"
+          sed -i '' "s|{{WIDGETS_PROVISIONING_PROFILE_NAME}}|$WIDGETS_PROVISIONING_PROFILE_NAME|g" "$EXPORT_OPTIONS"
+          sed -i '' "s|{{MAC_PROVISIONING_PROFILE_NAME}}|$MAC_PROVISIONING_PROFILE_NAME|g" "$EXPORT_OPTIONS"
 
-      # CURRENT_PROJECT_VERSION is set on the command line so the app, Watch app and widgets
-      # share the run number as build number. PROFILE_<target> picks each target's profile.
+      # CURRENT_PROJECT_VERSION is set on the command line so all targets share the run number as
+      # build number, on iOS and macOS alike. PROFILE_<target> picks each target's profile; on
+      # macOS only the Breathia target is built.
       - name: Build, Sign and Archive
         env:
+          PLATFORM: ${{ matrix.platform }}
+          DESTINATION: ${{ matrix.destination }}
+          CODE_SIGN_IDENTITY: ${{ matrix.code_sign_identity }}
           TEAM_ID: ${{ vars.TEAM_ID }}
           BUNDLE_ID_PREFIX: ${{ vars.BUNDLE_ID_PREFIX }}
           PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
           WATCH_PROVISIONING_PROFILE_NAME: ${{ secrets.WATCH_PROVISIONING_PROFILE_NAME }}
           WIDGETS_PROVISIONING_PROFILE_NAME: ${{ secrets.WIDGETS_PROVISIONING_PROFILE_NAME }}
+          MAC_PROVISIONING_PROFILE_NAME: ${{ secrets.MAC_PROVISIONING_PROFILE_NAME }}
         run: |
+          if [ "$PLATFORM" = "iOS" ]; then
+            APP_PROFILE_NAME=$PROVISIONING_PROFILE_NAME
+          else
+            APP_PROFILE_NAME=$MAC_PROVISIONING_PROFILE_NAME
+          fi
+
           echo "Build number: ${{ github.run_number }}"
           set -o pipefail && xcodebuild clean archive \
             -project Breathia.xcodeproj \
             -scheme "Breathia" \
             -archivePath $RUNNER_TEMP/Breathia.xcarchive \
             -configuration Release \
-            -destination generic/platform=iOS \
+            -destination "$DESTINATION" \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} \
             DEVELOPMENT_TEAM="$TEAM_ID" \
             BUNDLE_ID_PREFIX="$BUNDLE_ID_PREFIX" \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="iPhone Distribution" \
-            PROFILE_Breathia="$PROVISIONING_PROFILE_NAME" \
+            CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" \
+            PROFILE_Breathia="$APP_PROFILE_NAME" \
             PROFILE_BreathiaWatch="$WATCH_PROVISIONING_PROFILE_NAME" \
             PROFILE_BreathiaWidgets="$WIDGETS_PROVISIONING_PROFILE_NAME" \
             'PROVISIONING_PROFILE_SPECIFIER=$(PROFILE_$(TARGET_NAME))' | xcbeautify
@@ -122,28 +180,28 @@ jobs:
         run: |
           set -o pipefail && xcodebuild -exportArchive \
             -archivePath $RUNNER_TEMP/Breathia.xcarchive \
-            -exportOptionsPlist Config/ExportOptions.plist \
+            -exportOptionsPlist ${{ matrix.export_options }} \
             -exportPath $RUNNER_TEMP | xcbeautify
 
-      - name: Publish Breathia.ipa file
+      - name: Publish ${{ matrix.package }} file
         uses: actions/upload-artifact@v7
         with:
-          name: Breathia.ipa
-          path: ${{ runner.temp }}/Breathia.ipa
+          name: ${{ matrix.package }}
+          path: ${{ runner.temp }}/${{ matrix.package }}
 
       - name: Validate Build Artifact
         run: |
           xcrun altool --validate-app \
-            -f ${{ runner.temp }}/Breathia.ipa \
-            -t ios \
+            -f ${{ runner.temp }}/${{ matrix.package }} \
+            -t ${{ matrix.altool_type }} \
             --apiKey ${{ secrets.API_KEY_ID }} \
             --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
 
       - name: Upload Build Artifact to App Store Connect
         run: |
           xcrun altool --upload-app \
-            -f ${{ runner.temp }}/Breathia.ipa \
-            -t ios \
+            -f ${{ runner.temp }}/${{ matrix.package }} \
+            -t ${{ matrix.altool_type }} \
             --apiKey ${{ secrets.API_KEY_ID }} \
             --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
 
@@ -152,5 +210,7 @@ jobs:
         run: |
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true
           rm -f ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/breathia*.mobileprovision
+          rm -f ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/breathia*.provisionprofile
           rm -f ~/Library/MobileDevice/Provisioning\ Profiles/breathia*.mobileprovision
+          rm -f ~/Library/MobileDevice/Provisioning\ Profiles/breathia*.provisionprofile
           rm -rf ~/.private_keys
