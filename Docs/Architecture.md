@@ -138,6 +138,8 @@ French), shared by both apps. Code uses semantic keys, never English text:
 - `common.<name>` for text shared by several screens — `common.cancel`, `common.done`.
 - `technique.<id>.<field>` for technique copy — `technique.box.name`,
   `technique.box.steps.2` (list items are 1-based).
+- `cue.<name>` for the short in-session instructions (`BreathCue`) — `cue.hum`,
+  `cue.throughNose`. They're resolved at runtime, so they're marked *manual*.
 - Interpolated values follow the key: `Text("sensor.connectingTo \(name)")` has the key
   `sensor.connectingTo %@`; the English value carries the sentence.
 
