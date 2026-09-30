@@ -2,8 +2,8 @@ import ActivityKit
 import SwiftUI
 
 /// Time elapsed in the session: counting up by itself while running, frozen while
-/// paused. Its live text takes all the width it's offered, so callers give it a
-/// fixed frame.
+/// paused. Its live text takes all the width it's offered, so callers limit
+/// its frame.
 struct ElapsedTime: View {
     let attributes: BreathingActivityAttributes
     let state: BreathingActivityAttributes.ContentState
