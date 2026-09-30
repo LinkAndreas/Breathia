@@ -3,6 +3,8 @@ import SwiftUI
 /// Pause / resume and end, side by side under the session's panel.
 struct LiveSessionControls: View {
     let model: BreathingSessionModel
+    /// Smaller buttons, where height is short.
+    var isCompact = false
 
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -11,13 +13,15 @@ struct LiveSessionControls: View {
     private let isRegular = true
     #endif
 
+    private var diameter: CGFloat { isCompact ? 64 : isRegular ? 96 : 84 }
+
     var body: some View {
         HStack(alignment: .top, spacing: isRegular ? 64 : 48) {
             SessionControlButton(
                 title: model.isPaused ? "common.resume" : "common.pause",
                 systemImage: model.isPaused ? "play.fill" : "pause.fill",
                 role: .primary(model.technique.tint),
-                diameter: isRegular ? 96 : 84,
+                diameter: diameter,
                 action: model.togglePause
             )
             // Space bar pauses and resumes with a keyboard (iPad).
@@ -26,7 +30,7 @@ struct LiveSessionControls: View {
                 title: "common.end",
                 systemImage: "stop.fill",
                 role: .destructive,
-                diameter: isRegular ? 96 : 84,
+                diameter: diameter,
                 action: model.end
             )
         }
