@@ -14,6 +14,6 @@ enum SupportLinks {
         let language = Bundle.main.preferredLocalizations.first
             .flatMap { Locale(identifier: $0).language.languageCode?.identifier }
             .flatMap { languages.contains($0) ? $0 : nil } ?? "en"
-        return URL(string: "https://www.linkandreas.de/breathia/\(name)/\(language)")!
+        return URL(string: "https://breathia.linkandreas.de/\(name)/\(language)/")!
     }
 }
