@@ -39,9 +39,14 @@ struct BreathingLiveActivity: Widget {
                 Image(systemName: state.isPaused ? "pause.fill" : "wind")
                     .foregroundStyle(attributes.tint)
             } compactTrailing: {
+                // As wide as four digits need, or as the island allows: iPhone Duo's
+                // upright island is narrower than that, and the time shrinks to fit
+                // rather than losing its first digit.
                 ElapsedTime(attributes: attributes, state: state)
                     .foregroundStyle(attributes.tint)
-                    .frame(width: 42)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.5)
+                    .frame(maxWidth: 42)
             } minimal: {
                 Image(systemName: state.isPaused ? "pause.fill" : "wind")
                     .foregroundStyle(attributes.tint)

@@ -1,12 +1,12 @@
 import SwiftUI
 
-/// Live heart rate and HRV, while a sensor is connected.
+/// Live heart rate and HRV side by side, while a sensor is connected.
 struct LiveMetrics: View {
     let model: BreathingSessionModel
 
     var body: some View {
         if model.isSensorConnected {
-            VStack(spacing: 14) {
+            HStack(spacing: 10) {
                 LiveMetricCard(
                     value: average(of: model.recentHeartRates).map { String(localized: "session.bpmAvg \($0)") } ?? "—",
                     label: "common.heartRate",

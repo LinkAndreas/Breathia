@@ -8,15 +8,19 @@ struct LiveMetricCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            HStack(alignment: .firstTextBaseline) {
+            // One over the other: beside another card, they don't fit on one line.
+            VStack(alignment: .leading, spacing: 2) {
                 Text(value)
                     .font(.headline)
                     .monospacedDigit()
-                Spacer()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
                 Text(label)
                     .font(.caption)
                     .foregroundStyle(.tertiary)
+                    .lineLimit(1)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             TrendSparkline(values: values, tint: tint, capacity: BreathingSessionModel.liveChartCapacity)
         }
         .padding(.horizontal, 14)

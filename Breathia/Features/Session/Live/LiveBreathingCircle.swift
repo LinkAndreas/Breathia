@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// The session's breathing circle, sized to its pane and following the clock.
+/// The session's breathing circle, sized to its pane and following the clock, with
+/// the technique's cue for the current phase under it.
 struct LiveBreathingCircle: View {
     let model: BreathingSessionModel
 
@@ -16,16 +17,22 @@ struct LiveBreathingCircle: View {
     }
 
     var body: some View {
-        GeometryReader { proxy in
-            TimelineView(.animation(paused: model.isPaused)) { context in
-                BreathingCircle(
-                    position: model.position(at: context.date),
-                    tint: model.technique.tint,
-                    diameter: min(Self.maximumCircleDiameter, min(proxy.size.width, proxy.size.height) / 1.2),
-                    smallestScale: smallestScale,
-                    totalBreaths: totalBreaths
-                )
-                .frame(width: proxy.size.width, height: proxy.size.height)
+        TimelineView(.animation(paused: model.isPaused)) { context in
+            let position = model.position(at: context.date)
+            VStack(spacing: 0) {
+                GeometryReader { proxy in
+                    BreathingCircle(
+                        position: position,
+                        tint: model.technique.tint,
+                        // Even at its fullest the circle keeps clear of the pane's
+                        // edges and of the cue under it.
+                        diameter: min(Self.maximumCircleDiameter, min(proxy.size.width, proxy.size.height) / 1.32),
+                        smallestScale: smallestScale,
+                        totalBreaths: totalBreaths
+                    )
+                    .frame(width: proxy.size.width, height: proxy.size.height)
+                }
+                BreathCueSlot(technique: model.technique, cue: position.cue)
             }
         }
     }
