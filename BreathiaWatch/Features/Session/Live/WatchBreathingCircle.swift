@@ -9,6 +9,9 @@ struct WatchBreathingCircle: View {
     let smallestScale: Double
     /// Breaths in the whole session — the "of 60" under a breath number.
     let totalBreaths: Int
+    /// Always On: a still ring around the count, redrawn once a second, in place of
+    /// the circle that grows and shrinks.
+    var isDimmed = false
 
     /// Side of the square the label may use: the square inscribed in the smallest
     /// circle (≈ 0.71 × its diameter), shrunk a little to keep a margin to the ring.
@@ -33,10 +36,13 @@ struct WatchBreathingCircle: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(tint.opacity(0.18))
+                .fill(tint.opacity(isDimmed ? 0 : 0.18))
                 .overlay {
-                    // While the circle is still, its ring drains with the hold.
-                    if isHolding {
+                    if isDimmed {
+                        Circle()
+                            .strokeBorder(tint.opacity(0.6), lineWidth: 2)
+                    } else if isHolding {
+                        // While the circle is still, its ring drains with the hold.
                         Circle()
                             .strokeBorder(tint.opacity(0.3), lineWidth: 2)
                         Circle()
@@ -50,7 +56,7 @@ struct WatchBreathingCircle: View {
                     }
                 }
                 .frame(width: diameter, height: diameter)
-                .scaleEffect(position.scale)
+                .scaleEffect(isDimmed ? smallestScale : position.scale)
 
             VStack(spacing: labelSide * 0.03) {
                 // Seconds left in the breath, or — where they'd never change — which
@@ -64,8 +70,8 @@ struct WatchBreathingCircle: View {
                     .monospacedDigit()
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                    .contentTransition(.numericText(countsDown: position.readout.countsDown))
-                    .animation(.snappy, value: position.readout.value)
+                    .contentTransition(isDimmed ? .identity : .numericText(countsDown: position.readout.countsDown))
+                    .animation(isDimmed ? nil : .snappy, value: position.readout.value)
                 if countsBreaths {
                     Text("session.breathOf \(totalBreaths)")
                         .font(.system(size: labelSide * 0.14))

@@ -12,6 +12,8 @@ struct WatchBreathingView: View {
 
     @State private var page = Page.breathing
 
+    @Environment(\.isLuminanceReduced) private var isLuminanceReduced
+
     var body: some View {
         TabView(selection: $page) {
             WatchSessionControls(model: model) {
@@ -28,6 +30,10 @@ struct WatchBreathingView: View {
         // The pages arrive in place rather than sliding in with the stage's animation.
         .transaction(value: page) { _ in }
         .sensoryFeedback(.impact(weight: .medium), trigger: model.isPaused)
+        // Always On shows the breath, whichever page the wrist went down on.
+        .onChange(of: isLuminanceReduced) { _, isReduced in
+            if isReduced { page = .breathing }
+        }
     }
 }
 
