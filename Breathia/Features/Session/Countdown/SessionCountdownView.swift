@@ -13,8 +13,13 @@ struct SessionCountdownView: View {
     var body: some View {
         SessionArrangement {
             // The ring where the session's circle appears, the words beside or below it.
-            CountdownRing(value: value, startedAt: startedAt, tint: technique.tint)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack(spacing: 0) {
+                CountdownRing(value: value, startedAt: startedAt, tint: technique.tint)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                // The first breath's cue, where the session shows it — so the ring
+                // and the circle share a centre, and the cue is read before it's due.
+                BreathCueSlot(technique: technique, cue: technique.phases.first?.cue(inCycle: 1))
+            }
         } secondary: {
             VStack(spacing: 28) {
                 CountdownHeading(technique: technique)

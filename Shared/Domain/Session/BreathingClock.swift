@@ -38,6 +38,9 @@ struct BreathingClock {
         /// Circle scale, eased from the previous phase's scale to this one's.
         let scale: Double
 
+        /// The technique's cue for this phase of this cycle, if it has one.
+        var cue: BreathCue? { phase.cue(inCycle: cycle) }
+
         /// Time left until the phase turns over — how long the session loop may
         /// sleep before it owes the user a cue.
         var timeUntilPhaseEnd: TimeInterval { Double(phase.seconds) * (1 - phaseProgress) }
