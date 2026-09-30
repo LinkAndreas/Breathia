@@ -27,9 +27,9 @@ struct WatchSessionSummaryView: View {
 
                 if let heartRate = session.heartRate {
                     HStack {
-                        WatchSummaryStat(label: "common.start", value: heartRate.start)
+                        WatchSummaryStat(label: "report.start", value: heartRate.start)
                         WatchSummaryStat(label: "watch.summary.avg", value: heartRate.average)
-                        WatchSummaryStat(label: "common.end", value: heartRate.end)
+                        WatchSummaryStat(label: "report.end", value: heartRate.end)
                     }
                     .padding(.vertical, 4)
                 }

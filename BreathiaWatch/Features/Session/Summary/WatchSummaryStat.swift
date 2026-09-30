@@ -22,7 +22,7 @@ struct WatchSummaryStat: View {
 #if DEBUG
 #Preview {
     HStack {
-        WatchSummaryStat(label: "common.start", value: 74)
+        WatchSummaryStat(label: "report.start", value: 74)
         WatchSummaryStat(label: "watch.summary.avg", value: 68)
     }
 }
