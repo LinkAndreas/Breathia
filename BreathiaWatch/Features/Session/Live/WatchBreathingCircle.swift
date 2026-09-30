@@ -53,18 +53,13 @@ struct WatchBreathingCircle: View {
                 .scaleEffect(position.scale)
 
             VStack(spacing: labelSide * 0.03) {
-                Text(position.phase.kind.title)
-                    .textCase(.uppercase)
-                    .font(.system(size: labelSide * 0.21, weight: .semibold, design: .rounded))
-                    .tracking(0.8)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
                 // Seconds left in the breath, or — where they'd never change — which
                 // breath this is. Quieter during a hold, where the draining ring
                 // already shows the time left. The breath number gives up a little
-                // size to the "of N" underneath it.
+                // size to the "of N" underneath it. The number has the circle to
+                // itself: the phase is named above the circle.
                 Text(position.readout.value, format: .number)
-                    .font(.system(size: labelSide * (countsBreaths ? 0.44 : 0.56), weight: .light, design: .rounded))
+                    .font(.system(size: labelSide * (countsBreaths ? 0.66 : 0.9), weight: .bold, design: .rounded))
                     .foregroundStyle(isHolding ? .secondary : .primary)
                     .monospacedDigit()
                     .lineLimit(1)
