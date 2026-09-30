@@ -22,9 +22,9 @@ struct ReportStat: View {
 #if DEBUG
 #Preview {
     HStack {
-        ReportStat(label: "common.start", value: 71)
+        ReportStat(label: "report.start", value: 71)
         ReportStat(label: "report.average", value: 64)
-        ReportStat(label: "common.end", value: 58)
+        ReportStat(label: "report.end", value: 58)
     }
     .padding()
 }

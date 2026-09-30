@@ -12,9 +12,9 @@ struct HeartRateSummaryCard: View {
                 .foregroundStyle(.secondary)
 
             HStack {
-                ReportStat(label: "common.start", value: stats.start)
+                ReportStat(label: "report.start", value: stats.start)
                 ReportStat(label: "report.average", value: stats.average)
-                ReportStat(label: "common.end", value: stats.end)
+                ReportStat(label: "report.end", value: stats.end)
             }
             .padding(.bottom, 10)
 
