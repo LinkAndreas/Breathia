@@ -104,8 +104,11 @@ respond while you breathe.
 
 Breathia has no account and no server. History and settings stay on your devices; sessions reach
 Apple Health only if you turn that on. Read the privacy policy in
-[English](https://www.linkandreas.de/breathia/privacy/en) or
-[German](https://www.linkandreas.de/breathia/privacy/de), or write to
+[English](https://breathia.linkandreas.de/privacy/en/),
+[German](https://breathia.linkandreas.de/privacy/de/),
+[French](https://breathia.linkandreas.de/privacy/fr/) or
+[Spanish](https://breathia.linkandreas.de/privacy/es/), see the
+[terms of use](https://breathia.linkandreas.de/termsofuse/en/), or write to
 [privacy@linkandreas.de](mailto:privacy@linkandreas.de).
 
 ## Requirements
