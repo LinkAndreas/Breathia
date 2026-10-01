@@ -5,6 +5,15 @@ import NavigationKit
 // intents through closures. Routes are `nonisolated` because the app target
 // defaults to the main actor, and routes must be `Sendable`.
 
+/// Every route type in the app. `NavigationTests` checks that each one has a screen, so add new
+/// route types here.
+nonisolated enum AppRouteTypes {
+    static let all: [any Route.Type] = [
+        BreatheRoute.self, HistoryRoute.self, SettingsRoute.self,
+        SensorRoute.self, SupportRoute.self, SessionRoute.self, OnboardingRoute.self,
+    ]
+}
+
 nonisolated enum BreatheRoute: Route {
     /// The searchable, filterable technique list.
     case home
