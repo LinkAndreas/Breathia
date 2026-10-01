@@ -1,15 +1,12 @@
-import NavigationKit
+import Foundation
 
 /// The app's top-level sections: the tabs in a narrow window, the sidebar items in a wide one.
-enum AppTab: CaseIterable, Hashable {
+nonisolated enum AppTab: CaseIterable, Hashable, Sendable {
     case breathe
     case history
     case settings
 
-    /// The title's localization key. NavigationKit's tab bar resolves it through
-    /// `LocalizedStringKey` at runtime, so the compiler can't extract it — these
-    /// keys are maintained by hand in the string catalog.
-    var titleKey: String {
+    var title: LocalizedStringResource {
         switch self {
         case .breathe: "tab.breathe"
         case .history: "tab.history"
@@ -24,17 +21,4 @@ enum AppTab: CaseIterable, Hashable {
         case .settings: "gearshape"
         }
     }
-
-    /// The stack this section's tab starts with.
-    func makeTabNavigator() -> StackNavigator {
-        switch self {
-        case .breathe: StackNavigator(root: BreatheRoute.home)
-        case .history: StackNavigator(root: HistoryRoute.list)
-        case .settings: StackNavigator(root: SettingsRoute.form)
-        }
-    }
-}
-
-extension AppTab: Identifiable {
-    var id: Self { self }
 }

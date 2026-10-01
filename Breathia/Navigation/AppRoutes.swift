@@ -5,7 +5,7 @@ import SwiftUI
 /// navigator, the stores, and flows. Screens receive data and closures, plus only
 /// the stores they read — provided here, route by route, so no store is in the
 /// environment where it isn't used.
-final class AppRoutes {
+final class AppRoutes: RouteModule {
     private let navigator: AppNavigator
     private let sessionHistory: SessionHistory
     private let settingsStore: SettingsStore
@@ -35,30 +35,23 @@ final class AppRoutes {
         self.ratingFlow = ratingFlow
     }
 
-    /// Registers every route's screen. The builder's closures keep this object
-    /// alive; it never holds the builder, so there's no cycle.
-    func register(in routeBuilder: RouteBuilder) {
-        registerSidebar(in: routeBuilder)
-        registerBreathe(in: routeBuilder)
-        registerHistory(in: routeBuilder)
-        registerSettings(in: routeBuilder)
-        registerModals(in: routeBuilder)
+    /// Registers every route's screen. The registry's closures keep this object
+    /// alive; it never holds the registry, so there's no cycle.
+    func register(in registry: RouteRegistry) {
+        registerBreathe(in: registry)
+        registerHistory(in: registry)
+        registerSettings(in: registry)
+        registerModals(in: registry)
     }
 
-    private func registerSidebar(in routeBuilder: RouteBuilder) {
-        routeBuilder.register(AppSidebarRoute.self) { _, _ in
-            AppSidebarScreen(selection: self.navigator.sectionSelection)
-        }
-    }
-
-    private func registerBreathe(in routeBuilder: RouteBuilder) {
-        routeBuilder.register(BreatheRoute.self) { route, stack in
+    private func registerBreathe(in registry: RouteRegistry) {
+        registry.register { (route: BreatheRoute, nav) in
             switch route {
             case .home:
                 BreatheHomeView(
                     usesSelection: self.navigator.usesSplitLayout,
                     selectedTechniqueID: self.navigator.selectedTechniqueID,
-                    onOpen: { self.navigator.openTechnique($0, from: stack) },
+                    onOpen: { nav.show(.technique($0)) },
                     onShowSensor: { self.navigator.showSensor() }
                 )
                 .contentColumnWidth()
@@ -66,29 +59,24 @@ final class AppRoutes {
 
             case let .technique(id):
                 TechniqueDetailView(technique: TechniqueCatalog.technique(withID: id)) {
-                    self.navigator.startSession(with: $0, from: stack)
+                    self.navigator.startSession(with: $0, from: nav)
                 }
-                #if os(iOS)
-                // Give the page and its floating Start button the whole screen on
-                // iPhone; the split layout has no tab bar to hide.
-                .toolbar(.hidden, for: .tabBar)
-                #endif
                 .id(id)
             }
         }
     }
 
-    private func registerHistory(in routeBuilder: RouteBuilder) {
-        routeBuilder.register(HistoryRoute.self) { route, stack in
+    private func registerHistory(in registry: RouteRegistry) {
+        registry.register { (route: HistoryRoute, nav) in
             switch route {
             case .list:
                 HistoryListView(
                     usesSelection: self.navigator.usesSplitLayout,
                     selectedSessionID: self.navigator.selectedSessionID,
-                    onOpen: { self.navigator.showDetail(HistoryRoute.session($0), from: stack) },
+                    onOpen: { nav.show(.session($0)) },
                     onDeleted: { id in
                         if self.navigator.selectedSessionID == id {
-                            self.navigator.showDetail(HistoryRoute.noSelection, from: stack)
+                            nav.show(.noSelection)
                         }
                     },
                     onStartSession: { self.navigator.showBreathe() }
@@ -99,7 +87,7 @@ final class AppRoutes {
             case let .session(id):
                 HistoryDetailView(sessionID: id) { session in
                     // The page already confirmed the deletion: leave it, then delete.
-                    self.navigator.closeDetail(replacingWith: HistoryRoute.noSelection, from: stack)
+                    self.navigator.closeSession(from: nav)
                     self.sessionHistory.delete(session)
                 }
                 .id(id)
@@ -115,33 +103,35 @@ final class AppRoutes {
         }
     }
 
-    private func registerSettings(in routeBuilder: RouteBuilder) {
-        routeBuilder.register(SettingsRoute.self) { route, stack in
+    private func registerSettings(in registry: RouteRegistry) {
+        registry.register { (route: SettingsRoute, nav) in
             switch route {
-            case .form:
-                SettingsView(
-                    onShowSupport: { self.navigator.showSupport() },
-                    onShowSensor: { self.navigator.showSensor() },
-                    onOpenPage: { stack.push(SettingsRoute.page($0)) },
-                    onShowOnboarding: { self.navigator.showOnboarding() }
-                )
-                .environment(self.heartRateMonitor)
-                .environment(self.settingsStore)
-                .environment(self.mindfulMinutes)
-                .environment(self.supportStore)
-
-            case .categories:
+            case .home where self.navigator.usesSplitLayout:
+                // The content column: the categories, like the Settings app.
                 SettingsCategoryList(
                     selection: Binding(
                         get: { self.navigator.selectedSettingsPage },
                         set: { page in
-                            if let page { self.navigator.showDetail(SettingsRoute.page(page), from: stack) }
+                            if let page { nav.show(.page(page)) }
                         }
                     ),
                     onShowSupport: { self.navigator.showSupport() },
                     onShowOnboarding: { self.navigator.showOnboarding() }
                 )
                 .contentColumnWidth()
+                .environment(self.mindfulMinutes)
+                .environment(self.supportStore)
+
+            case .home:
+                // The tab bar: every setting in one form.
+                SettingsView(
+                    onShowSupport: { self.navigator.showSupport() },
+                    onShowSensor: { self.navigator.showSensor() },
+                    onOpenPage: { nav.show(.page($0)) },
+                    onShowOnboarding: { self.navigator.showOnboarding() }
+                )
+                .environment(self.heartRateMonitor)
+                .environment(self.settingsStore)
                 .environment(self.mindfulMinutes)
                 .environment(self.supportStore)
 
@@ -156,25 +146,25 @@ final class AppRoutes {
         }
     }
 
-    private func registerModals(in routeBuilder: RouteBuilder) {
-        routeBuilder.register(SensorRoute.self) { _, stack in
-            SensorSheetView(onDone: stack.dismiss)
+    private func registerModals(in registry: RouteRegistry) {
+        registry.register { (_: SensorRoute, nav) in
+            SensorSheetView(onDone: { nav.dismiss() })
                 .environment(self.heartRateMonitor)
         }
 
-        routeBuilder.register(SupportRoute.self) { _, stack in
-            SupportSheetView(onClose: stack.dismiss)
+        registry.register { (_: SupportRoute, nav) in
+            SupportSheetView(onClose: { nav.dismiss() })
                 .environment(self.supportStore)
         }
 
-        routeBuilder.register(SessionRoute.self) { route, stack in
+        registry.register { (route: SessionRoute, nav) in
             switch route {
             case let .run(id):
                 SessionFlowView(
                     makeSession: { self.sessionFactory.makeSession(for: TechniqueCatalog.technique(withID: id)) },
-                    onCancel: stack.dismiss,
+                    onCancel: { nav.dismiss() },
                     onFinish: { recordedSession in
-                        stack.dismiss()
+                        nav.dismiss()
                         if let recordedSession {
                             self.navigator.showHistory(with: recordedSession.id)
                             self.ratingFlow.askIfAppropriate()
@@ -190,12 +180,12 @@ final class AppRoutes {
             }
         }
 
-        routeBuilder.register(OnboardingRoute.self) { _, stack in
+        registry.register { (_: OnboardingRoute, nav) in
             OnboardingView(
                 healthAccess: HealthAccessStep.make(mindfulMinutes: self.mindfulMinutes, settingsStore: self.settingsStore),
                 completion: {
                     self.settingsStore.completeOnboarding()
-                    stack.dismiss()
+                    nav.dismiss()
                 }
             )
             #if os(iOS)

@@ -9,7 +9,7 @@ import SwiftUI
 /// the stores it reads.
 final class AppDependencies {
     let navigator: AppNavigator
-    let routeBuilder: RouteBuilder
+    let routes: AppRoutes
     let settingsStore: SettingsStore
     #if canImport(WatchConnectivity)
     /// Retained for the app's lifetime; `nil` in previews.
@@ -85,8 +85,7 @@ final class AppDependencies {
             sessionHistory: history,
             navigator: navigator
         )
-        let routeBuilder = RouteBuilder()
-        AppRoutes(
+        routes = AppRoutes(
             navigator: navigator,
             sessionHistory: history,
             settingsStore: store,
@@ -96,10 +95,8 @@ final class AppDependencies {
             sessionFactory: factory,
             ratingFlow: ratingFlow
         )
-        .register(in: routeBuilder)
 
         self.navigator = navigator
-        self.routeBuilder = routeBuilder
         settingsStore = store
 
         // First launch: onboarding comes up over the app.
