@@ -5,14 +5,28 @@ import SwiftUI
 /// preference to the whole window. What each route shows is decided by `AppRoutes`.
 struct AppRootView: View {
     let navigator: AppNavigator
-    let routeBuilder: RouteBuilder
+    let routes: AppRoutes
     let settingsStore: SettingsStore
 
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+
+    /// The split view's criterion — the same one NavigationKit's adaptive layout uses.
+    private var isRegularWidth: Bool {
+        #if os(iOS)
+        horizontalSizeClass == .regular
+        #else
+        true
+        #endif
+    }
+
     var body: some View {
-        NavigationContainer(
-            navigator: navigator.root,
-            routeBuilder: routeBuilder
-        )
+        NavigationRoot(store: navigator.store)
+            .routes(routes)
+            .onChange(of: isRegularWidth, initial: true) { _, isRegular in
+                navigator.windowWidthDidChange(isRegular: isRegular)
+            }
         #if os(iOS)
         .tabBarMinimizeBehavior(.never)
         #endif
@@ -31,7 +45,7 @@ extension AppRootView {
     init(dependencies: AppDependencies) {
         self.init(
             navigator: dependencies.navigator,
-            routeBuilder: dependencies.routeBuilder,
+            routes: dependencies.routes,
             settingsStore: dependencies.settingsStore
         )
     }
@@ -52,7 +66,7 @@ private extension Appearance {
     let dependencies = AppDependencies.preview()
     AppRootView(
         navigator: dependencies.navigator,
-        routeBuilder: dependencies.routeBuilder,
+        routes: dependencies.routes,
         settingsStore: dependencies.settingsStore
     )
 }
@@ -63,7 +77,7 @@ private extension Appearance {
     let dependencies = AppDependencies.preview(hasCompletedOnboarding: false)
     AppRootView(
         navigator: dependencies.navigator,
-        routeBuilder: dependencies.routeBuilder,
+        routes: dependencies.routes,
         settingsStore: dependencies.settingsStore
     )
 }

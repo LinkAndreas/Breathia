@@ -95,10 +95,12 @@ repositories and inject the clock, so they need no device, sensor, or HealthKit.
 
 Navigation is split by concern (`Breathia/Navigation/`):
 
-- **`AppNavigator`** — where the user is: the tab bar (iPhone) or split view (iPad) and
+- **`AppNavigator`** — where the user is: owns NavigationKit's `NavigationStore`, whose
+  three sections render as a tab bar (iPhone) or a split view with a sidebar (iPad, Mac), and
   the intents that move between routes. Knows routes, not screens or stores.
-- **`AppRoutes`** — what each route shows: builds the screen, gives it only the stores it
-  reads, and connects what the screen reports to the navigator, stores, and flows.
+- **`AppRoutes`** — what each route shows: a NavigationKit `RouteModule` that builds the
+  screen, gives it only the stores it reads, and connects what the screen reports to the
+  navigator, stores, and flows.
 - **Flows** (`Navigation/Flows/`) — conversations that span screens, such as `RatingFlow`.
 - Onboarding's Health step is built by `HealthAccessStep.make(mindfulMinutes:settingsStore:)`
   next to the onboarding screens.

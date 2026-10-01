@@ -1,40 +1,39 @@
-import Foundation
+import NavigationKit
 
-// Every destination in the app as a plain `Hashable` value. NavigationKit's
-// `RouteBuilder` maps each case to its screen (see `AppRoutes`), so
-// screens never construct navigation themselves — they only report intents
-// through closures.
+// Every destination in the app as a plain value. `AppRoutes` maps each case to its
+// screen, so screens never construct navigation themselves — they only report
+// intents through closures. Routes are `nonisolated` because the app target
+// defaults to the main actor, and routes must be `Sendable`.
 
-/// The split view's sidebar listing the app's sections.
-enum AppSidebarRoute: Hashable {
-    case sections
-}
-
-enum BreatheRoute: Hashable {
+nonisolated enum BreatheRoute: Route {
     /// The searchable, filterable technique list.
     case home
     /// A technique's explanations and its Start button — pushed in the tab bar,
     /// shown in the detail column next to `home` in the split view.
     case technique(Technique.ID)
+
+    /// Give the page and its floating Start button the whole screen on iPhone.
+    var hidesTabBar: Bool {
+        if case .technique = self { true } else { false }
+    }
 }
 
-enum HistoryRoute: Hashable {
+nonisolated enum HistoryRoute: Route {
     case list
     case session(SessionRecord.ID)
     /// The detail column before a session is chosen.
     case noSelection
 }
 
-enum SettingsRoute: Hashable {
-    /// Tab bar: every setting in one form.
-    case form
-    /// Split view content column: the categories, like the Settings app.
-    case categories
+nonisolated enum SettingsRoute: Route {
+    /// Every setting in one form in the tab bar; the categories, like the Settings
+    /// app, in the split view's content column.
+    case home
     case page(SettingsPage)
 }
 
 /// One settings category or info page.
-enum SettingsPage: Hashable {
+nonisolated enum SettingsPage: Hashable, Codable, Sendable {
     case sensor
     case breathing
     case biofeedback
@@ -44,22 +43,29 @@ enum SettingsPage: Hashable {
     case aboutSensor
 }
 
-/// Finding and connecting the heart-rate sensor, presented as a sheet.
-enum SensorRoute: Hashable {
+/// Finding and connecting the heart-rate sensor.
+nonisolated enum SensorRoute: Route {
     case connect
+
+    var presentation: PresentationStyle? { .sheet }
 }
 
-/// Support the Developer, presented as a sheet from the top of Settings.
-enum SupportRoute: Hashable {
+/// Support the Developer, from the top of Settings.
+nonisolated enum SupportRoute: Route {
     case support
+
+    var presentation: PresentationStyle? { .sheet }
 }
 
-/// A live breathing session, presented as a full-screen cover.
-enum SessionRoute: Hashable {
+/// A live breathing session: a full-screen cover on iPhone and iPad, a sheet on the Mac.
+nonisolated enum SessionRoute: Route {
     case run(Technique.ID)
+
+    var presentation: PresentationStyle? { .cover }
 }
 
-/// First-run onboarding, presented modally over the app.
-enum OnboardingRoute: Hashable {
+/// First-run onboarding, presented modally over the app. `AppNavigator` picks the
+/// style, which depends on the window's width.
+nonisolated enum OnboardingRoute: Route {
     case welcome
 }
