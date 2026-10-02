@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/LinkAndreas/NavigationKit.git",
       "state" : {
-        "revision" : "f23afe4f7fd2076f793a84f4455a73d016664789",
-        "version" : "2.3.0"
+        "revision" : "b4a42f42f1032ca33a294dd48f15eee5aadbfba4",
+        "version" : "3.0.0"
       }
     }
   ],
