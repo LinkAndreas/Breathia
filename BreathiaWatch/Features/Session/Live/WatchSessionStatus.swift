@@ -3,6 +3,8 @@ import SwiftUI
 /// The session at a glance, beside the clock: heart rate and time remaining.
 struct WatchSessionStatus: View {
     let model: BreathingSessionModel
+    /// Time left in the session, read at the moment the face is drawn.
+    let remaining: TimeInterval
 
     var body: some View {
         HStack(spacing: 8) {
@@ -11,7 +13,7 @@ struct WatchSessionStatus: View {
                     .foregroundStyle(.red)
                 Text(heartRateLabel)
             }
-            Text(Formatters.clock(model.remaining))
+            Text(Formatters.clock(remaining))
                 .foregroundStyle(.secondary)
         }
         .font(.footnote)
@@ -28,6 +30,6 @@ struct WatchSessionStatus: View {
 
 #if DEBUG
 #Preview {
-    WatchSessionStatus(model: WatchPreviewData.sessionFactory().makeSession(for: TechniqueCatalog.all[1]))
+    WatchSessionStatus(model: WatchPreviewData.sessionFactory().makeSession(for: TechniqueCatalog.all[1]), remaining: 300)
 }
 #endif
