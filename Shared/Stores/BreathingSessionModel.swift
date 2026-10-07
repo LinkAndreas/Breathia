@@ -87,6 +87,19 @@ final class BreathingSessionModel {
         clock.position(at: activeElapsed(at: date))
     }
 
+    /// Time left at `date`, read from the clock rather than the last model tick, so
+    /// a redraw shows the same second as the count beside it.
+    func remaining(at date: Date) -> TimeInterval {
+        max(0, targetDuration - activeElapsed(at: date))
+    }
+
+    /// A moment the session's active time was a whole number of seconds — where its
+    /// counts turn over. Redrawing once a second from here shows each new count as
+    /// it changes, rather than up to a second late.
+    var wholeSecondAnchor: Date {
+        (startedAt ?? now()).addingTimeInterval(pausedTotal)
+    }
+
     // MARK: Lifecycle
 
     func start() {
