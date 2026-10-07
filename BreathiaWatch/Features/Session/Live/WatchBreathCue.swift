@@ -1,11 +1,13 @@
 import SwiftUI
 
 /// The technique's cue for the current phase on Apple Watch: its icon and a short
-/// phrase under the circle. While the session is paused, it says so instead.
+/// phrase under the count. While the session is paused, it says so instead.
 struct WatchBreathCue: View {
     let cue: BreathCue?
     let tint: Color
     var isPaused = false
+    /// Always On: the cue changes in place, once a second at most, without fading.
+    var isDimmed = false
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -22,7 +24,7 @@ struct WatchBreathCue: View {
             } else if let cue {
                 // The icon leads the first line, so the phrase wraps as one text.
                 Text("\(Text(Image(systemName: cue.focus.systemImage)).foregroundStyle(tint)) \(cue.text)")
-                    .font(.caption2.weight(.medium))
+                    .font(.footnote.weight(.medium))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
@@ -32,9 +34,9 @@ struct WatchBreathCue: View {
                     .transition(transition)
             }
         }
-        .animation(.easeInOut(duration: 0.5), value: cue)
-        .animation(.easeInOut(duration: 0.3), value: isPaused)
-        // Past this the phrase no longer fits under the circle.
+        .animation(isDimmed ? nil : .easeInOut(duration: 0.5), value: cue)
+        .animation(isDimmed ? nil : .easeInOut(duration: 0.3), value: isPaused)
+        // Past this the phrase no longer fits under the count.
         .dynamicTypeSize(...DynamicTypeSize.xLarge)
     }
 }
