@@ -22,6 +22,11 @@ final class PreviewSupportService: SupportStoreService {
 
     func purchase(_ id: SupportProductID) async throws -> PurchaseOutcome {
         if purchaseOutcome == .purchased, id.kind == .subscription {
+            // Like the App Store: a downgrade waits for the next renewal.
+            if let current = subscription, current.productID == .yearly, id == .monthly {
+                subscription?.nextProductID = id
+                return purchaseOutcome
+            }
             subscription = ActiveSupportSubscription(
                 productID: id,
                 expirationDate: Calendar.current.date(byAdding: .month, value: 1, to: .now),

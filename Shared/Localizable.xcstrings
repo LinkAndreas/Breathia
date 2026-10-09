@@ -5923,6 +5923,35 @@
         }
       }
     },
+    "support.changesTo %@ %@" : {
+      "comment" : "Under the active subscription after the user picked another plan. The first argument is the new plan's name, the second the date it starts.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changes to %1$@ on %2$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wechselt am %2$@ zu %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambia a %1$@ el %2$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passe à %1$@ le %2$@"
+          }
+        }
+      }
+    },
     "support.endsOn %@" : {
       "localizations" : {
         "de" : {
@@ -5947,6 +5976,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se termine le %@"
+          }
+        }
+      }
+    },
+    "support.from %@" : {
+      "comment" : "Shown instead of the price on the subscription plan that starts at the next renewal. The argument is the date.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From %@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ab %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde el %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À partir du %@"
           }
         }
       }
@@ -6255,6 +6313,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gérer l'abonnement"
+          }
+        }
+      }
+    },
+    "support.next" : {
+      "comment" : "Shown instead of the price on the subscription plan that starts at the next renewal, when its date is unknown.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Als Nächstes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siguiente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ensuite"
           }
         }
       }
