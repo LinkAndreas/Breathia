@@ -55,4 +55,27 @@ struct SupportStoreTests {
         #expect(store.activeSubscription?.productID == .yearly)
         #expect(store.activeSubscription?.nextProductID == nil)
     }
+
+    /// While Ask to Buy waits, a renewal or another product's transaction mustn't look like the approval.
+    @Test func onlyTheApprovedPurchaseEndsTheWait() async throws {
+        let service = PreviewSupportService()
+        service.purchaseOutcome = .pending
+        let store = SupportStore(service: service)
+        store.startObservingTransactions()
+        await store.load()
+        let generous = try #require(store.oneTimeOffers.first { $0.id == .generous })
+
+        await store.purchase(generous)
+        #expect(store.status == .pending)
+
+        let complete = try #require(service.completeTransaction)
+        await complete(CompletedTransaction(productID: .yearly, isNewPurchase: false))
+        await complete(CompletedTransaction(productID: .small, isNewPurchase: true))
+        #expect(store.status == .pending)
+        #expect(store.celebrationCount == 0)
+
+        await complete(CompletedTransaction(productID: .generous, isNewPurchase: true))
+        #expect(store.status == .thankYou)
+        #expect(store.celebrationCount == 1)
+    }
 }

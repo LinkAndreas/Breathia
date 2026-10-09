@@ -31,6 +31,8 @@ final class SupportStore {
     private(set) var loadState: LoadState = .idle
     private(set) var activeSubscription: ActiveSupportSubscription?
     private(set) var purchasingProductID: SupportProductID?
+    /// The purchase waiting for approval, e.g. Ask to Buy.
+    @ObservationIgnored private var pendingProductID: SupportProductID?
     private(set) var isRestoring = false
     private(set) var status: Status?
     /// Goes up with every completed purchase — one-time support or a new
@@ -56,8 +58,8 @@ final class SupportStore {
     /// approvals and renewals are finished promptly.
     func startObservingTransactions() {
         guard transactionObserver == nil else { return }
-        transactionObserver = service.observeTransactions { [weak self] id in
-            await self?.transactionCompleted(id)
+        transactionObserver = service.observeTransactions { [weak self] transaction in
+            await self?.transactionCompleted(transaction)
         }
         // Cancelling or resuming a subscription changes its status without a transaction.
         statusObserver = service.observeSubscriptionStatus { [weak self] in
@@ -104,6 +106,7 @@ final class SupportStore {
             case .purchased:
                 await purchaseCompleted(offer.id)
             case .pending:
+                pendingProductID = offer.id
                 status = .pending
             case .cancelled:
                 break
@@ -147,10 +150,14 @@ final class SupportStore {
         }
     }
 
-    private func transactionCompleted(_ id: SupportProductID) async {
-        // A purchase that was waiting for approval went through (renewals don't celebrate).
-        if status == .pending {
-            status = id.kind == .oneTime ? .thankYou : nil
+    private func transactionCompleted(_ transaction: CompletedTransaction) async {
+        // The purchase that was waiting for approval went through. Renewals, refunds and
+        // other products' transactions don't celebrate or end the wait.
+        if transaction.isNewPurchase, transaction.productID == pendingProductID {
+            pendingProductID = nil
+            if status == .pending {
+                status = transaction.productID.kind == .oneTime ? .thankYou : nil
+            }
             celebrationCount += 1
         }
         activeSubscription = await service.activeSubscription()

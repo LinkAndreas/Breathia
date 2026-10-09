@@ -27,6 +27,13 @@ struct ActiveSupportSubscription: Equatable, Sendable {
     var nextProductID: SupportProductID?
 }
 
+/// A transaction that completed outside a purchase call.
+struct CompletedTransaction: Equatable, Sendable {
+    let productID: SupportProductID
+    /// A new purchase, such as an approved Ask to Buy — not a renewal or a refund.
+    let isNewPurchase: Bool
+}
+
 enum PurchaseOutcome: Equatable, Sendable {
     /// Verified and finished.
     case purchased
@@ -59,7 +66,7 @@ protocol SupportStoreService: AnyObject {
     /// approvals, renewals, purchases on other devices — calling
     /// `onTransaction` for each. Runs until the returned task is cancelled.
     func observeTransactions(
-        onTransaction: @escaping @MainActor (SupportProductID) async -> Void
+        onTransaction: @escaping @MainActor (CompletedTransaction) async -> Void
     ) -> Task<Void, Never>
     /// Calls `onChange` whenever a subscription's status changes without a new
     /// transaction — cancelled, resumed, or switched to another plan, in the app or

@@ -42,10 +42,14 @@ final class PreviewSupportService: SupportStoreService {
 
     func restorePurchases() async throws {}
 
+    /// Delivers a transaction to the store as if it had completed outside the app.
+    private(set) var completeTransaction: (@MainActor (CompletedTransaction) async -> Void)?
+
     func observeTransactions(
-        onTransaction: @escaping @MainActor (SupportProductID) async -> Void
+        onTransaction: @escaping @MainActor (CompletedTransaction) async -> Void
     ) -> Task<Void, Never> {
-        Task {}
+        completeTransaction = onTransaction
+        return Task {}
     }
 
     func observeSubscriptionStatus(onChange: @escaping @MainActor () async -> Void) -> Task<Void, Never> {
