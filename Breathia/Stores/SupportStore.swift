@@ -31,6 +31,8 @@ final class SupportStore {
     private(set) var loadState: LoadState = .idle
     private(set) var activeSubscription: ActiveSupportSubscription?
     private(set) var purchasingProductID: SupportProductID?
+    /// The purchase waiting for approval, e.g. Ask to Buy.
+    @ObservationIgnored private var pendingProductID: SupportProductID?
     private(set) var isRestoring = false
     private(set) var status: Status?
     /// Goes up with every completed purchase — one-time support or a new
@@ -39,6 +41,7 @@ final class SupportStore {
 
     @ObservationIgnored private let service: SupportStoreService
     @ObservationIgnored private var transactionObserver: Task<Void, Never>?
+    @ObservationIgnored private var statusObserver: Task<Void, Never>?
 
     init(service: SupportStoreService) {
         self.service = service
@@ -50,18 +53,30 @@ final class SupportStore {
     /// the supporter app icons.
     var isSupporter: Bool { activeSubscription != nil }
 
-    /// Starts listening for transactions that complete outside the purchase flow.
-    /// Call once at launch so approvals and renewals are finished promptly.
+    /// Starts listening for transactions that complete outside the purchase flow, and for
+    /// subscription status changes such as a cancellation. Call once at launch so
+    /// approvals and renewals are finished promptly.
     func startObservingTransactions() {
         guard transactionObserver == nil else { return }
-        transactionObserver = service.observeTransactions { [weak self] id in
-            await self?.transactionCompleted(id)
+        transactionObserver = service.observeTransactions { [weak self] transaction in
+            await self?.transactionCompleted(transaction)
         }
+        // Cancelling or resuming a subscription changes its status without a transaction.
+        statusObserver = service.observeSubscriptionStatus { [weak self] in
+            await self?.refreshSubscription()
+        }
+    }
+
+    /// Reads the subscription from the App Store again, e.g. after the user managed it
+    /// in the system sheet or the Settings app.
+    func refreshSubscription() async {
+        activeSubscription = await service.activeSubscription()
     }
 
     func load() async {
         guard loadState != .loading else { return }
-        if loadState != .loaded { loadState = .loading }
+        let wasLoaded = loadState == .loaded
+        if !wasLoaded { loadState = .loading }
 
         // Fetch everything first and apply it in one go, so the screen changes once
         // instead of reflowing when the subscription arrives after the offers.
@@ -77,8 +92,11 @@ final class SupportStore {
         if let offers {
             oneTimeOffers = offers.filter { $0.id.kind == .oneTime }
             subscriptionOffers = offers.filter { $0.id.kind == .subscription }
+            loadState = offers.isEmpty ? .unavailable : .loaded
+        } else if !wasLoaded {
+            // Offers already on screen stay when a reload fails, e.g. briefly offline.
+            loadState = .unavailable
         }
-        loadState = offers?.isEmpty == false ? .loaded : .unavailable
     }
 
     func purchase(_ offer: SupportOffer) async {
@@ -92,6 +110,7 @@ final class SupportStore {
             case .purchased:
                 await purchaseCompleted(offer.id)
             case .pending:
+                pendingProductID = offer.id
                 status = .pending
             case .cancelled:
                 break
@@ -110,7 +129,8 @@ final class SupportStore {
         defer { isRestoring = false }
 
         do {
-            try await service.restorePurchases()
+            // Dismissing the App Store sign-in isn't a failure: nothing to report.
+            guard try await service.restorePurchases() == .synced else { return }
             activeSubscription = await service.activeSubscription()
             status = activeSubscription == nil ? .nothingToRestore : .restored
         } catch {
@@ -135,10 +155,14 @@ final class SupportStore {
         }
     }
 
-    private func transactionCompleted(_ id: SupportProductID) async {
-        // A purchase that was waiting for approval went through (renewals don't celebrate).
-        if status == .pending {
-            status = id.kind == .oneTime ? .thankYou : nil
+    private func transactionCompleted(_ transaction: CompletedTransaction) async {
+        // The purchase that was waiting for approval went through. Renewals, refunds and
+        // other products' transactions don't celebrate or end the wait.
+        if transaction.isNewPurchase, transaction.productID == pendingProductID {
+            pendingProductID = nil
+            if status == .pending {
+                status = transaction.productID.kind == .oneTime ? .thankYou : nil
+            }
             celebrationCount += 1
         }
         activeSubscription = await service.activeSubscription()

@@ -27,12 +27,26 @@ struct ActiveSupportSubscription: Equatable, Sendable {
     var nextProductID: SupportProductID?
 }
 
+/// A transaction that completed outside a purchase call.
+struct CompletedTransaction: Equatable, Sendable {
+    let productID: SupportProductID
+    /// A new purchase, such as an approved Ask to Buy — not a renewal or a refund.
+    let isNewPurchase: Bool
+}
+
 enum PurchaseOutcome: Equatable, Sendable {
     /// Verified and finished.
     case purchased
     /// Waiting for approval, e.g. Ask to Buy; completes later through the
     /// transaction listener.
     case pending
+    case cancelled
+}
+
+enum RestoreOutcome: Equatable, Sendable {
+    /// Purchases were synced with the App Store.
+    case synced
+    /// The user dismissed the App Store sign-in.
     case cancelled
 }
 
@@ -54,11 +68,15 @@ protocol SupportStoreService: AnyObject {
     func loadOffers() async throws -> [SupportOffer]
     func purchase(_ id: SupportProductID) async throws -> PurchaseOutcome
     func activeSubscription() async -> ActiveSupportSubscription?
-    func restorePurchases() async throws
+    func restorePurchases() async throws -> RestoreOutcome
     /// Finishes transactions that complete outside a purchase call — Ask to Buy
     /// approvals, renewals, purchases on other devices — calling
     /// `onTransaction` for each. Runs until the returned task is cancelled.
     func observeTransactions(
-        onTransaction: @escaping @MainActor (SupportProductID) async -> Void
+        onTransaction: @escaping @MainActor (CompletedTransaction) async -> Void
     ) -> Task<Void, Never>
+    /// Calls `onChange` whenever a subscription's status changes without a new
+    /// transaction — cancelled, resumed, or switched to another plan, in the app or
+    /// elsewhere. Runs until the returned task is cancelled.
+    func observeSubscriptionStatus(onChange: @escaping @MainActor () async -> Void) -> Task<Void, Never>
 }

@@ -8,6 +8,7 @@ struct SupportView: View {
     @Environment(SupportStore.self) private var store
     @Environment(AppIconStore.self) private var iconStore
     @State private var isManagingSubscription = false
+    @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openURL) private var openURL
 
     var body: some View {
@@ -94,6 +95,18 @@ struct SupportView: View {
         .manageSubscriptionsSheet(isPresented: $isManagingSubscription)
         #endif
         .task { await store.load() }
+        // Back from managing the subscription — the system sheet, the App Store on a Mac,
+        // or the Settings app — the subscription may have been cancelled or resumed.
+        .onChange(of: isManagingSubscription) { _, isManaging in
+            if !isManaging {
+                Task { await store.refreshSubscription() }
+            }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active {
+                Task { await store.refreshSubscription() }
+            }
+        }
     }
 
     /// The system sheet on iPhone and iPad; a Mac manages subscriptions in the App Store.
