@@ -57,18 +57,24 @@ final class StoreKitSupportService: SupportStoreService {
     }
 
     func activeSubscription() async -> ActiveSupportSubscription? {
-        // `currentEntitlements` only contains subscriptions that are still active.
+        // `currentEntitlements` only contains subscriptions that are still active. Right after
+        // an upgrade it can still list the plan that was upgraded from, which no longer counts.
         for await result in Transaction.currentEntitlements {
             guard case let .verified(transaction) = result,
                   transaction.productType == .autoRenewable,
                   transaction.revocationDate == nil,
+                  !transaction.isUpgraded,
                   let id = SupportProductID(rawValue: transaction.productID)
             else { continue }
 
+            let renewal = await renewalInfo(for: id)
             return ActiveSupportSubscription(
                 productID: id,
                 expirationDate: transaction.expirationDate,
-                willAutoRenew: await willAutoRenew(id)
+                willAutoRenew: renewal?.willAutoRenew ?? true,
+                nextProductID: renewal?.autoRenewPreference
+                    .flatMap(SupportProductID.init(rawValue:))
+                    .flatMap { $0 == id ? nil : $0 }
             )
         }
         return nil
@@ -115,21 +121,21 @@ final class StoreKitSupportService: SupportStoreService {
         }
     }
 
-    private func willAutoRenew(_ id: SupportProductID) async -> Bool {
+    /// Whether the subscription renews, and into which plan: a downgrade waits for the renewal.
+    private func renewalInfo(for id: SupportProductID) async -> Product.SubscriptionInfo.RenewalInfo? {
         let product: Product?
         if let cached = products[id] {
             product = cached
         } else {
             product = try? await Product.products(for: [id.rawValue]).first
         }
-        guard let statuses = try? await product?.subscription?.status else { return true }
+        guard let statuses = try? await product?.subscription?.status else { return nil }
 
-        for status in statuses {
-            if case let .verified(renewalInfo) = status.renewalInfo {
-                return renewalInfo.willAutoRenew
-            }
+        let renewals = statuses.compactMap { status -> Product.SubscriptionInfo.RenewalInfo? in
+            guard case let .verified(renewalInfo) = status.renewalInfo else { return nil }
+            return renewalInfo
         }
-        return true
+        return renewals.first { $0.currentProductID == id.rawValue } ?? renewals.first
     }
 }
 

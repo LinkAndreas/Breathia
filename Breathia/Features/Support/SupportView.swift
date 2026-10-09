@@ -19,7 +19,10 @@ struct SupportView: View {
 
             if let subscription = store.activeSubscription {
                 Section {
-                    ActiveSubscriptionRow(subscription: subscription)
+                    ActiveSubscriptionRow(
+                        subscription: subscription,
+                        nextPlanName: store.subscriptionOffers.first { $0.id == subscription.nextProductID }?.displayName
+                    )
                     Button("support.manageSubscription", action: manageSubscription)
                 }
             }

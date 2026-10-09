@@ -5,6 +5,9 @@ struct SupportOfferRow: View {
     /// One-time support gets filled price buttons; recurring support is quieter.
     let isProminent: Bool
     let isActive: Bool
+    /// The plan the active subscription changes to at its next renewal, from `upcomingDate`.
+    var isUpcoming = false
+    var upcomingDate: Date?
     let isPurchasing: Bool
     let isDisabled: Bool
     let action: () -> Void
@@ -44,6 +47,18 @@ struct SupportOfferRow: View {
                     }
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.green)
+                } else if isUpcoming {
+                    HStack(spacing: 4) {
+                        Image(systemName: "clock")
+                        if let date = upcomingDate?.formatted(date: .abbreviated, time: .omitted) {
+                            Text("support.from \(date)")
+                        } else {
+                            Text("support.next")
+                        }
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.trailing)
                 } else {
                     SupportPriceButton(
                         offer: offer,
@@ -72,6 +87,15 @@ struct SupportOfferRow: View {
             offer: PreviewSupportService.sampleOffers[3],
             isProminent: false,
             isActive: true,
+            isPurchasing: false,
+            isDisabled: false
+        ) {}
+        SupportOfferRow(
+            offer: PreviewSupportService.sampleOffers[3],
+            isProminent: false,
+            isActive: false,
+            isUpcoming: true,
+            upcomingDate: .now.addingTimeInterval(200 * 86_400),
             isPurchasing: false,
             isDisabled: false
         ) {}
