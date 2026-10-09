@@ -7,6 +7,7 @@ struct AppRootView: View {
     let navigator: AppNavigator
     let routes: AppRoutes
     let settingsStore: SettingsStore
+    let appIconStore: AppIconStore
 
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -37,6 +38,8 @@ struct AppRootView: View {
         // column. Forms shown in sheets set it themselves, as sheets don't inherit it.
         .formStyle(.grouped)
         #endif
+        // The app's controls take the icon's main color, and change with it.
+        .tint(appIconStore.current.palette.accent)
         .preferredColorScheme(settingsStore.settings.appearance.colorScheme)
     }
 }
@@ -46,7 +49,8 @@ extension AppRootView {
         self.init(
             navigator: dependencies.navigator,
             routes: dependencies.routes,
-            settingsStore: dependencies.settingsStore
+            settingsStore: dependencies.settingsStore,
+            appIconStore: dependencies.appIconStore
         )
     }
 }
@@ -67,7 +71,8 @@ private extension Appearance {
     AppRootView(
         navigator: dependencies.navigator,
         routes: dependencies.routes,
-        settingsStore: dependencies.settingsStore
+        settingsStore: dependencies.settingsStore,
+        appIconStore: dependencies.appIconStore
     )
 }
 #endif
@@ -78,7 +83,8 @@ private extension Appearance {
     AppRootView(
         navigator: dependencies.navigator,
         routes: dependencies.routes,
-        settingsStore: dependencies.settingsStore
+        settingsStore: dependencies.settingsStore,
+        appIconStore: dependencies.appIconStore
     )
 }
 #endif

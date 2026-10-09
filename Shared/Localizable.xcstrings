@@ -5900,25 +5900,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia ist kostenlos, ohne Werbung und ohne gesperrte Funktionen. Wenn dir die App hilft, kannst du ihre Pflege und die Entwicklung neuer Techniken und Funktionen unterstützen."
+            "value" : "Breathia ist kostenlos, ohne Werbung und mit allen Funktionen. Wenn dir die App hilft, kannst du ihre Pflege und die Entwicklung neuer Techniken und Funktionen unterstützen – als Dankeschön gibt es für regelmäßige Unterstützung eigene App-Icons."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia is free, with no ads and nothing locked. If it helps you, you can support its maintenance and the development of new techniques and features."
+            "value" : "Breathia is free, with no ads and every feature included. If it helps you, you can support its maintenance and the development of new techniques and features — recurring supporters get a set of app icons as a thank-you."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia es gratuita, sin anuncios y sin nada bloqueado. Si te resulta útil, puedes apoyar su mantenimiento y el desarrollo de nuevas técnicas y funciones."
+            "value" : "Breathia es gratuita, sin anuncios y con todas las funciones incluidas. Si te resulta útil, puedes apoyar su mantenimiento y el desarrollo de nuevas técnicas y funciones; como agradecimiento, el apoyo recurrente incluye iconos de app exclusivos."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia est gratuit, sans publicité et sans fonction verrouillée. S'il vous aide, vous pouvez soutenir sa maintenance et le développement de nouvelles techniques et fonctionnalités."
+            "value" : "Breathia est gratuit, sans publicité et avec toutes ses fonctionnalités. S'il vous aide, vous pouvez soutenir sa maintenance et le développement de nouvelles techniques et fonctionnalités ; en remerciement, le soutien récurrent inclut des icônes d'app exclusives."
           }
         }
       }
@@ -5947,6 +5947,258 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se termine le %@"
+          }
+        }
+      }
+    },
+    "support.iconAmethyst" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amethyst"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amethyst"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amatista"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Améthyste"
+          }
+        }
+      }
+    },
+    "support.iconBlush" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blush"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zartrosa"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rosa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rose poudré"
+          }
+        }
+      }
+    },
+    "support.iconClassic" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classic"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klassisch"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clásico"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classique"
+          }
+        }
+      }
+    },
+    "support.iconEmber" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ember"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glut"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brasa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Braise"
+          }
+        }
+      }
+    },
+    "support.iconGlacier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glacier"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gletscher"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glaciar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glacier"
+          }
+        }
+      }
+    },
+    "support.iconLagoon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagoon"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagune"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laguna"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagon"
+          }
+        }
+      }
+    },
+    "support.iconMidnightGold" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Midnight Gold"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitternachtsgold"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oro de medianoche"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Or de minuit"
+          }
+        }
+      }
+    },
+    "support.iconNoir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noir"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noir"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noir"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noir"
+          }
+        }
+      }
+    },
+    "support.includedWithRecurringSupport" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Included with recurring support"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In regelmäßiger Unterstützung enthalten"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluido con el apoyo recurrente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclus avec le soutien récurrent"
           }
         }
       }
@@ -6031,6 +6283,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Soutien ponctuel"
+          }
+        }
+      }
+    },
+    "support.pickAnIcon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick the icon Breathia shows on your Home Screen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle das Icon, mit dem Breathia auf deinem Home-Bildschirm erscheint."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige el icono con el que Breathia aparece en tu pantalla de inicio."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez l'icône avec laquelle Breathia apparaît sur votre écran d'accueil."
           }
         }
       }
@@ -6152,25 +6432,53 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Regelmäßige Unterstützung ist freiwillig und schaltet nichts frei – Breathia bleibt vollständig kostenlos. Die Zahlung wird deinem Apple Account belastet. Abonnements verlängern sich automatisch, sofern sie nicht mindestens 24 Stunden vor Ende des aktuellen Zeitraums gekündigt werden. Du kannst sie jederzeit in den Einstellungen deines Apple Accounts verwalten oder kündigen."
+            "value" : "Regelmäßige Unterstützung ist freiwillig und schaltet die Supporter-App-Icons frei; alle Funktionen von Breathia bleiben kostenlos. Die Zahlung wird deinem Apple Account belastet. Abonnements verlängern sich automatisch, sofern sie nicht mindestens 24 Stunden vor Ende des aktuellen Zeitraums gekündigt werden. Du kannst sie jederzeit in den Einstellungen deines Apple Accounts verwalten oder kündigen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recurring support is optional and unlocks nothing — Breathia stays fully free. Payment is charged to your Apple Account. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. You can manage or cancel them anytime in your Apple Account settings."
+            "value" : "Recurring support is optional and unlocks the supporter app icons; every feature of Breathia stays free. Payment is charged to your Apple Account. Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. You can manage or cancel them anytime in your Apple Account settings."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El apoyo recurrente es opcional y no desbloquea nada: Breathia sigue siendo totalmente gratuita. El pago se carga en tu cuenta de Apple. Las suscripciones se renuevan automáticamente salvo que se cancelen al menos 24 horas antes del final del periodo actual. Puedes gestionarlas o cancelarlas cuando quieras en los ajustes de tu cuenta de Apple."
+            "value" : "El apoyo recurrente es opcional y desbloquea los iconos de app exclusivos; todas las funciones de Breathia siguen siendo gratuitas. El pago se carga en tu cuenta de Apple. Las suscripciones se renuevan automáticamente salvo que se cancelen al menos 24 horas antes del final del periodo actual. Puedes gestionarlas o cancelarlas cuando quieras en los ajustes de tu cuenta de Apple."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le soutien récurrent est facultatif et ne débloque rien : Breathia reste entièrement gratuit. Le paiement est débité de votre compte Apple. Les abonnements se renouvellent automatiquement, sauf résiliation au moins 24 heures avant la fin de la période en cours. Vous pouvez les gérer ou les résilier à tout moment dans les réglages de votre compte Apple."
+            "value" : "Le soutien récurrent est facultatif et débloque les icônes d'app exclusives ; toutes les fonctionnalités de Breathia restent gratuites. Le paiement est débité de votre compte Apple. Les abonnements se renouvellent automatiquement, sauf résiliation au moins 24 heures avant la fin de la période en cours. Vous pouvez les gérer ou les résilier à tout moment dans les réglages de votre compte Apple."
+          }
+        }
+      }
+    },
+    "support.recurringSupportUnlocksIcons" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recurring support unlocks these app icons for as long as it’s active."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regelmäßige Unterstützung schaltet diese App-Icons frei, solange sie aktiv ist."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El apoyo recurrente desbloquea estos iconos de app mientras esté activo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le soutien récurrent débloque ces icônes d'app tant qu'il est actif."
           }
         }
       }
@@ -6255,6 +6563,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Soutenir Breathia"
+          }
+        }
+      }
+    },
+    "support.supporterAppIcons" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporter App Icons"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporter-App-Icons"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iconos de app exclusivos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icônes d'app exclusives"
           }
         }
       }

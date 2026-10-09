@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e0400"/><stop offset="0.4" stop-color="#751300"/><stop offset="0.62" stop-color="#9a5b00"/><stop offset="0.74" stop-color="#ffa26b"/></linearGradient><radialGradient id="halo" cx="512.0" cy="530.0" r="552.0" gradientUnits="userSpaceOnUse"><stop offset="0.35" stop-color="#ff925a" stop-opacity="0.55"/><stop offset="1" stop-color="#ff925a" stop-opacity="0"/></radialGradient></defs>
+  <rect width="1024" height="1024" fill="url(#sky)"/>
+  <rect width="1024" height="1024" fill="url(#halo)"/>
+</svg>

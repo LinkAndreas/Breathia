@@ -1,0 +1,115 @@
+{
+  "groups": [
+    {
+      "layers": [
+        {
+          "image-name-specializations": [
+            {
+              "value": "wave-front.svg"
+            },
+            {
+              "appearance": "dark",
+              "value": "wave-front-dark.svg"
+            }
+          ],
+          "name": "Near Wave"
+        }
+      ],
+      "name": "04 Near Wave",
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.5
+      },
+      "specular": true,
+      "translucency": {
+        "enabled": true,
+        "value": 0.4
+      }
+    },
+    {
+      "layers": [
+        {
+          "image-name-specializations": [
+            {
+              "value": "wave-back.svg"
+            },
+            {
+              "appearance": "dark",
+              "value": "wave-back-dark.svg"
+            }
+          ],
+          "name": "Far Wave"
+        }
+      ],
+      "name": "03 Far Wave",
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.35
+      },
+      "specular": true,
+      "translucency": {
+        "enabled": true,
+        "value": 0.45
+      }
+    },
+    {
+      "layers": [
+        {
+          "image-name-specializations": [
+            {
+              "value": "sun.svg"
+            },
+            {
+              "appearance": "dark",
+              "value": "sun-dark.svg"
+            }
+          ],
+          "name": "Sun"
+        }
+      ],
+      "name": "02 Sun",
+      "shadow": {
+        "kind": "layer-color",
+        "opacity": 0.5
+      },
+      "specular": true,
+      "translucency": {
+        "enabled": false,
+        "value": 0.5
+      }
+    },
+    {
+      "layers": [
+        {
+          "image-name-specializations": [
+            {
+              "value": "background.svg"
+            },
+            {
+              "appearance": "dark",
+              "value": "background-dark.svg"
+            },
+            {
+              "appearance": "tinted",
+              "value": "background-tinted.svg"
+            }
+          ],
+          "name": "Background"
+        }
+      ],
+      "name": "01 Background",
+      "shadow": {
+        "kind": "none",
+        "opacity": 0.5
+      },
+      "specular": false,
+      "translucency": {
+        "enabled": false,
+        "value": 0.5
+      }
+    }
+  ],
+  "supported-platforms": {
+    "squares": "shared"
+  }
+}

@@ -2,9 +2,11 @@ import StoreKit
 import SwiftUI
 
 /// Support the Developer: a quiet, optional way to pay for Breathia's development.
-/// Nothing here unlocks features — the app stays fully free.
+/// No feature is locked — the app stays fully free. Recurring support unlocks the
+/// supporter app icons as a thank-you.
 struct SupportView: View {
     @Environment(SupportStore.self) private var store
+    @Environment(AppIconStore.self) private var iconStore
     @State private var isManagingSubscription = false
     @Environment(\.openURL) private var openURL
 
@@ -29,6 +31,12 @@ struct SupportView: View {
             }
 
             SupportOffersSections()
+
+            // What recurring support unlocks, right below it: locked until someone subscribes,
+            // and the picker once they have. Supporters keep it even when the offers can't load.
+            if iconStore.canChangeIcon && (store.isSupporter || !store.subscriptionOffers.isEmpty) {
+                SupporterIconsSection(isUnlocked: store.isSupporter)
+            }
 
             Section {
                 Button {
@@ -65,6 +73,9 @@ struct SupportView: View {
         // Set here rather than inherited: this form is shown in a sheet, which
         // doesn't pick up the app's form style.
         .formStyle(.grouped)
+        #else
+        .scrollContentBackground(.hidden)
+        .background { AppIconWash() }
         #endif
         // Loading isn't animated: the offers often arrive while the sheet is still sliding
         // up, and the placeholders have the same layout, so swapping them in place is seamless.
@@ -99,6 +110,7 @@ struct SupportView: View {
             .navigationTitle("common.supportTheDeveloper")
     }
     .environment(SupportStore(service: PreviewSupportService()))
+    .environment(AppIconStore.preview())
 }
 #endif
 
@@ -110,5 +122,6 @@ struct SupportView: View {
     .environment(SupportStore(service: PreviewSupportService(
         subscription: ActiveSupportSubscription(productID: .yearly, expirationDate: .now.addingTimeInterval(200 * 86_400), willAutoRenew: true)
     )))
+    .environment(AppIconStore.preview(.ember))
 }
 #endif
