@@ -37,5 +37,6 @@ struct SupportSheetView: View {
             NavigationStack { SupportSheetView(onClose: {}) }
         }
         .environment(SupportStore(service: PreviewSupportService()))
+        .environment(AppIconStore.preview())
 }
 #endif

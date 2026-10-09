@@ -61,6 +61,8 @@ struct SettingsView: View {
                     .padding(.bottom, 32)
             }
         }
+        .scrollContentBackground(.hidden)
+        .background { AppIconWash() }
         .navigationTitle("settings.title")
     }
 }
@@ -74,5 +76,6 @@ struct SettingsView: View {
     .environment(PreviewStores.settingsStore())
     .environment(PreviewStores.mindfulMinutes())
     .environment(SupportStore(service: PreviewSupportService()))
+    .environment(AppIconStore.preview())
 }
 #endif

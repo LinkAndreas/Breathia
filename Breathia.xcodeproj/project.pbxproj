@@ -501,6 +501,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS[sdk=iphone*]" = YES;
 				CODE_SIGN_ENTITLEMENTS = Config/Breathia.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = Config/BreathiaMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -556,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS[sdk=iphone*]" = YES;
 				CODE_SIGN_ENTITLEMENTS = Config/Breathia.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = Config/BreathiaMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
