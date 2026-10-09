@@ -94,25 +94,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia reads your heart rate during breathing sessions to show live feedback."
+            "value" : "On Apple Watch, Breathia reads your heart rate from Apple Health during breathing sessions to show live feedback."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia liest während Atemsitzungen deine Herzfrequenz, um Live-Feedback anzuzeigen."
+            "value" : "Auf der Apple Watch liest Breathia während Atemsitzungen deine Herzfrequenz aus Apple Health, um Live-Feedback anzuzeigen."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia lee tu frecuencia cardiaca durante las sesiones de respiración para mostrar información en directo."
+            "value" : "En el Apple Watch, Breathia lee tu frecuencia cardiaca de Apple Health durante las sesiones de respiración para mostrar información en directo."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia lit votre fréquence cardiaque pendant les séances de respiration pour afficher un retour en direct."
+            "value" : "Sur Apple Watch, Breathia lit votre fréquence cardiaque dans Apple Health pendant les séances de respiration pour afficher un retour en direct."
           }
         }
       }
@@ -123,25 +123,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia saves your breathing sessions to Apple Health as mindful minutes."
+            "value" : "Breathia saves your breathing sessions to Apple Health as mindful minutes, and on Apple Watch also as workouts."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia sichert deine Atemsitzungen in Apple Health als Achtsamkeitsminuten."
+            "value" : "Breathia sichert deine Atemsitzungen in Apple Health als Achtsamkeitsminuten und auf der Apple Watch zusätzlich als Trainings."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia guarda tus sesiones de respiración en Apple Health como minutos de atención plena."
+            "value" : "Breathia guarda tus sesiones de respiración en Apple Health como minutos de atención plena y, en el Apple Watch, también como entrenamientos."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia enregistre vos séances de respiration dans Apple Health en tant que minutes de pleine conscience."
+            "value" : "Breathia enregistre vos séances de respiration dans Apple Health en tant que minutes de pleine conscience et, sur Apple Watch, également en tant qu'entraînements."
           }
         }
       }

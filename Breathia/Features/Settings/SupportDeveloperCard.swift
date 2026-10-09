@@ -13,7 +13,6 @@ struct SupportDeveloperCard: View {
 
     @Environment(SupportStore.self) private var store
 
-    private var isSupporter: Bool { store.activeSubscription != nil }
     private var iconSize: CGFloat { isCompact ? 40 : 52 }
 
     private static let wash = LinearGradient(
@@ -24,10 +23,10 @@ struct SupportDeveloperCard: View {
 
     var body: some View {
         HStack(spacing: isCompact ? 12 : 14) {
-            Image(systemName: isSupporter ? "heart.fill" : "cup.and.heat.waves.fill")
+            Image(systemName: store.isSupporter ? "heart.fill" : "cup.and.heat.waves.fill")
                 .font(.system(size: iconSize * 0.46, weight: .semibold))
                 .foregroundStyle(.white)
-                .symbolEffect(.bounce, value: isSupporter)
+                .symbolEffect(.bounce, value: store.isSupporter)
                 .frame(width: iconSize, height: iconSize)
                 .background(
                     LinearGradient(colors: [.pink, .orange], startPoint: .topLeading, endPoint: .bottomTrailing),
@@ -37,12 +36,12 @@ struct SupportDeveloperCard: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: isCompact ? 2 : 3) {
-                Text(isSupporter ? "support.thankYou" : "common.supportTheDeveloper")
+                Text(store.isSupporter ? "support.thankYou" : "common.supportTheDeveloper")
                     .font(.headline)
                     .foregroundStyle(.primary)
                     .lineLimit(isCompact ? 1 : nil)
                     .minimumScaleFactor(0.85)
-                Text(isSupporter ? "settings.support.supporterSubtitle" : "settings.support.subtitle")
+                Text(store.isSupporter ? "settings.support.supporterSubtitle" : "settings.support.subtitle")
                     .font(isCompact ? .footnote : .subheadline)
                     .foregroundStyle(.secondary)
                     .lineLimit(isCompact ? 2 : nil)
@@ -79,7 +78,7 @@ struct SupportDeveloperCard: View {
         #else
         .contentShape(ConcentricRectangle())
         #endif
-        .animation(.snappy, value: isSupporter)
+        .animation(.snappy, value: store.isSupporter)
         // Loads the offers along with the subscription, so the Support sheet opens ready.
         .task { await store.load() }
     }

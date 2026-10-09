@@ -12,6 +12,7 @@ final class AppRoutes: RouteModule {
     private let heartRateMonitor: HeartRateMonitor
     private let mindfulMinutes: MindfulMinutesStore
     private let supportStore: SupportStore
+    private let appIconStore: AppIconStore
     private let sessionFactory: BreathingSessionFactory
     private let ratingFlow: RatingFlow
 
@@ -22,6 +23,7 @@ final class AppRoutes: RouteModule {
         heartRateMonitor: HeartRateMonitor,
         mindfulMinutes: MindfulMinutesStore,
         supportStore: SupportStore,
+        appIconStore: AppIconStore,
         sessionFactory: BreathingSessionFactory,
         ratingFlow: RatingFlow
     ) {
@@ -31,6 +33,7 @@ final class AppRoutes: RouteModule {
         self.heartRateMonitor = heartRateMonitor
         self.mindfulMinutes = mindfulMinutes
         self.supportStore = supportStore
+        self.appIconStore = appIconStore
         self.sessionFactory = sessionFactory
         self.ratingFlow = ratingFlow
     }
@@ -134,6 +137,7 @@ final class AppRoutes: RouteModule {
                 .environment(self.settingsStore)
                 .environment(self.mindfulMinutes)
                 .environment(self.supportStore)
+                .environment(self.appIconStore)
 
             case let .page(page):
                 SettingsPageDestination(
@@ -155,6 +159,7 @@ final class AppRoutes: RouteModule {
         registry.register { (_: SupportRoute, nav) in
             SupportSheetView(onClose: { nav.dismiss() })
                 .environment(self.supportStore)
+                .environment(self.appIconStore)
         }
 
         registry.register { (route: SessionRoute, nav) in

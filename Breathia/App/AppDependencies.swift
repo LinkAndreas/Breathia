@@ -11,6 +11,8 @@ final class AppDependencies {
     let navigator: AppNavigator
     let routes: AppRoutes
     let settingsStore: SettingsStore
+    /// The app's icon, which the app takes its accent color from.
+    let appIconStore: AppIconStore
     #if canImport(WatchConnectivity)
     /// Retained for the app's lifetime; `nil` in previews.
     private let watchSync: PhoneWatchSync?
@@ -24,6 +26,7 @@ final class AppDependencies {
         settingsRepository: SettingsRepository,
         mindfulMinutesService: MindfulMinutesService,
         supportService: SupportStoreService,
+        appIconStore: AppIconStore,
         reviewPromptRepository: ReviewPromptRepository,
         reviewRequester: ReviewRequesting,
         feedbackMailer: FeedbackMailing,
@@ -92,12 +95,14 @@ final class AppDependencies {
             heartRateMonitor: monitor,
             mindfulMinutes: mindful,
             supportStore: support,
+            appIconStore: appIconStore,
             sessionFactory: factory,
             ratingFlow: ratingFlow
         )
 
         self.navigator = navigator
         settingsStore = store
+        self.appIconStore = appIconStore
 
         // First launch: onboarding comes up over the app.
         if !store.settings.hasCompletedOnboarding {
@@ -118,6 +123,7 @@ final class AppDependencies {
             settingsRepository: UserDefaultsSettingsRepository(),
             mindfulMinutesService: HealthKitMindfulMinutesService(),
             supportService: StoreKitSupportService(),
+            appIconStore: .live(),
             reviewPromptRepository: UserDefaultsReviewPromptRepository(),
             reviewRequester: StoreKitReviewRequester(),
             feedbackMailer: SystemFeedbackMailer(),
@@ -163,6 +169,7 @@ final class AppDependencies {
             settingsRepository: InMemorySettingsRepository(settings: settings),
             mindfulMinutesService: InMemoryMindfulMinutesService(),
             supportService: PreviewSupportService(),
+            appIconStore: .preview(),
             reviewPromptRepository: InMemoryReviewPromptRepository(),
             reviewRequester: StoreKitReviewRequester(),
             feedbackMailer: SystemFeedbackMailer(),
