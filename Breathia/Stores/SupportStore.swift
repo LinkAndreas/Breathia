@@ -30,6 +30,9 @@ final class SupportStore {
     private(set) var subscriptionOffers: [SupportOffer] = []
     private(set) var loadState: LoadState = .idle
     private(set) var activeSubscription: ActiveSupportSubscription?
+    /// Whether the subscription has been read from the App Store yet; until then, no
+    /// subscription doesn't mean the user isn't a supporter.
+    private(set) var hasCheckedSubscription = false
     private(set) var purchasingProductID: SupportProductID?
     /// The purchase waiting for approval, e.g. Ask to Buy.
     @ObservationIgnored private var pendingProductID: SupportProductID?
@@ -42,6 +45,7 @@ final class SupportStore {
     @ObservationIgnored private let service: SupportStoreService
     @ObservationIgnored private var transactionObserver: Task<Void, Never>?
     @ObservationIgnored private var statusObserver: Task<Void, Never>?
+    @ObservationIgnored private var expiryRefresh: Task<Void, Never>?
 
     init(service: SupportStoreService) {
         self.service = service
@@ -52,6 +56,10 @@ final class SupportStore {
     /// Whether the user supports Breathia with an active subscription, which unlocks
     /// the supporter app icons.
     var isSupporter: Bool { activeSubscription != nil }
+
+    /// Whether the App Store confirmed there's no active subscription — never subscribed,
+    /// or the subscription ended or was refunded.
+    var isConfirmedNonSupporter: Bool { hasCheckedSubscription && !isSupporter }
 
     /// Starts listening for transactions that complete outside the purchase flow, and for
     /// subscription status changes such as a cancellation. Call once at launch so
@@ -70,7 +78,7 @@ final class SupportStore {
     /// Reads the subscription from the App Store again, e.g. after the user managed it
     /// in the system sheet or the Settings app.
     func refreshSubscription() async {
-        activeSubscription = await service.activeSubscription()
+        apply(await service.activeSubscription())
     }
 
     func load() async {
@@ -88,7 +96,7 @@ final class SupportStore {
         }
         let subscription = await service.activeSubscription()
 
-        activeSubscription = subscription
+        apply(subscription)
         if let offers {
             oneTimeOffers = offers.filter { $0.id.kind == .oneTime }
             subscriptionOffers = offers.filter { $0.id.kind == .subscription }
@@ -131,7 +139,7 @@ final class SupportStore {
         do {
             // Dismissing the App Store sign-in isn't a failure: nothing to report.
             guard try await service.restorePurchases() == .synced else { return }
-            activeSubscription = await service.activeSubscription()
+            apply(await service.activeSubscription())
             status = activeSubscription == nil ? .nothingToRestore : .restored
         } catch {
             status = .failed(.restoreFailed)
@@ -145,13 +153,17 @@ final class SupportStore {
     // MARK: Private
 
     private func purchaseCompleted(_ id: SupportProductID) async {
-        celebrationCount += 1
         switch id.kind {
         case .oneTime:
             status = .thankYou
+            celebrationCount += 1
         case .subscription:
-            // The subscription section shows its own thank-you.
-            activeSubscription = await service.activeSubscription()
+            // The subscription section shows its own thank-you. A downgrade only takes
+            // effect at the next renewal: nothing to celebrate yet.
+            apply(await service.activeSubscription())
+            if activeSubscription?.upcomingProductID != id {
+                celebrationCount += 1
+            }
         }
     }
 
@@ -165,6 +177,23 @@ final class SupportStore {
             }
             celebrationCount += 1
         }
-        activeSubscription = await service.activeSubscription()
+        apply(await service.activeSubscription())
+    }
+
+    /// Shows `subscription`, and reads it again once it expires: running out makes no
+    /// transaction, and StoreKit's status update for it can come late.
+    private func apply(_ subscription: ActiveSupportSubscription?) {
+        activeSubscription = subscription
+        hasCheckedSubscription = true
+
+        expiryRefresh?.cancel()
+        expiryRefresh = nil
+        guard let expirationDate = subscription?.expirationDate else { return }
+        expiryRefresh = Task { [weak self] in
+            // A moment past the date, so the App Store no longer counts it as active.
+            let delay = max(expirationDate.timeIntervalSinceNow, 0) + 1
+            guard (try? await Task.sleep(for: .seconds(delay))) != nil else { return }
+            await self?.refreshSubscription()
+        }
     }
 }
