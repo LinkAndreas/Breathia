@@ -8,6 +8,9 @@ struct AppRootView: View {
     let routes: AppRoutes
     let settingsStore: SettingsStore
     let appIconStore: AppIconStore
+    let supportStore: SupportStore
+
+    @Environment(\.scenePhase) private var scenePhase
 
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -41,6 +44,25 @@ struct AppRootView: View {
         // The app's controls take the icon's main color, and change with it.
         .tint(appIconStore.current.palette.accent)
         .preferredColorScheme(settingsStore.settings.appearance.colorScheme)
+        // The subscription can change while Breathia is in the background — cancelled in
+        // Settings or the App Store, run out, refunded — so read it on every return.
+        .task { await supportStore.refreshSubscription() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active {
+                Task { await supportStore.refreshSubscription() }
+            }
+        }
+        #if os(macOS)
+        // A Mac app stays active while its window is behind the App Store's.
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            Task { await supportStore.refreshSubscription() }
+        }
+        #endif
+        .onChange(of: supportStore.isConfirmedNonSupporter, initial: true) { _, hasNoSupport in
+            if hasNoSupport {
+                Task { await appIconStore.supportEnded() }
+            }
+        }
     }
 }
 
@@ -50,7 +72,8 @@ extension AppRootView {
             navigator: dependencies.navigator,
             routes: dependencies.routes,
             settingsStore: dependencies.settingsStore,
-            appIconStore: dependencies.appIconStore
+            appIconStore: dependencies.appIconStore,
+            supportStore: dependencies.supportStore
         )
     }
 }
@@ -72,7 +95,8 @@ private extension Appearance {
         navigator: dependencies.navigator,
         routes: dependencies.routes,
         settingsStore: dependencies.settingsStore,
-        appIconStore: dependencies.appIconStore
+        appIconStore: dependencies.appIconStore,
+        supportStore: dependencies.supportStore
     )
 }
 #endif
@@ -84,7 +108,8 @@ private extension Appearance {
         navigator: dependencies.navigator,
         routes: dependencies.routes,
         settingsStore: dependencies.settingsStore,
-        appIconStore: dependencies.appIconStore
+        appIconStore: dependencies.appIconStore,
+        supportStore: dependencies.supportStore
     )
 }
 #endif

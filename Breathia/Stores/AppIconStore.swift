@@ -42,6 +42,12 @@ final class AppIconStore {
             throw error
         }
     }
+
+    /// Goes back to the default icon once recurring support has ended, as the supporter
+    /// icons come with it.
+    func supportEnded() async {
+        try? await select(.classic)
+    }
 }
 
 extension AppIconStore {

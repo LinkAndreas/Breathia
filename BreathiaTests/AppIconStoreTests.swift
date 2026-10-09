@@ -39,6 +39,17 @@ struct AppIconStoreTests {
         #expect(store.current == .blush)
     }
 
+    @Test func endingSupportGoesBackToTheDefaultIcon() async {
+        var requestedNames: [String?] = []
+        let store = AppIconStore(alternateIconName: "AppIcon-Ember") { requestedNames.append($0) }
+
+        await store.supportEnded()
+        await store.supportEnded()
+
+        #expect(store.current == .classic)
+        #expect(requestedNames == [nil])
+    }
+
     /// Every icon's alternate icon name matches its icon in `Resources/AppIcons`.
     @Test func everyIconRoundTripsThroughItsAlternateIconName() {
         for icon in SupporterIcon.allCases {
