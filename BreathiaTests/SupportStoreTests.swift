@@ -22,6 +22,25 @@ struct SupportStoreTests {
         #expect(store.isSupporter)
     }
 
+    /// Cancelling happens in the system's subscription management, with no transaction:
+    /// refreshing picks it up, and the subscription shows when it ends.
+    @Test func refreshingPicksUpACancellation() async {
+        let service = PreviewSupportService(subscription: Self.yearly)
+        let store = SupportStore(service: service)
+        await store.load()
+        #expect(store.activeSubscription?.willAutoRenew == true)
+
+        service.subscription = ActiveSupportSubscription(
+            productID: .yearly,
+            expirationDate: Self.yearly.expirationDate,
+            willAutoRenew: false
+        )
+        await store.refreshSubscription()
+
+        #expect(store.activeSubscription?.willAutoRenew == false)
+        #expect(store.isSupporter)
+    }
+
     @Test func upgradeTakesEffectRightAway() async throws {
         let store = SupportStore(service: PreviewSupportService(subscription: ActiveSupportSubscription(
             productID: .monthly,

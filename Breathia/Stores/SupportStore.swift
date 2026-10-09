@@ -39,6 +39,7 @@ final class SupportStore {
 
     @ObservationIgnored private let service: SupportStoreService
     @ObservationIgnored private var transactionObserver: Task<Void, Never>?
+    @ObservationIgnored private var statusObserver: Task<Void, Never>?
 
     init(service: SupportStoreService) {
         self.service = service
@@ -50,13 +51,24 @@ final class SupportStore {
     /// the supporter app icons.
     var isSupporter: Bool { activeSubscription != nil }
 
-    /// Starts listening for transactions that complete outside the purchase flow.
-    /// Call once at launch so approvals and renewals are finished promptly.
+    /// Starts listening for transactions that complete outside the purchase flow, and for
+    /// subscription status changes such as a cancellation. Call once at launch so
+    /// approvals and renewals are finished promptly.
     func startObservingTransactions() {
         guard transactionObserver == nil else { return }
         transactionObserver = service.observeTransactions { [weak self] id in
             await self?.transactionCompleted(id)
         }
+        // Cancelling or resuming a subscription changes its status without a transaction.
+        statusObserver = service.observeSubscriptionStatus { [weak self] in
+            await self?.refreshSubscription()
+        }
+    }
+
+    /// Reads the subscription from the App Store again, e.g. after the user managed it
+    /// in the system sheet or the Settings app.
+    func refreshSubscription() async {
+        activeSubscription = await service.activeSubscription()
     }
 
     func load() async {

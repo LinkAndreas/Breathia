@@ -104,6 +104,14 @@ final class StoreKitSupportService: SupportStoreService {
         }
     }
 
+    func observeSubscriptionStatus(onChange: @escaping @MainActor () async -> Void) -> Task<Void, Never> {
+        Task {
+            for await _ in Product.SubscriptionInfo.Status.updates {
+                await onChange()
+            }
+        }
+    }
+
     // MARK: Private
 
     /// Finishes a verified transaction and returns its product. Unverified
