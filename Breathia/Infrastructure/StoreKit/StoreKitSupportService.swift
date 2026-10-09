@@ -80,16 +80,19 @@ final class StoreKitSupportService: SupportStoreService {
         return nil
     }
 
-    func restorePurchases() async throws {
+    func restorePurchases() async throws -> RestoreOutcome {
         do {
             try await AppStore.sync()
+            return .synced
+        } catch StoreKitError.userCancelled {
+            return .cancelled
         } catch {
             throw SupportStoreError.restoreFailed
         }
     }
 
     func observeTransactions(
-        onTransaction: @escaping @MainActor (SupportProductID) async -> Void
+        onTransaction: @escaping @MainActor (CompletedTransaction) async -> Void
     ) -> Task<Void, Never> {
         Task {
             // Transactions left unfinished last time, e.g. the app quit mid-purchase.
@@ -97,21 +100,33 @@ final class StoreKitSupportService: SupportStoreService {
                 _ = await finishIfVerified(result)
             }
             for await result in Transaction.updates {
-                if let id = await finishIfVerified(result) {
-                    await onTransaction(id)
+                if let completed = await finishIfVerified(result) {
+                    await onTransaction(completed)
                 }
+            }
+        }
+    }
+
+    func observeSubscriptionStatus(onChange: @escaping @MainActor () async -> Void) -> Task<Void, Never> {
+        Task {
+            for await _ in Product.SubscriptionInfo.Status.updates {
+                await onChange()
             }
         }
     }
 
     // MARK: Private
 
-    /// Finishes a verified transaction and returns its product. Unverified
-    /// transactions are left unfinished and ignored.
-    private func finishIfVerified(_ result: VerificationResult<Transaction>) async -> SupportProductID? {
+    /// Finishes a verified transaction and describes it. Unverified transactions are
+    /// left unfinished and ignored.
+    private func finishIfVerified(_ result: VerificationResult<Transaction>) async -> CompletedTransaction? {
         guard case let .verified(transaction) = result else { return nil }
         await transaction.finish()
-        return SupportProductID(rawValue: transaction.productID)
+        guard let id = SupportProductID(rawValue: transaction.productID) else { return nil }
+        return CompletedTransaction(
+            productID: id,
+            isNewPurchase: transaction.revocationDate == nil && transaction.reason == .purchase
+        )
     }
 
     private func verified<T>(_ result: VerificationResult<T>) throws -> T {

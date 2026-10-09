@@ -9,6 +9,7 @@ final class PreviewSupportService: SupportStoreService {
     var subscription: ActiveSupportSubscription?
     var purchaseOutcome: PurchaseOutcome = .purchased
     var failsToLoad = false
+    var restoreOutcome: RestoreOutcome = .synced
 
     init(offers: [SupportOffer] = PreviewSupportService.sampleOffers, subscription: ActiveSupportSubscription? = nil) {
         self.offers = offers
@@ -40,11 +41,21 @@ final class PreviewSupportService: SupportStoreService {
         subscription
     }
 
-    func restorePurchases() async throws {}
+    func restorePurchases() async throws -> RestoreOutcome {
+        restoreOutcome
+    }
+
+    /// Delivers a transaction to the store as if it had completed outside the app.
+    private(set) var completeTransaction: (@MainActor (CompletedTransaction) async -> Void)?
 
     func observeTransactions(
-        onTransaction: @escaping @MainActor (SupportProductID) async -> Void
+        onTransaction: @escaping @MainActor (CompletedTransaction) async -> Void
     ) -> Task<Void, Never> {
+        completeTransaction = onTransaction
+        return Task {}
+    }
+
+    func observeSubscriptionStatus(onChange: @escaping @MainActor () async -> Void) -> Task<Void, Never> {
         Task {}
     }
 
