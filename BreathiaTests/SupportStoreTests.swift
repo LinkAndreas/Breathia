@@ -78,4 +78,26 @@ struct SupportStoreTests {
         #expect(store.status == .thankYou)
         #expect(store.celebrationCount == 1)
     }
+
+    @Test func cancellingTheRestoreSignInReportsNothing() async {
+        let service = PreviewSupportService()
+        service.restoreOutcome = .cancelled
+        let store = SupportStore(service: service)
+
+        await store.restorePurchases()
+
+        #expect(store.status == nil)
+    }
+
+    @Test func aFailedReloadKeepsTheOffers() async {
+        let service = PreviewSupportService()
+        let store = SupportStore(service: service)
+        await store.load()
+
+        service.failsToLoad = true
+        await store.load()
+
+        #expect(store.loadState == .loaded)
+        #expect(!store.oneTimeOffers.isEmpty)
+    }
 }

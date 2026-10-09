@@ -80,9 +80,12 @@ final class StoreKitSupportService: SupportStoreService {
         return nil
     }
 
-    func restorePurchases() async throws {
+    func restorePurchases() async throws -> RestoreOutcome {
         do {
             try await AppStore.sync()
+            return .synced
+        } catch StoreKitError.userCancelled {
+            return .cancelled
         } catch {
             throw SupportStoreError.restoreFailed
         }

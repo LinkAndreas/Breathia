@@ -75,7 +75,8 @@ final class SupportStore {
 
     func load() async {
         guard loadState != .loading else { return }
-        if loadState != .loaded { loadState = .loading }
+        let wasLoaded = loadState == .loaded
+        if !wasLoaded { loadState = .loading }
 
         // Fetch everything first and apply it in one go, so the screen changes once
         // instead of reflowing when the subscription arrives after the offers.
@@ -91,8 +92,11 @@ final class SupportStore {
         if let offers {
             oneTimeOffers = offers.filter { $0.id.kind == .oneTime }
             subscriptionOffers = offers.filter { $0.id.kind == .subscription }
+            loadState = offers.isEmpty ? .unavailable : .loaded
+        } else if !wasLoaded {
+            // Offers already on screen stay when a reload fails, e.g. briefly offline.
+            loadState = .unavailable
         }
-        loadState = offers?.isEmpty == false ? .loaded : .unavailable
     }
 
     func purchase(_ offer: SupportOffer) async {
@@ -125,7 +129,8 @@ final class SupportStore {
         defer { isRestoring = false }
 
         do {
-            try await service.restorePurchases()
+            // Dismissing the App Store sign-in isn't a failure: nothing to report.
+            guard try await service.restorePurchases() == .synced else { return }
             activeSubscription = await service.activeSubscription()
             status = activeSubscription == nil ? .nothingToRestore : .restored
         } catch {

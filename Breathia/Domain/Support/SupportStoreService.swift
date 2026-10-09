@@ -43,6 +43,13 @@ enum PurchaseOutcome: Equatable, Sendable {
     case cancelled
 }
 
+enum RestoreOutcome: Equatable, Sendable {
+    /// Purchases were synced with the App Store.
+    case synced
+    /// The user dismissed the App Store sign-in.
+    case cancelled
+}
+
 enum SupportStoreError: Error, Equatable, Sendable {
     /// The App Store couldn't be reached, or returned no products.
     case storeUnavailable
@@ -61,7 +68,7 @@ protocol SupportStoreService: AnyObject {
     func loadOffers() async throws -> [SupportOffer]
     func purchase(_ id: SupportProductID) async throws -> PurchaseOutcome
     func activeSubscription() async -> ActiveSupportSubscription?
-    func restorePurchases() async throws
+    func restorePurchases() async throws -> RestoreOutcome
     /// Finishes transactions that complete outside a purchase call — Ask to Buy
     /// approvals, renewals, purchases on other devices — calling
     /// `onTransaction` for each. Runs until the returned task is cancelled.
