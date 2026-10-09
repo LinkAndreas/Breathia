@@ -18,8 +18,9 @@ struct SupportStoreTests {
         await store.purchase(monthly)
 
         #expect(store.activeSubscription?.productID == .yearly)
-        #expect(store.activeSubscription?.nextProductID == .monthly)
+        #expect(store.activeSubscription?.upcomingProductID == .monthly)
         #expect(store.isSupporter)
+        #expect(store.celebrationCount == 0)
     }
 
     /// Cancelling happens in the system's subscription management, with no transaction:
@@ -41,6 +42,28 @@ struct SupportStoreTests {
         #expect(store.isSupporter)
     }
 
+    /// StoreKit keeps the picked plan as the renewal preference after a cancellation, but
+    /// nothing renews: the subscription just ends, with no plan change coming.
+    @Test func cancellingDropsTheUpcomingPlanChange() async throws {
+        let service = PreviewSupportService(subscription: Self.yearly)
+        let store = SupportStore(service: service)
+        await store.load()
+        let monthly = try #require(store.subscriptionOffers.first { $0.id == .monthly })
+        await store.purchase(monthly)
+        #expect(store.activeSubscription?.upcomingProductID == .monthly)
+
+        service.subscription = ActiveSupportSubscription(
+            productID: .yearly,
+            expirationDate: Self.yearly.expirationDate,
+            willAutoRenew: false,
+            nextProductID: .monthly
+        )
+        await store.refreshSubscription()
+
+        #expect(store.activeSubscription?.upcomingProductID == nil)
+        #expect(store.isSupporter)
+    }
+
     @Test func upgradeTakesEffectRightAway() async throws {
         let store = SupportStore(service: PreviewSupportService(subscription: ActiveSupportSubscription(
             productID: .monthly,
@@ -53,7 +76,38 @@ struct SupportStoreTests {
         await store.purchase(yearly)
 
         #expect(store.activeSubscription?.productID == .yearly)
-        #expect(store.activeSubscription?.nextProductID == nil)
+        #expect(store.activeSubscription?.upcomingProductID == nil)
+        #expect(store.celebrationCount == 1)
+    }
+
+    /// Running out makes no transaction: the store reads the subscription again once it expires.
+    @Test func anExpiringSubscriptionIsReadAgain() async throws {
+        let service = PreviewSupportService(subscription: ActiveSupportSubscription(
+            productID: .monthly,
+            expirationDate: .now.addingTimeInterval(0.1),
+            willAutoRenew: false
+        ))
+        let store = SupportStore(service: service)
+        await store.load()
+        #expect(store.isSupporter)
+
+        service.subscription = nil
+        for _ in 0..<40 where store.isSupporter {
+            try await Task.sleep(for: .milliseconds(100))
+        }
+
+        #expect(!store.isSupporter)
+        #expect(store.isConfirmedNonSupporter)
+    }
+
+    /// No subscription before the App Store was asked doesn't mean support ended.
+    @Test func supportIsUnknownUntilChecked() async {
+        let store = SupportStore(service: PreviewSupportService())
+        #expect(!store.isConfirmedNonSupporter)
+
+        await store.refreshSubscription()
+
+        #expect(store.isConfirmedNonSupporter)
     }
 
     /// While Ask to Buy waits, a renewal or another product's transaction mustn't look like the approval.

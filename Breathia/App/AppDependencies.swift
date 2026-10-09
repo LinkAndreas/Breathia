@@ -13,6 +13,8 @@ final class AppDependencies {
     let settingsStore: SettingsStore
     /// The app's icon, which the app takes its accent color from.
     let appIconStore: AppIconStore
+    /// Recurring support, which the supporter icons depend on.
+    let supportStore: SupportStore
     #if canImport(WatchConnectivity)
     /// Retained for the app's lifetime; `nil` in previews.
     private let watchSync: PhoneWatchSync?
@@ -103,6 +105,7 @@ final class AppDependencies {
         self.navigator = navigator
         settingsStore = store
         self.appIconStore = appIconStore
+        supportStore = support
 
         // First launch: onboarding comes up over the app.
         if !store.settings.hasCompletedOnboarding {
