@@ -8,7 +8,7 @@ struct OnboardingHealthPage: View {
         VStack(spacing: 18) {
             HealthTile()
 
-            Text("common.saveMindfulMinutes")
+            Text("onboarding.health.title")
                 .font(.system(size: 27, weight: .bold))
                 .multilineTextAlignment(.center)
 

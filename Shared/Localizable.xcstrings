@@ -2381,25 +2381,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Füge jede Atemsitzung der Health-App als Achtsamkeitsminuten hinzu, damit deine Praxis neben deinen übrigen Gesundheitsdaten erscheint."
+            "value" : "Breathia nutzt Apple Health (HealthKit), um jede Atemsitzung als Achtsamkeitsminuten hinzuzufügen, damit deine Praxis neben deinen übrigen Gesundheitsdaten erscheint."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add each breathing session to the Health app as mindful minutes, so your practice appears alongside the rest of your health data."
+            "value" : "Breathia uses Apple Health (HealthKit) to add each breathing session as mindful minutes, so your practice appears alongside the rest of your health data."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Añade cada sesión de respiración a la app Salud como minutos de atención plena, para que tu práctica aparezca junto al resto de tus datos de salud."
+            "value" : "Breathia usa Apple Health (HealthKit) para añadir cada sesión de respiración como minutos de atención plena, para que tu práctica aparezca junto al resto de tus datos de salud."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ajoutez chaque séance de respiration à l'app Santé en tant que minutes de pleine conscience, pour que votre pratique apparaisse avec vos autres données de santé."
+            "value" : "Breathia utilise Apple Health (HealthKit) pour ajouter chaque séance de respiration en tant que minutes de pleine conscience, pour que votre pratique apparaisse avec vos autres données de santé."
           }
         }
       }
@@ -2409,25 +2409,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia schreibt nur Achtsamkeitsminuten und liest nie deine Gesundheitsdaten."
+            "value" : "Auf dem iPhone schreibt Breathia nur Achtsamkeitsminuten und liest nie deine Gesundheitsdaten."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia only writes mindful minutes. It never reads your health data."
+            "value" : "On iPhone, Breathia only writes mindful minutes. It never reads your health data."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia solo escribe minutos de atención plena y nunca lee tus datos de salud."
+            "value" : "En el iPhone, Breathia solo escribe minutos de atención plena y nunca lee tus datos de salud."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia enregistre uniquement des minutes de pleine conscience et ne lit jamais vos données de santé."
+            "value" : "Sur iPhone, Breathia enregistre uniquement des minutes de pleine conscience et ne lit jamais vos données de santé."
           }
         }
       }
@@ -2437,25 +2437,54 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Achtsamkeitsminuten werden in Health gesichert."
+            "value" : "Achtsamkeitsminuten werden in Apple Health gesichert."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mindful minutes will be saved to Health."
+            "value" : "Mindful minutes will be saved to Apple Health."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Los minutos de atención plena se guardarán en Salud."
+            "value" : "Los minutos de atención plena se guardarán en Apple Health."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les minutes de pleine conscience seront enregistrées dans Santé."
+            "value" : "Les minutes de pleine conscience seront enregistrées dans Apple Health."
+          }
+        }
+      }
+    },
+    "onboarding.health.title" : {
+      "comment" : "Title of the onboarding page asking whether breathing sessions should be saved to Apple Health.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save to Apple Health"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In Apple Health sichern"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar en Apple Health"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer dans Apple Health"
           }
         }
       }
@@ -4689,25 +4718,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia darf nicht in Health schreiben. Aktiviere den Zugriff in der Health-App unter Profil › Apps › Breathia."
+            "value" : "Breathia darf nicht in Apple Health schreiben. Aktiviere den Zugriff in der Health-App unter Profil › Apps › Breathia."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia isn't allowed to write to Health. Turn on access in the Health app under Profile › Apps › Breathia."
+            "value" : "Breathia isn't allowed to write to Apple Health. Turn on access in the Health app under Profile › Apps › Breathia."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia no tiene permiso para escribir en Salud. Activa el acceso en la app Salud en Perfil › Apps › Breathia."
+            "value" : "Breathia no tiene permiso para escribir en Apple Health. Activa el acceso en la app Salud en Perfil › Apps › Breathia."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia n'est pas autorisé à écrire dans Santé. Activez l'accès dans l'app Santé sous Profil › Apps › Breathia."
+            "value" : "Breathia n'est pas autorisé à écrire dans Apple Health. Activez l'accès dans l'app Santé sous Profil › Apps › Breathia."
           }
         }
       }
@@ -4773,25 +4802,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jede abgeschlossene Atemsitzung wird in der Health-App als Achtsamkeitsminuten gesichert."
+            "value" : "Breathia nutzt Apple Health (HealthKit), um jede abgeschlossene Atemsitzung als Achtsamkeitsminuten zu sichern."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Each completed breathing session is saved to the Health app as mindful minutes."
+            "value" : "Breathia uses Apple Health (HealthKit) to save each completed breathing session as mindful minutes."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cada sesión de respiración completada se guarda en la app Salud como minutos de atención plena."
+            "value" : "Breathia usa Apple Health (HealthKit) para guardar cada sesión de respiración completada como minutos de atención plena."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chaque séance de respiration terminée est enregistrée dans l'app Santé en tant que minutes de pleine conscience."
+            "value" : "Breathia utilise Apple Health (HealthKit) pour enregistrer chaque séance de respiration terminée en tant que minutes de pleine conscience."
           }
         }
       }
@@ -15319,25 +15348,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia liest während einer Sitzung deine Herzfrequenz und sichert die Sitzung in der Health-App."
+            "value" : "Breathia nutzt Apple Health (HealthKit), um während einer Sitzung deine Herzfrequenz zu lesen und die Sitzung als Achtsamkeitsminuten und Training zu sichern."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia reads your heart rate during a session and saves the session to the Health app."
+            "value" : "Breathia uses Apple Health (HealthKit) to read your heart rate during a session and to save the session as mindful minutes and a workout."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia lee tu frecuencia cardiaca durante una sesión y guarda la sesión en la app Salud."
+            "value" : "Breathia usa Apple Health (HealthKit) para leer tu frecuencia cardiaca durante una sesión y guardar la sesión como minutos de atención plena y un entrenamiento."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia lit votre fréquence cardiaque pendant une séance et enregistre la séance dans l'app Santé."
+            "value" : "Breathia utilise Apple Health (HealthKit) pour lire votre fréquence cardiaque pendant une séance et enregistrer la séance en tant que minutes de pleine conscience et entraînement."
           }
         }
       }
@@ -15347,25 +15376,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Herzfrequenz & Health"
+            "value" : "Herzfrequenz & Apple Health"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Heart Rate & Health"
+            "value" : "Heart Rate & Apple Health"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Frecuencia cardiaca y Salud"
+            "value" : "Frecuencia cardiaca y Apple Health"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fréquence cardiaque et Santé"
+            "value" : "Fréquence cardiaque et Apple Health"
           }
         }
       }
