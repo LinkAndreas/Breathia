@@ -22,7 +22,7 @@ struct SupportView: View {
                 Section {
                     ActiveSubscriptionRow(
                         subscription: subscription,
-                        nextPlanName: store.subscriptionOffers.first { $0.id == subscription.nextProductID }?.displayName
+                        nextPlanName: store.subscriptionOffers.first { $0.id == subscription.upcomingProductID }?.displayName
                     )
                     Button("support.manageSubscription", action: manageSubscription)
                 }

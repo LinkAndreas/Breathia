@@ -25,6 +25,12 @@ struct ActiveSupportSubscription: Equatable, Sendable {
     /// The plan it changes to at the next renewal, when the user picked another one:
     /// a downgrade (yearly to monthly) only takes effect then.
     var nextProductID: SupportProductID?
+
+    /// The plan that follows at the next renewal. A cancelled subscription doesn't renew,
+    /// so a plan change picked before cancelling no longer happens.
+    var upcomingProductID: SupportProductID? {
+        willAutoRenew ? nextProductID : nil
+    }
 }
 
 /// A transaction that completed outside a purchase call.
