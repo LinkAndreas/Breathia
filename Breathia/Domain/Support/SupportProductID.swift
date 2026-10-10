@@ -29,6 +29,16 @@ enum SupportProductID: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
+    /// The subscription's level in its group, as in App Store Connect: 1 is the highest.
+    /// Moving to a higher level upgrades right away; moving lower waits for the next renewal.
+    var subscriptionLevel: Int? {
+        switch self {
+        case .yearly: 1
+        case .monthly: 2
+        case .small, .medium, .generous: nil
+        }
+    }
+
     /// Decorative emoji shown next to the App Store's product name.
     var emoji: String {
         switch self {
