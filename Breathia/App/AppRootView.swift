@@ -41,8 +41,12 @@ struct AppRootView: View {
         // column. Forms shown in sheets set it themselves, as sheets don't inherit it.
         .formStyle(.grouped)
         #endif
-        // The app's controls take the icon's main color, and change with it.
+        #if os(iOS)
+        // The app's controls take the icon's main color, and change with it. A Mac keeps its
+        // own colors: its sidebar follows the system accent color whatever the app sets, so a
+        // theme would only ever be partial there. The icon changes in the Dock alone.
         .tint(appIconStore.current.palette.accent)
+        #endif
         .preferredColorScheme(settingsStore.settings.appearance.colorScheme)
         // The subscription can change while Breathia is in the background — cancelled in
         // Settings or the App Store, run out, refunded — so read it on every return.

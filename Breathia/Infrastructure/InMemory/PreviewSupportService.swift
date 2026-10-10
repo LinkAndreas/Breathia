@@ -10,6 +10,8 @@ final class PreviewSupportService: SupportStoreService {
     var purchaseOutcome: PurchaseOutcome = .purchased
     var failsToLoad = false
     var restoreOutcome: RestoreOutcome = .synced
+    /// Reports a change of plan only later, as the App Store can right after a purchase.
+    var reportsPlanChangesLate = false
 
     init(offers: [SupportOffer] = PreviewSupportService.sampleOffers, subscription: ActiveSupportSubscription? = nil) {
         self.offers = offers
@@ -22,7 +24,7 @@ final class PreviewSupportService: SupportStoreService {
     }
 
     func purchase(_ id: SupportProductID) async throws -> PurchaseOutcome {
-        if purchaseOutcome == .purchased, id.kind == .subscription {
+        if purchaseOutcome == .purchased, id.kind == .subscription, !(reportsPlanChangesLate && subscription != nil) {
             // Like the App Store: a downgrade waits for the next renewal.
             if let current = subscription, current.productID == .yearly, id == .monthly {
                 subscription?.nextProductID = id

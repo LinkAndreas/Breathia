@@ -2463,16 +2463,16 @@
     "onboarding.health.title" : {
       "comment" : "Title of the onboarding page asking whether breathing sessions should be saved to Apple Health.",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save to Apple Health"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "In Apple Health sichern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save to Apple Health"
           }
         },
         "es" : {
@@ -5700,6 +5700,7 @@
       }
     },
     "sidebar.title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -5926,16 +5927,16 @@
     "support.changesTo %@ %@" : {
       "comment" : "Under the active subscription after the user picked another plan. The first argument is the new plan's name, the second the date it starts.",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Changes to %1$@ on %2$@"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wechselt am %2$@ zu %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changes to %1$@ on %2$@"
           }
         },
         "es" : {
@@ -5983,16 +5984,16 @@
     "support.from %@" : {
       "comment" : "Shown instead of the price on the subscription plan that starts at the next renewal. The argument is the date.",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "From %@"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ab %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From %@"
           }
         },
         "es" : {
@@ -6011,13 +6012,13 @@
     },
     "support.iconAmethyst" : {
       "localizations" : {
-        "en" : {
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Amethyst"
           }
         },
-        "de" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Amethyst"
@@ -6039,16 +6040,16 @@
     },
     "support.iconBlush" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Blush"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zartrosa"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blush"
           }
         },
         "es" : {
@@ -6067,16 +6068,16 @@
     },
     "support.iconClassic" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Classic"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Klassisch"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classic"
           }
         },
         "es" : {
@@ -6095,16 +6096,16 @@
     },
     "support.iconEmber" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ember"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Glut"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ember"
           }
         },
         "es" : {
@@ -6123,16 +6124,16 @@
     },
     "support.iconGlacier" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Glacier"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gletscher"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glacier"
           }
         },
         "es" : {
@@ -6151,16 +6152,16 @@
     },
     "support.iconLagoon" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lagoon"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lagune"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagoon"
           }
         },
         "es" : {
@@ -6177,18 +6178,76 @@
         }
       }
     },
-    "support.iconMidnightGold" : {
+    "support.iconLocked.message" : {
+      "comment" : "Message of the alert shown when someone taps a locked supporter app icon: why it's locked and how to unlock it.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Midnight Gold"
+            "value" : "The supporter app icons come with recurring support. Choose Monthly or Yearly Support above to unlock all of them for as long as your support is active. Every feature of Breathia stays free either way."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Die Supporter-App-Icons gehören zur regelmäßigen Unterstützung. Wähle oben monatliche oder jährliche Unterstützung, um alle freizuschalten, solange deine Unterstützung aktiv ist. Alle Funktionen von Breathia bleiben in jedem Fall kostenlos."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los iconos de app exclusivos forman parte del apoyo recurrente. Elige arriba el apoyo mensual o anual para desbloquearlos todos mientras tu apoyo esté activo. Todas las funciones de Breathia siguen siendo gratuitas en cualquier caso."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les icônes d'app exclusives accompagnent le soutien récurrent. Choisissez le soutien mensuel ou annuel ci-dessus pour toutes les débloquer tant que votre soutien est actif. Toutes les fonctionnalités de Breathia restent gratuites dans tous les cas."
+          }
+        }
+      }
+    },
+    "support.iconLocked.title" : {
+      "comment" : "Title of the alert shown when someone taps a locked supporter app icon.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Thank-You for Supporters"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Dankeschön für Unterstützer"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un agradecimiento para quienes apoyan"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un merci aux soutiens"
+          }
+        }
+      }
+    },
+    "support.iconMidnightGold" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Mitternachtsgold"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Midnight Gold"
           }
         },
         "es" : {
@@ -6207,13 +6266,13 @@
     },
     "support.iconNoir" : {
       "localizations" : {
-        "en" : {
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Noir"
           }
         },
-        "de" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Noir"
@@ -6235,16 +6294,16 @@
     },
     "support.includedWithRecurringSupport" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Included with recurring support"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "In regelmäßiger Unterstützung enthalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Included with recurring support"
           }
         },
         "es" : {
@@ -6320,16 +6379,16 @@
     "support.next" : {
       "comment" : "Shown instead of the price on the subscription plan that starts at the next renewal, when its date is unknown.",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Next"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Als Nächstes"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
           }
         },
         "es" : {
@@ -6376,16 +6435,16 @@
     },
     "support.pickAnIcon" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pick the icon Breathia shows on your Home Screen."
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wähle das Icon, mit dem Breathia auf deinem Home-Bildschirm erscheint."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick the icon Breathia shows on your Home Screen."
           }
         },
         "es" : {
@@ -6544,16 +6603,16 @@
     },
     "support.recurringSupportUnlocksIcons" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recurring support unlocks these app icons for as long as it’s active."
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Regelmäßige Unterstützung schaltet diese App-Icons frei, solange sie aktiv ist."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recurring support unlocks these app icons for as long as it’s active."
           }
         },
         "es" : {
@@ -6656,16 +6715,16 @@
     },
     "support.supporterAppIcons" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supporter App Icons"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supporter-App-Icons"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporter App Icons"
           }
         },
         "es" : {
