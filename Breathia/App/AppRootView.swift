@@ -50,22 +50,37 @@ struct AppRootView: View {
         .preferredColorScheme(settingsStore.settings.appearance.colorScheme)
         // The subscription can change while Breathia is in the background — cancelled in
         // Settings or the App Store, run out, refunded — so read it on every return.
-        .task { await supportStore.refreshSubscription() }
+        .task { await refreshSupport() }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
-                Task { await supportStore.refreshSubscription() }
+                Task { await refreshSupport() }
             }
         }
         #if os(macOS)
         // A Mac app stays active while its window is behind the App Store's.
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
-            Task { await supportStore.refreshSubscription() }
+            Task { await refreshSupport() }
         }
         #endif
-        .onChange(of: supportStore.isConfirmedNonSupporter, initial: true) { _, hasNoSupport in
-            if hasNoSupport {
-                Task { await appIconStore.supportEnded() }
-            }
+        // Changes while Breathia is open: a status update, a renewal, or running out.
+        .onChange(of: supportStore.isConfirmedNonSupporter) { Task { await matchIconToSupport() } }
+        .onChange(of: supportStore.isSupporter) { Task { await matchIconToSupport() } }
+    }
+
+    private func refreshSupport() async {
+        await supportStore.refreshSubscription()
+        // Also when nothing changed: an icon change the system refused last time, e.g. as it
+        // came while the app was in the background, gets another go now that it's in front.
+        await matchIconToSupport()
+    }
+
+    /// The supporter icons come with recurring support: they go when it ends, and the one the
+    /// supporter had comes back when it resumes.
+    private func matchIconToSupport() async {
+        if supportStore.isSupporter {
+            await appIconStore.supportResumed()
+        } else if supportStore.isConfirmedNonSupporter {
+            await appIconStore.supportEnded()
         }
     }
 }

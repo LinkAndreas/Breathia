@@ -179,7 +179,10 @@ final class StoreKitSupportService: SupportStoreService {
         transaction: Transaction,
         renewal: Product.SubscriptionInfo.RenewalInfo?
     ) -> ActiveSupportSubscription {
-        ActiveSupportSubscription(
+        // Right after an upgrade the status can still describe the plan that was upgraded from,
+        // renewing into itself; that says nothing about the plan bought since.
+        let renewal = renewal.flatMap { $0.currentProductID == id.rawValue ? $0 : nil }
+        return ActiveSupportSubscription(
             productID: id,
             expirationDate: transaction.expirationDate,
             willAutoRenew: renewal?.willAutoRenew ?? true,
