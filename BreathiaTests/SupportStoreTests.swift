@@ -23,6 +23,40 @@ struct SupportStoreTests {
         #expect(store.celebrationCount == 0)
     }
 
+    /// Right after a downgrade the App Store may not report the new plan yet: the store
+    /// still shows it as the next one.
+    @Test func downgradeShowsTheNextPlanBeforeTheAppStoreReportsIt() async throws {
+        let service = PreviewSupportService(subscription: Self.yearly)
+        service.reportsPlanChangesLate = true
+        let store = SupportStore(service: service)
+        await store.load()
+        let monthly = try #require(store.subscriptionOffers.first { $0.id == .monthly })
+
+        await store.purchase(monthly)
+
+        #expect(store.activeSubscription?.productID == .yearly)
+        #expect(store.activeSubscription?.upcomingProductID == .monthly)
+        #expect(store.celebrationCount == 0)
+    }
+
+    /// An upgrade takes effect right away, even before the App Store reports it.
+    @Test func upgradeShowsBeforeTheAppStoreReportsIt() async throws {
+        let service = PreviewSupportService(subscription: ActiveSupportSubscription(
+            productID: .monthly,
+            expirationDate: .now.addingTimeInterval(20 * 86_400),
+            willAutoRenew: true
+        ))
+        service.reportsPlanChangesLate = true
+        let store = SupportStore(service: service)
+        await store.load()
+        let yearly = try #require(store.subscriptionOffers.first { $0.id == .yearly })
+
+        await store.purchase(yearly)
+
+        #expect(store.activeSubscription?.productID == .yearly)
+        #expect(store.celebrationCount == 1)
+    }
+
     /// Cancelling happens in the system's subscription management, with no transaction:
     /// refreshing picks it up, and the subscription shows when it ends.
     @Test func refreshingPicksUpACancellation() async {

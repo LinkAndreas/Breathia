@@ -160,7 +160,7 @@ final class SupportStore {
         case .subscription:
             // The subscription section shows its own thank-you. A downgrade only takes
             // effect at the next renewal: nothing to celebrate yet.
-            apply(await service.activeSubscription())
+            apply(Self.subscription(await service.activeSubscription(), afterBuying: id))
             if activeSubscription?.upcomingProductID != id {
                 celebrationCount += 1
             }
@@ -178,6 +178,28 @@ final class SupportStore {
             celebrationCount += 1
         }
         apply(await service.activeSubscription())
+    }
+
+    /// `subscription` with the plan just bought. The App Store can take a moment to report a
+    /// change of plan, so what it says right after the purchase may not show it yet: a lower
+    /// level is a downgrade, which waits for the next renewal; a higher one an upgrade, which
+    /// takes effect right away.
+    private static func subscription(
+        _ subscription: ActiveSupportSubscription?,
+        afterBuying id: SupportProductID
+    ) -> ActiveSupportSubscription? {
+        guard var subscription,
+              subscription.productID != id,
+              subscription.upcomingProductID != id,
+              let bought = id.subscriptionLevel,
+              let current = subscription.productID.subscriptionLevel
+        else { return subscription }
+
+        if bought > current {
+            subscription.nextProductID = id
+            return subscription
+        }
+        return ActiveSupportSubscription(productID: id, expirationDate: nil, willAutoRenew: true)
     }
 
     /// Shows `subscription`, and reads it again once it expires: running out makes no
