@@ -31,6 +31,10 @@ struct SupportPriceButton: View {
             .overlay {
                 if isPurchasing {
                     ProgressView()
+                        #if os(macOS)
+                        // A Mac's regular spinner is taller than the button.
+                        .controlSize(.small)
+                        #endif
                 }
             }
         }
