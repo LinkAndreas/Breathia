@@ -5,8 +5,8 @@ import UIKit
 import AppKit
 #endif
 
-/// The icon Breathia shows on the Home Screen, or in the Dock on a Mac, which the app takes
-/// its accent color and background wash from.
+/// The icon Breathia shows on the Home Screen, or in the Dock on a Mac. On iPhone and iPad the
+/// app takes its accent color and background wash from it.
 @Observable
 final class AppIconStore {
     /// The app's icon.
