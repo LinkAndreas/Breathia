@@ -18,8 +18,9 @@ struct TechniqueFilterChip: View {
                 .padding(.vertical, 8)
                 .background {
                     if isSelected {
+                        // The tint rather than the accent color, so the chip follows the app icon.
                         Capsule()
-                            .fill(Color.accentColor)
+                            .fill(.tint)
                             .matchedGeometryEffect(id: "selection", in: namespace)
                     } else {
                         Capsule()
