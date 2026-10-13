@@ -89,8 +89,8 @@ final class BluetoothManager: NSObject {
             transition(to: Scanning(environment: environment))
         case .peripheralFound:
             publishStatusIfChanged()
-        case let .peripheralSelected(peripheral):
-            transition(to: Connecting(peripheral: peripheral, environment: environment))
+        case let .peripheralSelected(peripheral, name):
+            transition(to: Connecting(peripheral: peripheral, name: name, environment: environment))
         case let .linkEstablished(peripheral):
             // Hand-off to stage 2.
             transition(to: Connected(environment: environment, session: makeSession(for: peripheral)))

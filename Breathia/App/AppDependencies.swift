@@ -58,7 +58,7 @@ final class AppDependencies {
         store = SettingsStore(repository: settingsRepository)
         #endif
 
-        let monitor = HeartRateMonitor(source: heartRateSource, sensorName: BluetoothDevice.polarH10.name)
+        let monitor = HeartRateMonitor(source: heartRateSource)
         let mindful = MindfulMinutesStore(service: mindfulMinutesService)
         let factory = BreathingSessionFactory(
             monitor: monitor,
@@ -124,7 +124,7 @@ final class AppDependencies {
             heartRateSource: makeLiveHeartRateSource(),
             sessionRepository: makeSessionRepository(),
             settingsRepository: UserDefaultsSettingsRepository(),
-            mindfulMinutesService: HealthKitMindfulMinutesService(),
+            mindfulMinutesService: makeMindfulMinutesService(),
             supportService: StoreKitSupportService(),
             appIconStore: .live(),
             reviewPromptRepository: UserDefaultsReviewPromptRepository(),
@@ -146,6 +146,14 @@ final class AppDependencies {
                 .fault("Opening the history store failed: \(String(describing: error), privacy: .public)")
             return InMemorySessionRepository()
         }
+    }
+
+    private static func makeMindfulMinutesService() -> MindfulMinutesService {
+        #if os(macOS)
+        UnavailableMindfulMinutesService()
+        #else
+        HealthKitMindfulMinutesService()
+        #endif
     }
 
     /// The Simulator has no Bluetooth radio, so it gets a simulated strap instead —

@@ -6,7 +6,7 @@ import Foundation
 /// so each preview provides only the stores its screen reads.
 enum PreviewStores {
     static func heartRateMonitor() -> HeartRateMonitor {
-        HeartRateMonitor(source: SimulatedHeartRateSource(), sensorName: "Polar H10")
+        HeartRateMonitor(source: SimulatedHeartRateSource())
     }
 
     static func sessionHistory(sessions: [SessionRecord] = PreviewData.sessions) -> SessionHistory {

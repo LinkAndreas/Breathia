@@ -9,7 +9,7 @@ extension SettingsPage {
         case .health: String(localized: "settings.appleHealth")
         case .appearance: String(localized: "settings.appearance")
         case .privacy: String(localized: "common.privacy")
-        case .aboutSensor: String(localized: "common.aboutBluetoothPolarH10")
+        case .aboutSensor: String(localized: "common.aboutBluetoothSensors")
         }
     }
 

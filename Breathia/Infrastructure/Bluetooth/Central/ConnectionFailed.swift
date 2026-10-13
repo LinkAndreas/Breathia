@@ -13,7 +13,7 @@ struct ConnectionFailed: CentralState {
 
     func connect(to id: UUID) {
         if id == peripheral.identifier {
-            environment.handleEvent(.peripheralSelected(peripheral))
+            environment.handleEvent(.peripheralSelected(peripheral, name: peripheral.name))
         }
     }
 

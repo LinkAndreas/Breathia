@@ -63,6 +63,9 @@ struct SensorConnectionContent: View {
 
         case let .connecting(name):
             ActivityRow(text: "sensor.connectingTo \(name ?? String(localized: "sensor.unknownSensor"))")
+            Section {
+                Button("common.cancel", role: .cancel, action: monitor.disconnect)
+            }
 
         case let .reconnecting(attempt):
             ActivityRow(text: "sensor.reconnectingAttempt \(attempt)")
