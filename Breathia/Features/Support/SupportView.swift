@@ -23,7 +23,6 @@ struct SupportView: View {
                         subscription: subscription,
                         nextPlanName: store.subscriptionOffers.first { $0.id == subscription.upcomingProductID }?.displayName
                     )
-                    Button("support.manageSubscription", action: manageSubscription)
                 }
             }
 
@@ -33,7 +32,7 @@ struct SupportView: View {
                 }
             }
 
-            SupportOffersSections()
+            SupportOffersSections(manageSubscription: manageSubscription)
 
             // What recurring support unlocks, right below it: locked until someone subscribes,
             // and the picker once they have. Supporters keep it even when the offers can't load.

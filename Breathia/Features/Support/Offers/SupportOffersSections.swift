@@ -4,6 +4,8 @@ import SwiftUI
 /// and one-time and recurring support once they're in.
 struct SupportOffersSections: View {
     @Environment(SupportStore.self) private var store
+    /// Opens subscription management, offered to subscribers beside the subscriptions.
+    var manageSubscription: () -> Void = {}
 
     var body: some View {
         switch store.loadState {
@@ -20,6 +22,8 @@ struct SupportOffersSections: View {
                 Button("common.tryAgain") {
                     Task { await store.load() }
                 }
+                // Subscribers can still manage theirs without the offers.
+                manageSubscriptionButton
             }
 
         case .loaded:
@@ -40,12 +44,20 @@ struct SupportOffersSections: View {
                     ForEach(store.subscriptionOffers) { offer in
                         SupportPurchaseRow(offer: offer, isProminent: false)
                     }
+                    manageSubscriptionButton
                 } header: {
                     Text("support.recurringSupport")
                 } footer: {
                     Text("support.recurringSupportIsOptional")
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var manageSubscriptionButton: some View {
+        if store.activeSubscription != nil {
+            Button("support.manageSubscription", action: manageSubscription)
         }
     }
 }
