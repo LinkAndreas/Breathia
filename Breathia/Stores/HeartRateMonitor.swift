@@ -9,7 +9,7 @@ final class HeartRateMonitor: LiveHeartRateProviding {
     private(set) var heartRate: Int?
     private(set) var hrv: HRV?
     /// The name of the sensor being connected to, or the last one connected;
-    /// until then, the model the app is built for.
+    /// until then, or for a sensor that advertises no name, a generic one.
     private(set) var sensorName: String
     /// `true` while the system's Bluetooth permission prompt is up.
     private(set) var isRequestingPermission = false
@@ -19,12 +19,16 @@ final class HeartRateMonitor: LiveHeartRateProviding {
     /// Set when access is requested, so searching starts as soon as it's granted.
     @ObservationIgnored private var scansWhenAllowed = false
 
-    init(source: HeartRateSource, sensorName: String) {
+    init(source: HeartRateSource) {
         self.source = source
         self.status = source.status
-        self.sensorName = sensorName
+        self.sensorName = Self.genericSensorName
         source.onStatusChange = { [weak self] status in self?.apply(status) }
         source.onMeasurement = { [weak self] measurement in self?.ingest(measurement) }
+    }
+
+    private static var genericSensorName: String {
+        String(localized: "sensor.heartRateSensor")
     }
 
     var isConnected: Bool {
@@ -78,8 +82,8 @@ final class HeartRateMonitor: LiveHeartRateProviding {
         } else if status == .denied {
             scansWhenAllowed = false
         }
-        if case let .connecting(name?) = status {
-            sensorName = name
+        if case let .connecting(name) = status {
+            sensorName = name ?? Self.genericSensorName
         }
         if !isConnected {
             heartRate = nil

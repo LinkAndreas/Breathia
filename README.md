@@ -22,8 +22,8 @@
 
 Breathia paces you through 24 breathing techniques — from Box Breathing and the Physiological
 Sigh to Resonance and Alternate Nostril Breathing — with a breathing circle and haptic and sound
-cues. Connect a Bluetooth chest strap such as the Polar H10 to see your heart rate and HRV
-respond while you breathe.
+cues. Connect any Bluetooth heart-rate sensor, such as the Polar H10, to see your heart rate
+and HRV respond while you breathe.
 
 ## Screenshots
 

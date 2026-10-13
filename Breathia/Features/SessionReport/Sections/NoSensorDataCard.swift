@@ -5,7 +5,7 @@ struct NoSensorDataCard: View {
         VStack(spacing: 6) {
             Text("report.noSensorData")
                 .font(.headline)
-            Text("report.polarH10WasntConnected")
+            Text("report.noSensorWasConnected")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

@@ -20,6 +20,11 @@ final class Scanning: CentralState {
             withServices: uuids,
             options: [CBCentralManagerScanOptionAllowDuplicatesKey: false]
         )
+        // A sensor already connected to the system — through another app, say —
+        // stops advertising, so the scan alone would never find it.
+        for peripheral in environment.manager.retrieveConnectedPeripherals(withServices: uuids) {
+            didDiscover(peripheral, advertisementData: [:], rssi: 0)
+        }
     }
 
     func exit() {
@@ -48,7 +53,7 @@ final class Scanning: CentralState {
             found[index] = entry
         } else {
             found.append(entry)
-            // Keep the device the app is built for at the top of the list.
+            // Keep the device the app is designed around at the top of the list.
             let preferred = environment.preferredDevice.name
             func isPreferred(_ sensor: DiscoveredPeripheral) -> Bool { sensor.name?.hasPrefix(preferred) == true }
             found.sort { isPreferred($0) && !isPreferred($1) }

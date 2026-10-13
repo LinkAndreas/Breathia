@@ -1,6 +1,7 @@
 import Foundation
 
-/// The sensor model the app is built for. Found sensors of this model are listed first.
+/// The sensor model the app is designed around. Any sensor offering the standard
+/// Heart Rate service pairs; found sensors of this model are just listed first.
 enum BluetoothDevice {
     case polarH10
 

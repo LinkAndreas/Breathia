@@ -58,7 +58,7 @@ final class AppDependencies {
         store = SettingsStore(repository: settingsRepository)
         #endif
 
-        let monitor = HeartRateMonitor(source: heartRateSource, sensorName: BluetoothDevice.polarH10.name)
+        let monitor = HeartRateMonitor(source: heartRateSource)
         let mindful = MindfulMinutesStore(service: mindfulMinutesService)
         let factory = BreathingSessionFactory(
             monitor: monitor,

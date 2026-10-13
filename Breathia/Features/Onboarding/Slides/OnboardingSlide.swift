@@ -18,7 +18,7 @@ struct OnboardingSlide {
             tint: Color(oklch: 0.62, chroma: 0.15, hue: 200)
         ),
         OnboardingSlide(
-            title: "onboarding.connectPolarH10",
+            title: "onboarding.connectASensor",
             subtitle: "onboarding.pairYourChestStrap",
             illustration: .heartRate,
             tint: Color(oklch: 0.62, chroma: 0.17, hue: 20)

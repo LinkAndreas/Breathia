@@ -65,8 +65,8 @@ are handled with `#if os(...)` at the edges, never in the domain:
 ## Running a session
 
 Both devices run sessions with the same `BreathingSessionModel`. Each composition root
-builds a `BreathingSessionFactory` with that device's heart-rate source (the Polar H10
-through `HeartRateMonitor` on iPhone, a HealthKit workout on Apple Watch), its cue player,
+builds a `BreathingSessionFactory` with that device's heart-rate source (a Bluetooth heart-rate
+sensor through `HeartRateMonitor` on iPhone, a HealthKit workout on Apple Watch), its cue player,
 and a `SessionRecorder`; session screens only call `makeSession(for:)`. A recorded session
 goes into History on iPhone, or to iPhone over WatchConnectivity from the watch, and to
 Apple Health as mindful minutes when the user turned that on. Health access is requested

@@ -1,7 +1,7 @@
 import Foundation
 
-/// The live readings a breathing session samples. Implemented by the Polar H10
-/// monitor on iPhone and by the workout session on Apple Watch, so the session
+/// The live readings a breathing session samples. Implemented by the heart-rate
+/// sensor monitor on iPhone and by the workout session on Apple Watch, so the session
 /// logic itself is the same on both devices.
 protocol LiveHeartRateProviding: AnyObject {
     var isConnected: Bool { get }

@@ -267,30 +267,30 @@
         }
       }
     },
-    "common.aboutBluetoothPolarH10" : {
+    "common.aboutBluetoothSensors" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Über Bluetooth & Polar H10"
+            "value" : "Über Bluetooth & Sensoren"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "About Bluetooth & Polar H10"
+            "value" : "About Bluetooth & Sensors"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Acerca de Bluetooth y Polar H10"
+            "value" : "Acerca de Bluetooth y sensores"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "À propos du Bluetooth et du Polar H10"
+            "value" : "À propos du Bluetooth et des capteurs"
           }
         }
       }
@@ -2036,36 +2036,6 @@
         }
       }
     },
-    "history.section.previous7Days" : {
-      "comment" : "History section header: sessions from 2 to 6 days ago",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Letzte 7 Tage"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Previous 7 Days"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "7 días anteriores"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "7 jours précédents"
-          }
-        }
-      }
-    },
     "history.section.previous30Days" : {
       "comment" : "History section header: sessions from 7 to 29 days ago",
       "extractionState" : "manual",
@@ -2092,6 +2062,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "30 jours précédents"
+          }
+        }
+      }
+    },
+    "history.section.previous7Days" : {
+      "comment" : "History section header: sessions from 2 to 6 days ago",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzte 7 Tage"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous 7 Days"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 días anteriores"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 jours précédents"
           }
         }
       }
@@ -2292,6 +2292,34 @@
         }
       }
     },
+    "onboarding.connectASensor" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensor verbinden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect a Sensor"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conecta un sensor"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connectez un capteur"
+          }
+        }
+      }
+    },
     "onboarding.connectAppleHealth" : {
       "localizations" : {
         "de" : {
@@ -2316,34 +2344,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Connecter à Apple Health"
-          }
-        }
-      }
-    },
-    "onboarding.connectPolarH10" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Polar H10 verbinden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connect Polar H10"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Conecta el Polar H10"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connectez le Polar H10"
           }
         }
       }
@@ -2606,25 +2606,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kopple deinen Brustgurt, um beim Atmen echtes Feedback zu Herzfrequenz und HRV zu sehen."
+            "value" : "Kopple einen Bluetooth-Herzfrequenzsensor wie den Polar H10, um beim Atmen echtes Feedback zu Herzfrequenz und HRV zu sehen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pair your chest strap sensor to see real heart-rate and HRV feedback while you breathe."
+            "value" : "Pair a Bluetooth heart-rate sensor, like the Polar H10, to see real heart-rate and HRV feedback while you breathe."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vincula tu sensor de correa pectoral para ver tu frecuencia cardiaca y VFC reales mientras respiras."
+            "value" : "Vincula un sensor de frecuencia cardiaca Bluetooth, como el Polar H10, para ver tu frecuencia cardiaca y VFC reales mientras respiras."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Associez votre ceinture thoracique pour voir votre fréquence cardiaque et votre VFC réelles pendant que vous respirez."
+            "value" : "Associez un capteur de fréquence cardiaque Bluetooth, comme le Polar H10, pour voir votre fréquence cardiaque et votre VFC réelles pendant que vous respirez."
           }
         }
       }
@@ -3219,30 +3219,30 @@
         }
       }
     },
-    "report.polarH10WasntConnected" : {
+    "report.noSensorWasConnected" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Der Polar H10 war nicht verbunden, daher wurden für diese Sitzung keine Herzfrequenz- und HRV-Daten aufgezeichnet."
+            "value" : "Es war kein Herzfrequenzsensor verbunden, daher wurden für diese Sitzung keine Herzfrequenz- und HRV-Daten aufgezeichnet."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Polar H10 wasn't connected, so heart rate and HRV weren't recorded for this session."
+            "value" : "No heart-rate sensor was connected, so heart rate and HRV weren't recorded for this session."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El Polar H10 no estaba conectado, así que no se registraron la frecuencia cardiaca ni la VFC en esta sesión."
+            "value" : "No había ningún sensor de frecuencia cardiaca conectado, así que no se registraron la frecuencia cardiaca ni la VFC en esta sesión."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le Polar H10 n'était pas connecté : la fréquence cardiaque et la VFC n'ont pas été enregistrées pour cette séance."
+            "value" : "Aucun capteur de fréquence cardiaque n'était connecté : la fréquence cardiaque et la VFC n'ont pas été enregistrées pour cette séance."
           }
         }
       }
@@ -3252,25 +3252,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sitzungen ohne Sensor zählen trotzdem. Verbinde beim nächsten Mal den Polar H10, um zu sehen, wie dein Herz reagiert."
+            "value" : "Sitzungen ohne Sensor zählen trotzdem. Verbinde beim nächsten Mal einen Herzfrequenzsensor wie den Polar H10, um zu sehen, wie dein Herz reagiert."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sessions without a sensor still count. Connect Polar H10 next time to see how your heart responds."
+            "value" : "Sessions without a sensor still count. Connect a heart-rate sensor, like the Polar H10, next time to see how your heart responds."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Las sesiones sin sensor también cuentan. Conecta el Polar H10 la próxima vez para ver cómo responde tu corazón."
+            "value" : "Las sesiones sin sensor también cuentan. Conecta un sensor de frecuencia cardiaca, como el Polar H10, la próxima vez para ver cómo responde tu corazón."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les séances sans capteur comptent aussi. Connectez le Polar H10 la prochaine fois pour voir comment votre cœur réagit."
+            "value" : "Les séances sans capteur comptent aussi. Connectez un capteur de fréquence cardiaque, comme le Polar H10, la prochaine fois pour voir comment votre cœur réagit."
           }
         }
       }
@@ -3668,30 +3668,58 @@
         }
       }
     },
-    "sensor.moistenTheStrapsElectrodes" : {
+    "sensor.heartRateSensor" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Befeuchte die Elektroden des Gurts und leg ihn an – der Polar H10 sendet nur, solange er einen Herzschlag erkennt."
+            "value" : "Herzfrequenzsensor"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moisten the strap's electrodes and put it on — Polar H10 only advertises while it detects a heartbeat."
+            "value" : "Heart-Rate Sensor"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Humedece los electrodos de la correa y póntela: el Polar H10 solo emite mientras detecta un latido."
+            "value" : "Sensor de frecuencia cardiaca"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Humidifiez les électrodes de la sangle et mettez-la : le Polar H10 n'émet que lorsqu'il détecte un battement de cœur."
+            "value" : "Capteur de fréquence cardiaque"
+          }
+        }
+      }
+    },
+    "sensor.moistenTheStrapsElectrodes" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leg deinen Sensor an – bei einem Brustgurt befeuchte vorher die Elektroden. Die meisten Sensoren, wie der Polar H10, erscheinen nur, solange sie einen Herzschlag erkennen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Put your sensor on — for a chest strap, moisten the electrodes first. Most sensors, like the Polar H10, only show up while they detect a heartbeat."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponte el sensor; si es una correa pectoral, humedece antes los electrodos. La mayoría de los sensores, como el Polar H10, solo aparecen mientras detectan un latido."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettez votre capteur ; pour une ceinture thoracique, humidifiez d'abord les électrodes. La plupart des capteurs, comme le Polar H10, n'apparaissent que lorsqu'ils détectent un battement de cœur."
           }
         }
       }
@@ -3757,25 +3785,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia nutzt Bluetooth nur, um sich mit deinem Brustgurt wie dem Polar H10 zu verbinden und beim Atmen deine Herzfrequenz und HRV anzuzeigen."
+            "value" : "Breathia nutzt Bluetooth nur, um sich mit deinem Herzfrequenzsensor wie dem Polar H10 zu verbinden und beim Atmen deine Herzfrequenz und HRV anzuzeigen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia uses Bluetooth only to connect to your chest strap, like the Polar H10, and show your heart rate and HRV while you breathe."
+            "value" : "Breathia uses Bluetooth only to connect to your heart-rate sensor, like the Polar H10, and show your heart rate and HRV while you breathe."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia usa Bluetooth solo para conectarse a tu correa pectoral, como el Polar H10, y mostrar tu frecuencia cardiaca y tu VFC mientras respiras."
+            "value" : "Breathia usa Bluetooth solo para conectarse a tu sensor de frecuencia cardiaca, como el Polar H10, y mostrar tu frecuencia cardiaca y tu VFC mientras respiras."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia utilise le Bluetooth uniquement pour se connecter à votre ceinture thoracique, comme le Polar H10, et afficher votre fréquence cardiaque et votre VFC pendant que vous respirez."
+            "value" : "Breathia utilise le Bluetooth uniquement pour se connecter à votre capteur de fréquence cardiaque, comme le Polar H10, et afficher votre fréquence cardiaque et votre VFC pendant que vous respirez."
           }
         }
       }
@@ -4601,6 +4629,34 @@
         }
       }
     },
+    "settings.appNameAndVersion %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia %@"
+          }
+        }
+      }
+    },
     "settings.appearance" : {
       "localizations" : {
         "de" : {
@@ -4653,34 +4709,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apple Health"
-          }
-        }
-      }
-    },
-    "settings.appNameAndVersion %@" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia %@"
           }
         }
       }
@@ -5110,25 +5138,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Befeuchte die Elektrodenbereiche des Gurts, befestige ihn direkt unterhalb der Brustmuskulatur und klicke den Sensor ein. Der Sensor wird aktiv und beginnt zu senden, sobald er einen Herzschlag erkennt."
+            "value" : "Bei einem Brustgurt wie dem Polar H10 befeuchte die Elektrodenbereiche, befestige ihn direkt unterhalb der Brustmuskulatur und klicke den Sensor ein. Die meisten Sensoren werden aktiv und beginnen zu senden, sobald sie einen Herzschlag erkennen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Moisten the electrode areas of the strap, fasten it just below your chest muscles, and snap the sensor on. The sensor wakes up and starts advertising once it detects a heartbeat."
+            "value" : "For a chest strap like the Polar H10, moisten the electrode areas, fasten it just below your chest muscles, and snap the sensor on. Most sensors wake up and start advertising once they detect a heartbeat."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Humedece las zonas de los electrodos de la correa, abróchala justo debajo de los músculos pectorales y encaja el sensor. El sensor se activa y empieza a emitir en cuanto detecta un latido."
+            "value" : "En una correa pectoral como el Polar H10, humedece las zonas de los electrodos, abróchala justo debajo de los músculos pectorales y encaja el sensor. La mayoría de los sensores se activan y empiezan a emitir en cuanto detectan un latido."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Humidifiez les zones d'électrodes de la sangle, attachez-la juste sous les muscles pectoraux et clipsez le capteur. Le capteur s'active et commence à émettre dès qu'il détecte un battement de cœur."
+            "value" : "Pour une ceinture thoracique comme le Polar H10, humidifiez les zones d'électrodes, attachez-la juste sous les muscles pectoraux et clipsez le capteur. La plupart des capteurs s'activent et commencent à émettre dès qu'ils détectent un battement de cœur."
           }
         }
       }
@@ -5166,25 +5194,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Öffne die Sensoransicht im Tab „Atmen“ oder in den Einstellungen. Dein Polar H10 erscheint innerhalb weniger Sekunden in der Liste – tippe darauf, um ihn zu verbinden. Halte das Telefon während einer Sitzung in wenigen Metern Entfernung."
+            "value" : "Öffne die Sensoransicht im Tab „Atmen“ oder in den Einstellungen. Dein Sensor erscheint innerhalb weniger Sekunden in der Liste – tippe darauf, um ihn zu verbinden. Jeder Bluetooth-Herzfrequenzsensor funktioniert, etwa der Polar H10; für HRV muss er RR-Intervalle senden, wie es Brustgurte tun. Halte das Telefon während einer Sitzung in wenigen Metern Entfernung."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open the sensor sheet from the Breathe tab or Settings. Your Polar H10 appears in the list within a few seconds — tap it to connect. Keep the phone within a few metres during a session."
+            "value" : "Open the sensor sheet from the Breathe tab or Settings. Your sensor appears in the list within a few seconds — tap it to connect. Any Bluetooth heart-rate sensor works, like the Polar H10; for HRV it needs to report RR intervals, as chest straps do. Keep the phone within a few metres during a session."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abre el panel del sensor desde la pestaña Respirar o desde Ajustes. Tu Polar H10 aparecerá en la lista en unos segundos: tócalo para conectarlo. Mantén el teléfono a pocos metros durante la sesión."
+            "value" : "Abre el panel del sensor desde la pestaña Respirar o desde Ajustes. Tu sensor aparecerá en la lista en unos segundos: tócalo para conectarlo. Funciona cualquier sensor de frecuencia cardiaca Bluetooth, como el Polar H10; para la VFC debe enviar intervalos RR, como hacen las correas pectorales. Mantén el teléfono a pocos metros durante la sesión."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ouvrez la fenêtre du capteur depuis l'onglet Respirer ou les Réglages. Votre Polar H10 apparaît dans la liste en quelques secondes : touchez-le pour le connecter. Gardez le téléphone à quelques mètres pendant une séance."
+            "value" : "Ouvrez la fenêtre du capteur depuis l'onglet Respirer ou les Réglages. Votre capteur apparaît dans la liste en quelques secondes : touchez-le pour le connecter. Tout capteur de fréquence cardiaque Bluetooth convient, comme le Polar H10 ; pour la VFC, il doit transmettre les intervalles RR, comme le font les ceintures thoraciques. Gardez le téléphone à quelques mètres pendant une séance."
           }
         }
       }
@@ -5250,25 +5278,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gurt anlegen"
+            "value" : "Sensor anlegen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wearing the strap"
+            "value" : "Wearing the sensor"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Colocarse la correa"
+            "value" : "Colocarse el sensor"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Porter la sangle"
+            "value" : "Porter le capteur"
           }
         }
       }
@@ -5728,34 +5756,6 @@
         }
       }
     },
-    "support.active" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aktiv"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Active"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activa"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Actif"
-          }
-        }
-      }
-    },
     "support.aSinglePaymentNothing" : {
       "localizations" : {
         "de" : {
@@ -5780,6 +5780,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Un paiement unique, sans renouvellement."
+          }
+        }
+      }
+    },
+    "support.active" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actif"
           }
         }
       }
@@ -6713,34 +6741,6 @@
         }
       }
     },
-    "support.supporterAppIcons" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supporter-App-Icons"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supporter App Icons"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Iconos de app exclusivos"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Icônes d'app exclusives"
-          }
-        }
-      }
-    },
     "support.supportOptionsCouldnt" : {
       "localizations" : {
         "de" : {
@@ -6765,6 +6765,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Les options de soutien n'ont pas pu être chargées. Vérifiez votre connexion Internet et réessayez."
+          }
+        }
+      }
+    },
+    "support.supporterAppIcons" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporter-App-Icons"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporter App Icons"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iconos de app exclusivos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icônes d'app exclusives"
           }
         }
       }
