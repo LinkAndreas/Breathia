@@ -11,7 +11,8 @@
             "value" : "%1$@ %2$@"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "biofeedback.collectingHRVData" : {
       "localizations" : {
@@ -5723,35 +5724,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Réglages"
-          }
-        }
-      }
-    },
-    "sidebar.title" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Breathia"
           }
         }
       }

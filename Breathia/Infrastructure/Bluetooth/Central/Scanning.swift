@@ -40,7 +40,8 @@ final class Scanning: CentralState {
     func connect(to id: UUID) {
         guard let peripheral = peripherals[id] else { return }
 
-        environment.handleEvent(.peripheralSelected(peripheral))
+        let name = found.first { $0.id == id }?.name
+        environment.handleEvent(.peripheralSelected(peripheral, name: name))
     }
 
     func didDiscover(_ peripheral: CBPeripheral, advertisementData: [String: Any], rssi: Int) {

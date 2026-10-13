@@ -7,7 +7,7 @@ enum CentralEvent {
     case bluetoothUnavailable(CBManagerState)
     case scanRequested
     case peripheralFound(CBPeripheral)
-    case peripheralSelected(CBPeripheral)
+    case peripheralSelected(CBPeripheral, name: String?)
     case linkEstablished(CBPeripheral)
     case linkFailed(CBPeripheral, Error?)
     case reconnectNeeded(CBPeripheral, attempt: Int)

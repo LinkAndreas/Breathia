@@ -93,10 +93,11 @@ final class HeartRateMonitor: LiveHeartRateProviding {
     }
 
     /// A reading without skin contact is dropped, so sessions never record it — the
-    /// heart rate shows as unknown until the strap sits right again.
+    /// heart rate and HRV show as unknown until the sensor sits right again.
     private func ingest(_ measurement: HeartRateMeasurement) {
         guard measurement.isValid else {
             heartRate = nil
+            hrv = nil
             return
         }
         heartRate = measurement.heartRate
