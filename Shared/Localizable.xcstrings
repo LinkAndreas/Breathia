@@ -5498,6 +5498,34 @@
         }
       }
     },
+    "settings.info.readThePrivacyPolicy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vollständige Datenschutzerklärung lesen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read the full privacy policy"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leer la política de privacidad completa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lire la politique de confidentialité complète"
+          }
+        }
+      }
+    },
     "settings.info.swipeASession" : {
       "localizations" : {
         "de" : {

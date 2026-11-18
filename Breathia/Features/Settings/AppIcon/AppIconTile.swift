@@ -32,7 +32,10 @@ struct AppIconTile: View {
                     .font(.caption)
                     .foregroundStyle(isSelected ? .primary : .secondary)
                     .lineLimit(1)
+                    // Long names like "Mitternachtsgold" shrink rather than widen the tile.
+                    .minimumScaleFactor(0.75)
             }
+            .frame(maxWidth: .infinity)
         }
         // Plain, so each icon is its own button rather than the whole row.
         .buttonStyle(.plain)

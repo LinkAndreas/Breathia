@@ -12,23 +12,11 @@ struct AppIconSection: View {
     var body: some View {
         if iconStore.canChangeIcon {
             Section {
-                Group {
-                    #if os(macOS)
-                    // A mouse can't swipe sideways, so on a Mac the icons wrap into rows.
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 76), spacing: 14, alignment: .top)], spacing: 14) {
-                        AppIconTiles(onSelect: select)
-                    }
-                    .padding(.vertical, 6)
-                    #else
-                    ScrollView(.horizontal) {
-                        HStack(alignment: .top, spacing: 14) {
-                            AppIconTiles(onSelect: select)
-                        }
-                        .padding(.vertical, 6)
-                    }
-                    .scrollIndicators(.hidden)
-                    #endif
+                // The icons wrap into rows, so every one is in view without scrolling sideways.
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 72), spacing: 8, alignment: .top)], spacing: 14) {
+                    AppIconTiles(onSelect: select)
                 }
+                .padding(.vertical, 6)
                 .sensoryFeedback(.selection, trigger: iconStore.current)
             } header: {
                 Text("settings.appIcon")
