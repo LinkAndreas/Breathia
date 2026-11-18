@@ -213,11 +213,20 @@ jobs:
             -exportOptionsPlist ${{ matrix.export_options }} \
             -exportPath $RUNNER_TEMP | xcbeautify
 
+      # A copy of the build to download. A full artifact storage, or an upload that stalls, must
+      # never stop the upload to App Store Connect below: it only leaves a warning.
       - name: Publish ${{ matrix.package }} file
+        id: publish-package
         uses: actions/upload-artifact@v7
+        continue-on-error: true
+        timeout-minutes: 5
         with:
           name: ${{ matrix.package }}
           path: ${{ runner.temp }}/${{ matrix.package }}
+
+      - name: Warn that the ${{ matrix.package }} file wasn't published
+        if: ${{ steps.publish-package.outcome != 'success' }}
+        run: echo "::warning title=Artifact not published::${{ matrix.package }} couldn't be published as an artifact (storage full or upload stalled). The upload to App Store Connect goes ahead anyway."
 
       - name: Upload Build Artifact to App Store Connect
         run: |
