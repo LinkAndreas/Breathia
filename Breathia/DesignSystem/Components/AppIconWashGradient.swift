@@ -2,10 +2,10 @@ import SwiftUI
 
 /// One icon's wash: its sky at the top, fading through its glow.
 struct AppIconWashGradient: View {
-    let palette: SupporterIcon.Palette
+    let palette: AppIconVariant.Palette
 
     var body: some View {
-        let locations = SupporterIcon.Palette.locations
+        let locations = AppIconVariant.Palette.locations
         LinearGradient(
             stops: [
                 .init(color: palette.sky, location: locations[0]),
@@ -21,6 +21,6 @@ struct AppIconWashGradient: View {
 
 #if DEBUG
 #Preview {
-    AppIconWashGradient(palette: SupporterIcon.lagoon.palette)
+    AppIconWashGradient(palette: AppIconVariant.lagoon.palette)
 }
 #endif

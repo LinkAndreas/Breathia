@@ -1,11 +1,11 @@
-"""Build the supporter app icons from Breathia's icon (Shared/AppIcon.icon), one recolored copy per variant.
+"""Build the alternate app icons from Breathia's icon (Shared/AppIcon.icon), one recolored copy per variant.
 
 Each variant moves the icon's colors in OKLCH: the cool colors (the sky, the waves and the moon) and
 the warm ones (the sun and the horizon's glow) each get their own hue shift and chroma, so the scene
 keeps its light and depth in every color. The layers, glass and appearances stay Breathia's own.
 
-Also writes the vector IconPreview-<Name> images the supporter icon picker shows, and each icon's
-palette (SupporterIcon+Palette.swift): the accent color the app's controls take, and the colors of
+Also writes the vector IconPreview-<Name> images the app icon picker shows, and each icon's
+palette (AppIconVariant+Palette.swift): the accent color the app's controls take, and the colors of
 the background wash.
 Run from anywhere after changing the icon or the variants: python3 AppIcon/make_icons.py
 """
@@ -16,7 +16,7 @@ base = os.path.join(repo, "Shared/AppIcon.icon")
 resources = os.path.join(repo, "Breathia/Resources")
 icons_out = os.path.join(resources, "AppIcons")
 previews_out = os.path.join(resources, "IconPreviews.xcassets")
-palette_out = os.path.join(repo, "Breathia/DesignSystem/SupporterIcon+Palette.swift")
+palette_out = os.path.join(repo, "Breathia/DesignSystem/AppIconVariant+Palette.swift")
 
 # name: (cool hue shift, cool chroma, cool lightness shift), (warm hue shift, warm chroma, warm lightness shift)
 VARIANTS = {
@@ -204,7 +204,7 @@ import AppKit
 private typealias PlatformColor = NSColor
 #endif
 
-extension SupporterIcon {{
+extension AppIconVariant {{
     /// An icon's colors, taken from its artwork: the accent the app's controls take, and the
     /// background wash's sky and glow, already at the wash's opacity.
     struct Palette {{

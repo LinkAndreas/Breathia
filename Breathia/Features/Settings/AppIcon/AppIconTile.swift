@@ -1,11 +1,9 @@
 import SwiftUI
 
-/// One icon in the supporter icon picker: its preview, its name, and a ring when it's the app's icon.
-struct SupporterIconTile: View {
-    let icon: SupporterIcon
+/// One icon in the app icon picker: its preview, its name, and a ring when it's the app's icon.
+struct AppIconTile: View {
+    let icon: AppIconVariant
     let isSelected: Bool
-    let isLocked: Bool
-    let lockedTapCount: Int
     let action: () -> Void
 
     private static let size: CGFloat = 60
@@ -29,16 +27,6 @@ struct SupporterIconTile: View {
                                 .strokeBorder(.tint, lineWidth: 2.5)
                         }
                     }
-                    .overlay(alignment: .bottomTrailing) {
-                        if isLocked {
-                            Image(systemName: "lock.fill")
-                                .font(.caption2.weight(.bold))
-                                .foregroundStyle(.white)
-                                .padding(5)
-                                .background(.black.opacity(0.55), in: .circle)
-                                .symbolEffect(.bounce, value: lockedTapCount)
-                        }
-                    }
 
                 Text(icon.title)
                     .font(.caption)
@@ -50,15 +38,14 @@ struct SupporterIconTile: View {
         .buttonStyle(.plain)
         .accessibilityLabel(Text(icon.title))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
-        .accessibilityHint(isLocked ? Text("support.includedWithRecurringSupport") : Text(verbatim: ""))
     }
 }
 
 #if DEBUG
 #Preview {
     HStack {
-        SupporterIconTile(icon: .classic, isSelected: true, isLocked: false, lockedTapCount: 0) {}
-        SupporterIconTile(icon: .ember, isSelected: false, isLocked: true, lockedTapCount: 0) {}
+        AppIconTile(icon: .classic, isSelected: true) {}
+        AppIconTile(icon: .ember, isSelected: false) {}
     }
     .padding()
 }

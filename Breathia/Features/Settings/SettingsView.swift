@@ -1,23 +1,13 @@
 import SwiftUI
 
-/// iPhone settings: Support the Developer on top, then every category in one form.
+/// iPhone settings: every category in one form.
 struct SettingsView: View {
-    let onShowSupport: () -> Void
     let onShowSensor: () -> Void
     let onOpenPage: (SettingsPage) -> Void
     let onShowOnboarding: () -> Void
 
     var body: some View {
         Form {
-            Section {
-                Button(action: onShowSupport) {
-                    SupportDeveloperCard()
-                }
-                .buttonStyle(.plain)
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
-            }
-
             Section("settings.sensor") {
                 SensorSettingsRow(action: onShowSensor)
             }
@@ -43,6 +33,8 @@ struct SettingsView: View {
             Section("settings.appearance") {
                 AppearanceSettingsRows()
             }
+
+            AppIconSection()
 
             Section {
                 SettingsPageRow(page: .privacy) { onOpenPage(.privacy) }
@@ -70,12 +62,11 @@ struct SettingsView: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        SettingsView(onShowSupport: {}, onShowSensor: {}, onOpenPage: { _ in }, onShowOnboarding: {})
+        SettingsView(onShowSensor: {}, onOpenPage: { _ in }, onShowOnboarding: {})
     }
     .environment(PreviewStores.heartRateMonitor())
     .environment(PreviewStores.settingsStore())
     .environment(PreviewStores.mindfulMinutes())
-    .environment(SupportStore(service: PreviewSupportService()))
     .environment(AppIconStore.preview())
 }
 #endif

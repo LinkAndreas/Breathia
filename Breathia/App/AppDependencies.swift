@@ -13,8 +13,6 @@ final class AppDependencies {
     let settingsStore: SettingsStore
     /// The app's icon, which the app takes its accent color from.
     let appIconStore: AppIconStore
-    /// Recurring support, which the supporter icons depend on.
-    let supportStore: SupportStore
     #if canImport(WatchConnectivity)
     /// Retained for the app's lifetime; `nil` in previews.
     private let watchSync: PhoneWatchSync?
@@ -27,7 +25,6 @@ final class AppDependencies {
         sessionRepository: SessionRepository,
         settingsRepository: SettingsRepository,
         mindfulMinutesService: MindfulMinutesService,
-        supportService: SupportStoreService,
         appIconStore: AppIconStore,
         reviewPromptRepository: ReviewPromptRepository,
         reviewRequester: ReviewRequesting,
@@ -76,9 +73,6 @@ final class AppDependencies {
                 #endif
             }
         )
-        let support = SupportStore(service: supportService)
-        support.startObservingTransactions()
-
         let navigator = AppNavigator()
         let ratingFlow = RatingFlow(
             prompter: ReviewPrompter(
@@ -96,7 +90,6 @@ final class AppDependencies {
             settingsStore: store,
             heartRateMonitor: monitor,
             mindfulMinutes: mindful,
-            supportStore: support,
             appIconStore: appIconStore,
             sessionFactory: factory,
             ratingFlow: ratingFlow
@@ -105,7 +98,6 @@ final class AppDependencies {
         self.navigator = navigator
         settingsStore = store
         self.appIconStore = appIconStore
-        supportStore = support
 
         // First launch: onboarding comes up over the app.
         if !store.settings.hasCompletedOnboarding {
@@ -125,7 +117,6 @@ final class AppDependencies {
             sessionRepository: makeSessionRepository(),
             settingsRepository: UserDefaultsSettingsRepository(),
             mindfulMinutesService: makeMindfulMinutesService(),
-            supportService: StoreKitSupportService(),
             appIconStore: .live(),
             reviewPromptRepository: UserDefaultsReviewPromptRepository(),
             reviewRequester: StoreKitReviewRequester(),
@@ -179,7 +170,6 @@ final class AppDependencies {
             sessionRepository: InMemorySessionRepository(sessions: sessions),
             settingsRepository: InMemorySettingsRepository(settings: settings),
             mindfulMinutesService: InMemoryMindfulMinutesService(),
-            supportService: PreviewSupportService(),
             appIconStore: .preview(),
             reviewPromptRepository: InMemoryReviewPromptRepository(),
             reviewRequester: StoreKitReviewRequester(),

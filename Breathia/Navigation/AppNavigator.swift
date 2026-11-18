@@ -100,10 +100,6 @@ final class AppNavigator {
         store.navigator.present(SensorRoute.connect)
     }
 
-    func showSupport() {
-        store.navigator.present(SupportRoute.support)
-    }
-
     /// Presents onboarding — on first launch, and again from Settings. Full screen
     /// over the tab bar; a form sheet over the split view.
     func showOnboarding() {
@@ -167,8 +163,6 @@ extension AppNavigator {
             )
         case .sensor:
             showSensor()
-        case .support:
-            showSupport()
         }
     }
 }
