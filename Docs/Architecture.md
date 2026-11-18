@@ -6,9 +6,9 @@ states which layer it belongs to.
 
 | Layer | Contains | May depend on |
 |---|---|---|
-| **Domain** | Models (`SessionRecord`, `Technique`, `AppSettings`, …), pure logic (`BreathingClock`, `BiofeedbackAnalyzer`, `HRVCalculator`, `SessionRecordFactory`, `ReviewPromptPolicy`, `FeedbackEmail`), and the contracts infrastructure fulfils (`SessionRepository`, `SettingsRepository`, `HeartRateSource`, `LiveHeartRateProviding`, `MindfulMinutesService`, `WorkoutSessionControlling`, `SupportStoreService`, `BreathingCuePlaying`, `ReviewPromptRepository`, `ReviewRequesting`, `FeedbackMailing`). | Foundation only |
+| **Domain** | Models (`SessionRecord`, `Technique`, `AppSettings`, …), pure logic (`BreathingClock`, `BiofeedbackAnalyzer`, `HRVCalculator`, `SessionRecordFactory`, `ReviewPromptPolicy`, `FeedbackEmail`), and the contracts infrastructure fulfils (`SessionRepository`, `SettingsRepository`, `HeartRateSource`, `LiveHeartRateProviding`, `MindfulMinutesService`, `WorkoutSessionControlling`, `BreathingCuePlaying`, `ReviewPromptRepository`, `ReviewRequesting`, `FeedbackMailing`). | Foundation only |
 | **Infrastructure** | Implementations of those contracts against Apple frameworks and storage: SwiftData, UserDefaults, Core Bluetooth, HealthKit, StoreKit, WatchConnectivity, haptics and sounds. In-memory versions for previews and tests. | Domain, system frameworks |
-| **Stores** | Application state the screens read and the use cases they call — `SessionHistory`, `SettingsStore`, `HeartRateMonitor`, `MindfulMinutesStore`, `SupportStore`, `BreathingSessionModel`, `BreathingSessionFactory`, `SessionRecorder`, `ReviewPrompter`; on the watch, `WatchSessionRunner`. | Domain contracts (never concrete infrastructure) |
+| **Stores** | Application state the screens read and the use cases they call — `SessionHistory`, `SettingsStore`, `HeartRateMonitor`, `MindfulMinutesStore`, `AppIconStore`, `BreathingSessionModel`, `BreathingSessionFactory`, `SessionRecorder`, `ReviewPrompter`; on the watch, `WatchSessionRunner`. | Domain contracts (never concrete infrastructure) |
 | **Features / DesignSystem / Navigation** | SwiftUI screens and components; routes and their registration (NavigationKit). | Stores, Domain |
 | **App** | The composition root (`AppDependencies`, `WatchDependencies`): the only place that picks concrete infrastructure and wires everything together. Nothing is put in the environment app-wide — on iPhone each route in `AppRoutes` provides only the stores its screen reads; on the watch, screens get what they need as parameters. | Everything |
 
@@ -22,12 +22,12 @@ Shared/
   DesignSystem/
 Breathia/
   App/             Composition root
-  Domain/          Repositories/, Sensor/, HeartRate/, Support/, Rating/
-  Infrastructure/  Persistence/SwiftData/, Bluetooth/, Sensor/, StoreKit/, WatchConnectivity/, Feedback/, Rating/, InMemory/
-  Stores/          SessionHistory, HeartRateMonitor, SupportStore, ReviewPrompter
+  Domain/          Repositories/, Sensor/, HeartRate/, AppIcon/, Rating/
+  Infrastructure/  Persistence/SwiftData/, Bluetooth/, Sensor/, WatchConnectivity/, Feedback/, Rating/, InMemory/
+  Stores/          SessionHistory, HeartRateMonitor, AppIconStore, ReviewPrompter
   Features/        One folder per screen area (Breathe, TechniqueDetail, Session,
-                   SessionReport, History, Settings, Support, Sensor, Onboarding)
-  DesignSystem/    Components/, Headers/, Settings/, Celebration/, Layout/, Theme
+                   SessionReport, History, Settings, Sensor, Onboarding)
+  DesignSystem/    Components/, Headers/, Settings/, Layout/, Theme
   Navigation/  Preview/
 BreathiaWatch/
   App/  Domain/  Infrastructure/  Stores/  Navigation/

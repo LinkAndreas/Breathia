@@ -97,7 +97,9 @@ and HRV respond while you breathe.
 - **Apple Health** — optionally saves sessions as mindful minutes
 - **iPad and Mac** — a three-column layout; on the Mac, a native app with soft sound cues and the
   same Bluetooth sensor support
-- **Support the Developer** — optional tips and subscriptions that unlock nothing
+- **App icons** — eight icons to choose from in Settings; on iPhone and iPad the app takes on the
+  chosen icon's colors
+- **Free** — every feature included, with no ads and no in-app purchases
 - **Localized** in English, German, Spanish and French
 
 ## Privacy
@@ -149,12 +151,6 @@ Then set your `DEVELOPMENT_TEAM` and a `BUNDLE_ID_PREFIX` you own in `Config/Loc
 (it's git-ignored). The targets use `<prefix>.breathia`, `<prefix>.breathia.watchkitapp`,
 `<prefix>.breathia.widgets` and `<prefix>.breathia.tests`.
 
-### In-app purchases
-
-The optional *Support the Developer* tips run against the local StoreKit configuration
-[`Config/Breathia.storekit`](Config/Breathia.storekit), selected in the Breathia scheme. See
-[`Docs/AppStoreConnect-Support.md`](Docs/AppStoreConnect-Support.md) for the App Store Connect setup.
-
 ### Deploying to App Store Connect
 
 The [Deploy to App Store Connect](.github/workflows/deploy.yml) workflow runs on every merge into
@@ -197,9 +193,9 @@ Or press ⌘U in Xcode.
 | `BreathiaWidgets/` | WidgetKit extension drawing the Live Activity |
 | `Shared/` | Domain, stores, design system, string catalogs and the app icon — compiled into both apps |
 | `LiveActivityShared/` | Live Activity attributes and intents, shared by the app and the widget extension |
-| `Config/` | Entitlements, Info.plists, signing and the StoreKit configuration |
+| `Config/` | Entitlements, Info.plists and signing |
 | `BreathiaTests/` | Unit tests (Swift Testing), hosted by the app |
-| `Docs/` | Architecture and App Store Connect notes |
+| `Docs/` | Architecture notes and the README's images |
 
 The code is layered into Domain, Infrastructure, Stores and Features, with Apple frameworks kept
 behind protocols. [`Docs/Architecture.md`](Docs/Architecture.md) describes the layers, platform

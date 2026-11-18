@@ -6,8 +6,14 @@ struct InfoPage: View {
         let body: LocalizedStringKey
     }
 
+    struct WebLink {
+        let title: LocalizedStringKey
+        let destination: URL
+    }
+
     let title: LocalizedStringKey
     let sections: [Section]
+    var link: WebLink?
 
     var body: some View {
         ScrollView {
@@ -20,6 +26,9 @@ struct InfoPage: View {
                             .foregroundStyle(.secondary)
                             .lineSpacing(3)
                     }
+                }
+                if let link {
+                    InfoPageLink(title: link.title, destination: link.destination)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

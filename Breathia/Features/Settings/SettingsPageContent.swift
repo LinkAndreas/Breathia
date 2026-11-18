@@ -40,6 +40,7 @@ struct SettingsPageContent: View {
                 Section {
                     AppearanceSettingsRows()
                 }
+                AppIconSection()
             }
 
         case .privacy:

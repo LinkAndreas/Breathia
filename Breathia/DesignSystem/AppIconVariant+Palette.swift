@@ -9,7 +9,7 @@ import AppKit
 private typealias PlatformColor = NSColor
 #endif
 
-extension SupporterIcon {
+extension AppIconVariant {
     /// An icon's colors, taken from its artwork: the accent the app's controls take, and the
     /// background wash's sky and glow, already at the wash's opacity.
     struct Palette {

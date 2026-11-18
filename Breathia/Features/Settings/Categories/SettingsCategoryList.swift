@@ -1,34 +1,15 @@
 import SwiftUI
 
-/// iPad settings, content column: Support the Developer on top, then the
-/// categories in grouped sections, like the Settings app. The selected category's
-/// page fills the detail column; Support opens as a sheet.
+/// iPad settings, content column: the categories in grouped sections, like the
+/// Settings app. The selected category's page fills the detail column.
 struct SettingsCategoryList: View {
     @Binding var selection: SettingsPage?
-    let onShowSupport: () -> Void
     let onShowOnboarding: () -> Void
 
     @Environment(MindfulMinutesStore.self) private var mindfulMinutes
 
     var body: some View {
         List(selection: $selection) {
-            Section {
-                // An action rather than a page, so it isn't selectable. It takes the
-                // grouped section's rounded shape, as on iPhone.
-                Button(action: onShowSupport) {
-                    SupportDeveloperCard(isCompact: true)
-                }
-                .buttonStyle(.plain)
-                #if os(macOS)
-                .padding(.vertical, 8)
-                // As wide as the group cards below it.
-                .padding(.horizontal, -8)
-                .listRowSeparator(.hidden)
-                #else
-                .listRowInsets(EdgeInsets())
-                #endif
-                .listRowBackground(Color.clear)
-            }
             Section {
                 SettingsCategoryRow(page: .sensor, position: .single)
             }
@@ -83,7 +64,7 @@ struct SettingsCategoryList: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        SettingsCategoryList(selection: .constant(.breathing), onShowSupport: {}, onShowOnboarding: {})
+        SettingsCategoryList(selection: .constant(.breathing), onShowOnboarding: {})
     }
     .environment(PreviewStores.mindfulMinutes())
 }

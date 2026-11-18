@@ -11,7 +11,6 @@ final class AppRoutes: RouteModule {
     private let settingsStore: SettingsStore
     private let heartRateMonitor: HeartRateMonitor
     private let mindfulMinutes: MindfulMinutesStore
-    private let supportStore: SupportStore
     private let appIconStore: AppIconStore
     private let sessionFactory: BreathingSessionFactory
     private let ratingFlow: RatingFlow
@@ -22,7 +21,6 @@ final class AppRoutes: RouteModule {
         settingsStore: SettingsStore,
         heartRateMonitor: HeartRateMonitor,
         mindfulMinutes: MindfulMinutesStore,
-        supportStore: SupportStore,
         appIconStore: AppIconStore,
         sessionFactory: BreathingSessionFactory,
         ratingFlow: RatingFlow
@@ -32,7 +30,6 @@ final class AppRoutes: RouteModule {
         self.settingsStore = settingsStore
         self.heartRateMonitor = heartRateMonitor
         self.mindfulMinutes = mindfulMinutes
-        self.supportStore = supportStore
         self.appIconStore = appIconStore
         self.sessionFactory = sessionFactory
         self.ratingFlow = ratingFlow
@@ -118,17 +115,14 @@ final class AppRoutes: RouteModule {
                             if let page { nav.show(.page(page)) }
                         }
                     ),
-                    onShowSupport: { self.navigator.showSupport() },
                     onShowOnboarding: { self.navigator.showOnboarding() }
                 )
                 .contentColumnWidth()
                 .environment(self.mindfulMinutes)
-                .environment(self.supportStore)
 
             case .home:
                 // The tab bar: every setting in one form.
                 SettingsView(
-                    onShowSupport: { self.navigator.showSupport() },
                     onShowSensor: { self.navigator.showSensor() },
                     onOpenPage: { nav.show(.page($0)) },
                     onShowOnboarding: { self.navigator.showOnboarding() }
@@ -136,7 +130,6 @@ final class AppRoutes: RouteModule {
                 .environment(self.heartRateMonitor)
                 .environment(self.settingsStore)
                 .environment(self.mindfulMinutes)
-                .environment(self.supportStore)
                 .environment(self.appIconStore)
 
             case let .page(page):
@@ -144,7 +137,8 @@ final class AppRoutes: RouteModule {
                     page: page,
                     heartRateMonitor: self.heartRateMonitor,
                     settingsStore: self.settingsStore,
-                    mindfulMinutes: self.mindfulMinutes
+                    mindfulMinutes: self.mindfulMinutes,
+                    appIconStore: self.appIconStore
                 )
             }
         }
@@ -154,12 +148,6 @@ final class AppRoutes: RouteModule {
         registry.register { (_: SensorRoute, nav) in
             SensorSheetView(onDone: { nav.dismiss() })
                 .environment(self.heartRateMonitor)
-        }
-
-        registry.register { (_: SupportRoute, nav) in
-            SupportSheetView(onClose: { nav.dismiss() })
-                .environment(self.supportStore)
-                .environment(self.appIconStore)
         }
 
         registry.register { (route: SessionRoute, nav) in

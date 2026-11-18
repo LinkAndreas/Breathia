@@ -10,7 +10,7 @@ import NavigationKit
 nonisolated enum AppRouteTypes {
     static let all: [any Route.Type] = [
         BreatheRoute.self, HistoryRoute.self, SettingsRoute.self,
-        SensorRoute.self, SupportRoute.self, SessionRoute.self, OnboardingRoute.self,
+        SensorRoute.self, SessionRoute.self, OnboardingRoute.self,
     ]
 }
 
@@ -55,13 +55,6 @@ nonisolated enum SettingsPage: Hashable, Codable, Sendable {
 /// Finding and connecting the heart-rate sensor.
 nonisolated enum SensorRoute: Route {
     case connect
-
-    var presentation: PresentationStyle? { .sheet }
-}
-
-/// Support the Developer, from the top of Settings.
-nonisolated enum SupportRoute: Route {
-    case support
 
     var presentation: PresentationStyle? { .sheet }
 }

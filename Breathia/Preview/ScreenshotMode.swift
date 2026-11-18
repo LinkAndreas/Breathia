@@ -20,8 +20,6 @@ enum ScreenshotScreen: String {
     case settings
     /// The sensor sheet with the sensor connected.
     case sensor
-    /// Support the Developer with its offers, for the in-app purchases' review.
-    case support
 
     /// The screen asked for at launch, if any.
     static let requested: ScreenshotScreen? = {

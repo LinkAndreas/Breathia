@@ -1,10 +1,8 @@
 import Foundation
 
-/// Links shown with the purchase options, as App Review requires for subscriptions.
-/// Both pages are published in every language the app supports and open in the
-/// language the app runs in.
-enum SupportLinks {
-    static var termsOfUse: URL { page("termsofuse") }
+/// Pages on Breathia's website. Each is published in every language the app supports and
+/// opens in the language the app runs in.
+enum WebsiteLinks {
     static var privacyPolicy: URL { page("privacy") }
 
     /// The app's languages, each with its own page; any other language gets English.
