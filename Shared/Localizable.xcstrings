@@ -6314,6 +6314,66 @@
         }
       }
     },
+    "settings.sound.footer" : {
+      "comment" : "Footer below the sound settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein sanfter Klang markiert jeden Wechsel der Atmung: höher beim Einatmen, tiefer beim Ausatmen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A soft sound marks each turn of the breath: higher when breathing in, lower when breathing out."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un sonido suave marca cada cambio de la respiración: más agudo al inspirar, más grave al espirar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un son doux marque chaque changement de la respiration : plus aigu à l'inspiration, plus grave à l'expiration."
+          }
+        }
+      }
+    },
+    "settings.soundCues" : {
+      "comment" : "Toggle: play a sound at each turn of the breath",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klangsignale"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound Cues"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Señales sonoras"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signaux sonores"
+          }
+        }
+      }
+    },
     "settings.theseSettingsAlsoApply" : {
       "localizations" : {
         "de" : {

@@ -21,6 +21,14 @@ struct SettingsView: View {
             }
 
             Section {
+                SoundSettingsRows()
+            } header: {
+                Text("settings.sound")
+            } footer: {
+                Text(SoundSettingsRows.footer)
+            }
+
+            Section {
                 BiofeedbackSettingsRows()
             } header: {
                 Text("settings.biofeedback")

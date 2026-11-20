@@ -6,9 +6,16 @@ import Foundation
 /// Every sound uses the same three notes of a G major pentatonic scale — D5 when
 /// breathing in, B4 for a hold, G4 when breathing out — so any two cues in a row
 /// sound consonant, and the rising and falling steps mirror the breath. The notes
-/// sit higher than a typical chime on purpose: small iPhone and iPad speakers
-/// barely reproduce anything below 300 Hz, and the ear is most sensitive between
-/// 1 and 4 kHz, where each sound's overtones are placed to carry.
+/// sit high enough for small iPhone and iPad speakers, which barely reproduce
+/// anything below 300 Hz.
+///
+/// The sounds aim to be soft and natural rather than electronic:
+/// - Struck sounds are modelled from the vibration modes of the real instrument,
+///   each mode ringing out on its own time, with the slow beating of the paired
+///   modes a real bowl or bell has.
+/// - They're struck with a soft mallet: a gentle onset, a muffled thump instead of
+///   a click, and little energy in the upper modes.
+/// - A small, warm room around every sound gives it space and a natural tail.
 enum CueSynthesizer {
     static let sampleRate = 48_000.0
 
@@ -64,159 +71,291 @@ enum CueSynthesizer {
 
     // MARK: Struck sounds
 
-    /// One component of a struck sound: a sine at a multiple of the note's frequency
-    /// that rings out on its own time. A small detune adds a slow beat, like the
-    /// shimmer of a real bowl or bell.
-    private struct Partial {
+    /// One vibration mode of a struck instrument: a sine at a multiple of the note's
+    /// frequency that rings out on its own time. Real bowls and bells are never
+    /// perfectly round, so each mode comes as a pair a fraction of a hertz apart,
+    /// which beats slowly — the gentle pulsing of a ringing bowl.
+    private struct Mode {
         let ratio: Double
         let amplitude: Double
         let decay: TimeInterval
         var beat: Double = 0
+        /// How long the mode takes to speak. Upper modes of a soft mallet come in
+        /// a little later than the fundamental, which softens the onset further.
+        var attack: TimeInterval = 0
     }
 
     private struct Voicing {
+        /// How long the instrument rings, before the room's tail.
         let duration: TimeInterval
-        let attack: TimeInterval
-        let partials: [Partial]
-        /// A few milliseconds of soft noise at the start, the sound of the mallet.
-        var strike: Double = 0
+        let modes: [Mode]
+        /// The soft thump of the mallet: its loudness, and the highest frequency
+        /// in it — felt and yarn mallets sound dull, never like a click.
+        var thump: Double = 0
+        var thumpCutoff: Double = 500
+        /// How much of the room is heard, against the instrument itself.
+        var room: Double = 0.3
     }
 
     nonisolated private static func voicing(of sound: CueSound) -> Voicing {
         switch sound {
         case .bowl:
-            // Inharmonic modes of a singing bowl, struck with a felt mallet: a soft
-            // onset, a long fundamental, and a shimmer from the paired modes.
-            Voicing(duration: 3.0, attack: 0.012, partials: [
-                Partial(ratio: 1, amplitude: 1, decay: 1.6, beat: 1.3),
-                Partial(ratio: 2.71, amplitude: 0.55, decay: 0.95, beat: 2.1),
-                Partial(ratio: 5.12, amplitude: 0.24, decay: 0.45),
-                Partial(ratio: 8.22, amplitude: 0.09, decay: 0.22),
-            ])
+            // A singing bowl struck with a felt mallet. The mode ratios of a
+            // hammered bowl; the fundamental sings for seconds, the upper modes
+            // fade early, so the sound grows rounder as it rings.
+            Voicing(duration: 5.0, modes: [
+                Mode(ratio: 1, amplitude: 1, decay: 2.6, beat: 0.6, attack: 0.03),
+                Mode(ratio: 2.76, amplitude: 0.32, decay: 1.4, beat: 1.4, attack: 0.04),
+                Mode(ratio: 5.40, amplitude: 0.08, decay: 0.6, beat: 2.3, attack: 0.05),
+                Mode(ratio: 8.93, amplitude: 0.02, decay: 0.25, attack: 0.05),
+            ], thump: 0.05, thumpCutoff: 350, room: 0.32)
         case .bell:
-            // A small church-bell spectrum: hum, prime, minor third, fifth and
-            // nominal, with a bright strike that fades fast.
-            Voicing(duration: 2.2, attack: 0.003, partials: [
-                Partial(ratio: 0.5, amplitude: 0.22, decay: 1.5),
-                Partial(ratio: 1, amplitude: 1, decay: 1.1, beat: 0.9),
-                Partial(ratio: 1.19, amplitude: 0.32, decay: 0.75),
-                Partial(ratio: 1.5, amplitude: 0.24, decay: 0.6),
-                Partial(ratio: 2, amplitude: 0.62, decay: 0.7),
-                Partial(ratio: 2.52, amplitude: 0.2, decay: 0.32),
-                Partial(ratio: 3, amplitude: 0.16, decay: 0.22),
-                Partial(ratio: 4.1, amplitude: 0.28, decay: 0.035),
-            ], strike: 0.06)
+            // A small handbell struck with a soft rubber mallet: a pure, round
+            // tone with a quiet octave and twelfth, like a chime heard from across
+            // a quiet room.
+            Voicing(duration: 3.4, modes: [
+                Mode(ratio: 1, amplitude: 1, decay: 1.8, beat: 0.8, attack: 0.012),
+                Mode(ratio: 2.01, amplitude: 0.26, decay: 1.0, beat: 1.1, attack: 0.018),
+                Mode(ratio: 3.0, amplitude: 0.1, decay: 0.5, attack: 0.022),
+                Mode(ratio: 4.18, amplitude: 0.035, decay: 0.2, attack: 0.025),
+            ], thump: 0.04, thumpCutoff: 700, room: 0.3)
         case .wood:
-            // A rosewood bar under a soft mallet, tuned like a marimba: the
-            // overtones sit at four and ten times the note and die almost at once.
-            Voicing(duration: 0.8, attack: 0.002, partials: [
-                Partial(ratio: 1, amplitude: 1, decay: 0.32),
-                Partial(ratio: 3.93, amplitude: 0.42, decay: 0.08),
-                Partial(ratio: 9.6, amplitude: 0.14, decay: 0.03),
-            ], strike: 0.12)
+            // A rosewood marimba bar under a yarn mallet: the tone is short, the
+            // tube resonator below the bar carries the fundamental a little
+            // longer, and the overtones barely sound.
+            Voicing(duration: 1.6, modes: [
+                Mode(ratio: 1, amplitude: 1, decay: 0.42, attack: 0.008),
+                Mode(ratio: 1, amplitude: 0.35, decay: 0.75, attack: 0.04),
+                Mode(ratio: 3.98, amplitude: 0.12, decay: 0.07, attack: 0.01),
+                Mode(ratio: 9.9, amplitude: 0.03, decay: 0.025, attack: 0.01),
+            ], thump: 0.1, thumpCutoff: 300, room: 0.38)
         case .wave:
-            // The wave's onset accent: a softened bowl.
-            Voicing(duration: 1.6, attack: 0.02, partials: [
-                Partial(ratio: 1, amplitude: 1, decay: 0.7, beat: 1.3),
-                Partial(ratio: 2.71, amplitude: 0.4, decay: 0.4),
-            ])
+            // The wave's onset: a distant, softened bowl.
+            Voicing(duration: 2.2, modes: [
+                Mode(ratio: 1, amplitude: 1, decay: 0.9, beat: 0.6, attack: 0.04),
+                Mode(ratio: 2.76, amplitude: 0.18, decay: 0.45, attack: 0.05),
+            ], room: 0)
         }
     }
 
     nonisolated private static func struck(_ sound: CueSound, kind: BreathPhase.Kind) -> [Float] {
-        var samples = renderStruck(voicing(of: sound), frequency: frequency(of: kind))
+        let voicing = voicing(of: sound)
+        var samples = renderStruck(voicing, frequency: frequency(of: kind), tail: Room.tail)
+        Room.apply(to: &samples, mix: voicing.room)
+        fadeOut(&samples, over: 0.4)
         normalize(&samples, to: peakLevel * level(of: kind))
         return samples
     }
 
-    nonisolated private static func renderStruck(_ voicing: Voicing, frequency: Double) -> [Float] {
-        let count = Int(voicing.duration * sampleRate)
-        var samples = [Float](repeating: 0, count: count)
-        let release = 0.06
+    /// The instrument alone, followed by `tail` seconds of silence for the room.
+    nonisolated private static func renderStruck(_ voicing: Voicing, frequency: Double, tail: TimeInterval = 0) -> [Float] {
+        let ringing = Int(voicing.duration * sampleRate)
+        var samples = [Float](repeating: 0, count: ringing + Int(tail * sampleRate))
         var noise = NoiseGenerator()
-        for index in 0..<count {
+        var thumpFilter = LowPass(cutoff: voicing.thumpCutoff)
+        let thumpLength = 0.025
+        for index in 0..<ringing {
             let time = Double(index) / sampleRate
             var value = 0.0
-            for partial in voicing.partials {
-                let envelope = partial.amplitude * exp(-time / partial.decay)
-                guard envelope > 0.0001 else { continue }
-                let phase = 2 * .pi * frequency * partial.ratio * time
-                value += envelope * sin(phase)
-                if partial.beat > 0 {
-                    value += 0.6 * envelope * sin(phase + 2 * .pi * partial.beat * time)
+            for mode in voicing.modes {
+                let envelope = mode.amplitude * exp(-time / mode.decay) * rise(time, over: mode.attack)
+                guard envelope > 0.00005 else { continue }
+                let phase = 2 * .pi * frequency * mode.ratio * time
+                if mode.beat > 0 {
+                    // The two halves of the pair, a few tenths of a hertz apart.
+                    value += envelope * 0.5 * (sin(phase) + sin(phase + 2 * .pi * mode.beat * time))
+                } else {
+                    value += envelope * sin(phase)
                 }
             }
-            if voicing.strike > 0, time < 0.012 {
-                value += voicing.strike * noise.next() * (1 - time / 0.012)
+            if voicing.thump > 0, time < thumpLength {
+                let shape = sin(.pi * time / thumpLength)
+                value += voicing.thump * thumpFilter.process(noise.next()) * shape * 8
             }
-            samples[index] = Float(value * edges(time, length: voicing.duration, attack: voicing.attack, release: release))
+            // The ringing ends gently rather than being cut off.
+            samples[index] = Float(value * fall(voicing.duration - time, over: 0.3))
         }
         return samples
     }
 
     // MARK: Wave
 
-    /// A soft, chorused tone that lasts the whole phase. Breathing in, it glides up
-    /// from the out-breath note to the in-breath note and swells; breathing out, it
-    /// glides back down and recedes; a hold rests on the note the breath ended on.
-    /// A softened bowl strike marks the start of each phase.
+    /// A soft sound that lasts the whole phase, like a breath or a wave on a
+    /// shore: filtered noise that brightens and swells while breathing in and
+    /// darkens and recedes while breathing out, over a quiet tone that glides up
+    /// and down between the two notes, so the phases can be told apart. A hold
+    /// rests quietly where the breath ended. A distant bowl marks each turn.
     nonisolated private static func wave(_ request: Request) -> [Float] {
         let duration = Double(request.seconds)
         let count = Int(duration * sampleRate)
         let low = frequency(of: .exhale)
         let high = frequency(of: .inhale)
-        let quiet = 0.42
+        let quiet = 0.3
 
-        // (from, to) for pitch and loudness over the phase.
+        // (from, to) for pitch, loudness and brightness over the phase.
         let pitch: (Double, Double)
         let loudness: (Double, Double)
+        let brightness: (Double, Double)
         switch request.kind {
         case .inhale:
             pitch = (low, high)
             loudness = (quiet, 1)
+            brightness = (500, 1800)
         case .exhale:
             pitch = (high, low)
             loudness = (1, quiet)
+            brightness = (1800, 500)
         case .hold:
             let note = request.endsFull ? high : low
             pitch = (note, note)
-            loudness = request.endsFull ? (0.8, 0.8) : (quiet, quiet)
+            loudness = request.endsFull ? (0.6, 0.6) : (quiet, quiet)
+            brightness = request.endsFull ? (1100, 1100) : (600, 600)
         }
 
         var samples = [Float](repeating: 0, count: count)
+        var noise = NoiseGenerator()
+        var air = StateVariableFilter()
         var phase = 0.0
         var chorusPhase = 0.0
         for index in 0..<count {
             let time = Double(index) / sampleRate
             let progress = smoothstep(time / duration)
-            // Glide in log frequency, so the step sounds even all the way through.
+            // The air: noise through a soft low-pass that opens with the breath.
+            let cutoff = brightness.0 * pow(brightness.1 / brightness.0, progress)
+            let breath = air.lowPass(noise.next(), cutoff: cutoff)
+            // The tone glides in log frequency, so the step sounds even.
             let frequency = pitch.0 * pow(pitch.1 / pitch.0, progress)
             phase += 2 * .pi * frequency / sampleRate
-            chorusPhase += 2 * .pi * (frequency + 0.8) / sampleRate
-            let body = sin(phase) + 0.35 * sin(2 * phase) + 0.12 * sin(3 * phase) + 0.5 * sin(chorusPhase)
+            chorusPhase += 2 * .pi * (frequency + 0.5) / sampleRate
+            let tone = 0.5 * (sin(phase) + sin(chorusPhase)) + 0.08 * sin(2 * phase)
             let amplitude = loudness.0 + (loudness.1 - loudness.0) * progress
-            samples[index] = Float(amplitude * body * edges(time, length: duration, attack: 0.15, release: 0.2))
+            let edges = rise(time, over: 0.4) * fall(duration - time, over: 0.4)
+            samples[index] = Float(amplitude * edges * (2.4 * breath + 0.22 * tone))
         }
-        normalize(&samples, to: 0.62)
 
-        // The accent marks the turn of the breath, quieter than the struck sounds.
+        // The turn of the breath: a distant bowl on the phase's note.
         var accent = renderStruck(voicing(of: .wave), frequency: frequency(of: request.kind))
-        normalize(&accent, to: 0.3 * level(of: request.kind))
+        normalize(&accent, to: 0.45)
+        let body = samples.reduce(0) { max($0, abs($1)) }
+        let accentLevel = body > 0 ? Float(0.5) * body / 0.45 : 1
         for index in 0..<min(accent.count, samples.count) {
-            samples[index] += accent[index]
+            samples[index] += accent[index] * accentLevel * Float(fall(duration - Double(index) / sampleRate, over: 0.4))
         }
+
+        Room.apply(to: &samples, mix: 0.25)
+        fadeOut(&samples, over: 0.4)
         normalize(&samples, to: peakLevel * level(of: request.kind))
         return samples
     }
 
+    // MARK: Room
+
+    /// A small, warm room: a Schroeder–Moorer reverb with damped echoes, so the
+    /// room's tail darkens as it fades, as in a room with soft furnishings.
+    private enum Room {
+        /// How long the room keeps sounding after the instrument stops.
+        static let tail: TimeInterval = 1.4
+
+        nonisolated static func apply(to samples: inout [Float], mix: Double) {
+            guard mix > 0, !samples.isEmpty else { return }
+            let scale = CueSynthesizer.sampleRate / 44_100
+            var combs = [1116, 1188, 1277, 1356, 1422, 1491].map {
+                Comb(length: Int(Double($0) * scale), feedback: 0.8, damping: 0.4)
+            }
+            var allPasses = [556, 441, 341].map { AllPass(length: Int(Double($0) * scale)) }
+            let preDelay = Int(0.015 * CueSynthesizer.sampleRate)
+
+            var wet = [Double](repeating: 0, count: samples.count)
+            for index in samples.indices {
+                let input = index >= preDelay ? Double(samples[index - preDelay]) : 0
+                var value = 0.0
+                for comb in combs.indices {
+                    value += combs[comb].process(input)
+                }
+                for allPass in allPasses.indices {
+                    value = allPasses[allPass].process(value)
+                }
+                wet[index] = value
+            }
+
+            // Mix by loudness rather than by a fixed gain, so every sound gets
+            // the same amount of room whatever its spectrum.
+            let dryLevel = rms(samples.map(Double.init))
+            let wetLevel = rms(wet)
+            guard dryLevel > 0, wetLevel > 0 else { return }
+            let wetGain = mix * dryLevel / wetLevel
+            let dryGain = 1 - 0.4 * mix
+            for index in samples.indices {
+                samples[index] = Float(Double(samples[index]) * dryGain + wet[index] * wetGain)
+            }
+        }
+
+        nonisolated private static func rms(_ values: [Double]) -> Double {
+            (values.reduce(0) { $0 + $1 * $1 } / Double(max(1, values.count))).squareRoot()
+        }
+
+        private struct Comb {
+            private var buffer: [Double]
+            private var index = 0
+            private var store = 0.0
+            let feedback: Double
+            let damping: Double
+
+            nonisolated init(length: Int, feedback: Double, damping: Double) {
+                buffer = [Double](repeating: 0, count: max(1, length))
+                self.feedback = feedback
+                self.damping = damping
+            }
+
+            nonisolated mutating func process(_ input: Double) -> Double {
+                let output = buffer[index]
+                store = output * (1 - damping) + store * damping
+                buffer[index] = input + store * feedback
+                index = (index + 1) % buffer.count
+                return output
+            }
+        }
+
+        private struct AllPass {
+            private var buffer: [Double]
+            private var index = 0
+
+            nonisolated init(length: Int) {
+                buffer = [Double](repeating: 0, count: max(1, length))
+            }
+
+            nonisolated mutating func process(_ input: Double) -> Double {
+                let delayed = buffer[index]
+                buffer[index] = input + delayed * 0.5
+                index = (index + 1) % buffer.count
+                return delayed - input
+            }
+        }
+    }
+
     // MARK: Helpers
 
-    /// A raised-cosine fade in and out, so a cue never starts or stops with a click.
-    nonisolated private static func edges(_ time: Double, length: Double, attack: Double, release: Double) -> Double {
-        let fadeIn = time < attack ? 0.5 - 0.5 * cos(.pi * time / attack) : 1
-        let remaining = length - time
-        let fadeOut = remaining < release ? 0.5 - 0.5 * cos(.pi * max(0, remaining) / release) : 1
-        return fadeIn * fadeOut
+    /// A raised-cosine rise from silence over `length` seconds.
+    nonisolated private static func rise(_ time: Double, over length: Double) -> Double {
+        guard length > 0, time < length else { return 1 }
+        return 0.5 - 0.5 * cos(.pi * max(0, time) / length)
+    }
+
+    /// A raised-cosine fall to silence over the last `length` seconds, given the
+    /// time `remaining`.
+    nonisolated private static func fall(_ remaining: Double, over length: Double) -> Double {
+        guard length > 0, remaining < length else { return 1 }
+        return 0.5 - 0.5 * cos(.pi * max(0, remaining) / length)
+    }
+
+    /// Fades the end out, so a cue never stops with a click.
+    nonisolated private static func fadeOut(_ samples: inout [Float], over seconds: Double) {
+        let length = min(samples.count, Int(seconds * sampleRate))
+        guard length > 0 else { return }
+        for offset in 0..<length {
+            let index = samples.count - length + offset
+            samples[index] *= Float(fall(Double(length - offset - 1) / sampleRate, over: seconds))
+        }
     }
 
     nonisolated private static func smoothstep(_ value: Double) -> Double {
@@ -233,7 +372,38 @@ enum CueSynthesizer {
         }
     }
 
-    /// The same short burst of noise every time, so a sound renders identically.
+    /// A one-pole low-pass: takes the edge off the mallet's thump.
+    private struct LowPass {
+        private let coefficient: Double
+        private var state = 0.0
+
+        nonisolated init(cutoff: Double) {
+            coefficient = 1 - exp(-2 * .pi * cutoff / CueSynthesizer.sampleRate)
+        }
+
+        nonisolated mutating func process(_ input: Double) -> Double {
+            state += coefficient * (input - state)
+            return state
+        }
+    }
+
+    /// A gentle two-pole low-pass whose cutoff can move every sample, for the
+    /// wave's air.
+    private struct StateVariableFilter {
+        private var low = 0.0
+        private var band = 0.0
+
+        nonisolated mutating func lowPass(_ input: Double, cutoff: Double) -> Double {
+            let f = 2 * sin(.pi * min(cutoff, CueSynthesizer.sampleRate / 6) / CueSynthesizer.sampleRate)
+            let damping = 1.2
+            low += f * band
+            let high = input - low - damping * band
+            band += f * high
+            return low
+        }
+    }
+
+    /// The same noise every time, so a sound renders identically.
     private struct NoiseGenerator {
         private var state: UInt32 = 0x9E37_79B9
 

@@ -4,14 +4,16 @@ import Foundation
 /// for breathing in, a lower one for breathing out and a quiet middle one for a
 /// hold, so the phases can be told apart with closed eyes.
 enum CueSound: String, Codable, CaseIterable, Identifiable {
-    /// A struck singing bowl: warm, with a long, shimmering ring.
+    /// A singing bowl struck with a felt mallet: warm, with a long, gently
+    /// pulsing ring.
     case bowl
-    /// A small bell: brighter and clearer, carries over background noise.
+    /// A small handbell struck softly: a pure, round tone, a little clearer.
     case bell
-    /// A soft wooden mallet: short and distinct, leaves silence in between.
+    /// A marimba bar under a yarn mallet: short and woody, leaves quiet in between.
     case wood
-    /// A tone that lasts the whole phase, rising while breathing in and falling
-    /// while breathing out, so the pace can be followed without counting.
+    /// A soft, breath-like sound that lasts the whole phase, swelling while
+    /// breathing in and receding while breathing out, so the pace can be followed
+    /// without counting.
     case wave
 
     var id: Self { self }

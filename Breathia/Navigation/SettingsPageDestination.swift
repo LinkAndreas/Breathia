@@ -14,7 +14,7 @@ struct SettingsPageDestination: View {
         switch page {
         case .sensor:
             detail.environment(heartRateMonitor)
-        case .breathing, .biofeedback:
+        case .breathing, .sound, .biofeedback:
             detail.environment(settingsStore)
         case .appearance:
             detail.environment(settingsStore).environment(appIconStore)
