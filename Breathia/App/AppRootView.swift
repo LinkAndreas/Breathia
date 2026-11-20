@@ -69,6 +69,10 @@ struct AppRootView: View {
         .sheet(isPresented: isPresentingOnboarding(as: .sheet)) {
             OnboardingModal(screens: screens)
         }
+        .sheet(isPresented: $navigator.isShowingWhatsNew) {
+            screens.whatsNewScreen()
+                .presentationSizing(.form)
+        }
         .alert(
             navigator.dialog.map { Text($0.title) } ?? Text(verbatim: ""),
             isPresented: Binding(

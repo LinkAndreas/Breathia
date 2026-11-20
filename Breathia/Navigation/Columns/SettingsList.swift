@@ -15,14 +15,16 @@ struct SettingsList: View {
                         if let page { navigator.settingsPage = page }
                     }
                 ),
-                onShowOnboarding: { navigator.showOnboarding() }
+                onShowOnboarding: { navigator.showOnboarding() },
+                onShowWhatsNew: { navigator.showWhatsNew() }
             )
             .environment(screens.mindfulMinutes)
         } else {
             SettingsView(
                 onShowSensor: { navigator.showSensor() },
                 onOpenPage: { navigator.settingsPage = $0 },
-                onShowOnboarding: { navigator.showOnboarding() }
+                onShowOnboarding: { navigator.showOnboarding() },
+                onShowWhatsNew: { navigator.showWhatsNew() }
             )
             .environment(screens.heartRateMonitor)
             .environment(screens.settingsStore)

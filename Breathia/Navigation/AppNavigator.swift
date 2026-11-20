@@ -29,6 +29,9 @@ final class AppNavigator {
     /// Whether the sensor sheet is up.
     var isShowingSensor = false
 
+    /// Whether the release's new features are shown.
+    var isShowingWhatsNew = false
+
     /// How onboarding is presented, while it is.
     var onboarding: OnboardingPresentation?
 
@@ -122,6 +125,21 @@ final class AppNavigator {
 
     func closeOnboarding() {
         onboarding = nil
+    }
+
+    /// Shows the release's new features — once after an update, and from Settings.
+    func showWhatsNew() {
+        isShowingWhatsNew = true
+    }
+
+    /// Closes the new features and opens where one of them can be tried.
+    func tryNewFeature(_ destination: WhatsNew.Feature.Destination) {
+        isShowingWhatsNew = false
+        switch destination {
+        case .soundSettings:
+            selectedTab = .settings
+            settingsPage = .sound
+        }
     }
 
     /// Asks a question over the whole app and returns the chosen action's ID, or

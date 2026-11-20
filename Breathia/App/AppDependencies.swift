@@ -101,9 +101,11 @@ final class AppDependencies {
         settingsStore = store
         self.appIconStore = appIconStore
 
-        // First launch: onboarding comes up over the app.
+        // First launch: onboarding comes up over the app. After an update, what's new.
         if !store.settings.hasCompletedOnboarding {
             navigator.showOnboarding()
+        } else if WhatsNew.shouldShow(lastSeen: store.settings.lastSeenWhatsNew, hasCompletedOnboarding: true) {
+            navigator.showWhatsNew()
         }
     }
 
@@ -167,6 +169,8 @@ final class AppDependencies {
     ) -> AppDependencies {
         var settings = AppSettings()
         settings.hasCompletedOnboarding = hasCompletedOnboarding
+        // Previews and screenshots start on the screen they show, not on what's new.
+        settings.lastSeenWhatsNew = WhatsNew.version
         return AppDependencies(
             heartRateSource: heartRateSource,
             sessionRepository: InMemorySessionRepository(sessions: sessions),

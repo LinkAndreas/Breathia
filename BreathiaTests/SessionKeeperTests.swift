@@ -94,7 +94,8 @@ struct SessionKeeperTests {
 
     @Test func aScreenThatNeverComesBackEndsTheSession() async throws {
         let clock = Clock()
-        let keeper = SessionKeeper()
+        // A short grace period, so the test doesn't depend on how busy the machine is.
+        let keeper = SessionKeeper(gracePeriod: .milliseconds(50))
         keeper.attach()
         let first = keeper.session { makeSession(clock: clock) }
         keeper.detach()
@@ -102,7 +103,7 @@ struct SessionKeeperTests {
 
         // Other tests can keep the main actor busy, so wait for the release rather
         // than a fixed time.
-        let deadline = ContinuousClock.now + .seconds(10)
+        let deadline = ContinuousClock.now + .seconds(60)
         while keeper.isHoldingSession, ContinuousClock.now < deadline {
             try await Task.sleep(for: .milliseconds(100))
         }

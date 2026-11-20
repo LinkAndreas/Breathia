@@ -14,9 +14,14 @@ final class SessionKeeper {
     /// A layout switch brings it back within a frame or two.
     static let gracePeriod: Duration = .seconds(1)
 
+    private let gracePeriod: Duration
     private var session: BreathingSessionModel?
     private var screens = 0
     private var pendingRelease: Task<Void, Never>?
+
+    init(gracePeriod: Duration = SessionKeeper.gracePeriod) {
+        self.gracePeriod = gracePeriod
+    }
 
     /// Whether a session screen is showing.
     var isOnScreen: Bool { screens > 0 }
@@ -44,8 +49,9 @@ final class SessionKeeper {
         screens = max(0, screens - 1)
         guard screens == 0, session != nil else { return }
         pendingRelease?.cancel()
+        let gracePeriod = gracePeriod
         pendingRelease = Task { [weak self] in
-            try? await Task.sleep(for: Self.gracePeriod)
+            try? await Task.sleep(for: gracePeriod)
             guard !Task.isCancelled, let self, self.screens == 0 else { return }
             self.release()
         }

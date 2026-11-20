@@ -69,6 +69,8 @@ struct AppSettings: Codable, Equatable {
     /// Loudness of the breathing cues, from 0 (quietest) to 1 (loudest), on top of
     /// the device volume.
     var cueVolume = 0.9
+    /// The release whose new features the user has seen, so they're shown once.
+    var lastSeenWhatsNew: String?
 }
 
 extension AppSettings {
@@ -97,5 +99,6 @@ extension AppSettings {
         // the default instead of failing the whole decode.
         cueSound = (try? container.decodeIfPresent(CueSound.self, forKey: .cueSound)) ?? defaults.cueSound
         cueVolume = min(1, max(0, try value(.cueVolume, default: defaults.cueVolume)))
+        lastSeenWhatsNew = try container.decodeIfPresent(String.self, forKey: .lastSeenWhatsNew)
     }
 }
