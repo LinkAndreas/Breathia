@@ -22,7 +22,7 @@ struct CueSynthesizerTests {
             #expect(allFinite)
             #expect(peak(samples) <= CueSynthesizer.peakLevel + 0.0001)
             // Far louder than the old chime, which peaked around 0.11.
-            #expect(peak(samples) >= 0.5)
+            #expect(peak(samples) >= 0.3)
         }
     }
 
@@ -41,6 +41,29 @@ struct CueSynthesizerTests {
         let inhale = CueSynthesizer.render(.init(sound: sound, kind: .inhale, seconds: 4))
         let hold = CueSynthesizer.render(.init(sound: sound, kind: .hold, seconds: 4))
         #expect(peak(hold) < peak(inhale))
+    }
+
+    /// Cues that ring on into the next ones, as in a breath a second, add up
+    /// without reaching full scale, where the limiter would make them rattle.
+    @Test(arguments: CueSound.allCases)
+    func overlappingCuesStayClearOfFullScale(sound: CueSound) {
+        for seconds in [1, 2, 3] {
+            // Rendered once each: rendering is slow in a debug build.
+            let inhale = CueSynthesizer.render(.init(sound: sound, kind: .inhale, seconds: seconds))
+            let exhale = CueSynthesizer.render(.init(sound: sound, kind: .exhale, seconds: seconds))
+            var mix = [Float](repeating: 0, count: Int(CueSynthesizer.sampleRate) * 12)
+            var start = 0
+            var index = 0
+            while start < mix.count {
+                let samples = index.isMultiple(of: 2) ? inhale : exhale
+                for offset in samples.indices where start + offset < mix.count {
+                    mix[start + offset] += samples[offset]
+                }
+                start += seconds * Int(CueSynthesizer.sampleRate)
+                index += 1
+            }
+            #expect(peak(mix) < 0.9)
+        }
     }
 
     @Test func notesRiseForInhaleAndFallForExhale() {

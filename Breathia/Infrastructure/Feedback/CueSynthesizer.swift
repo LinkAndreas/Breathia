@@ -19,9 +19,11 @@ import Foundation
 enum CueSynthesizer {
     static let sampleRate = 48_000.0
 
-    /// The loudest a rendered cue gets, a little under full scale, so several
-    /// overlapping cues stay clear of the limiter at normal volumes.
-    static let peakLevel: Float = 0.89
+    /// The loudest a rendered cue gets: 6 dB under full scale. Cues ring on into
+    /// the next phase, and in fast techniques several overlap; with this headroom
+    /// they add up without reaching the limiter, which would make them rattle, and
+    /// small iPhone speakers stay clear of distortion.
+    static let peakLevel: Float = 0.5
 
     /// A cue to render. Sounds that last the whole phase also need its length and
     /// whether the lungs are full at its end (which decides a hold's pitch).
