@@ -9,8 +9,8 @@ states which layer it belongs to.
 | **Domain** | Models (`SessionRecord`, `Technique`, `AppSettings`, …), pure logic (`BreathingClock`, `BiofeedbackAnalyzer`, `HRVCalculator`, `SessionRecordFactory`, `ReviewPromptPolicy`, `FeedbackEmail`), and the contracts infrastructure fulfils (`SessionRepository`, `SettingsRepository`, `HeartRateSource`, `LiveHeartRateProviding`, `MindfulMinutesService`, `WorkoutSessionControlling`, `BreathingCuePlaying`, `ReviewPromptRepository`, `ReviewRequesting`, `FeedbackMailing`). | Foundation only |
 | **Infrastructure** | Implementations of those contracts against Apple frameworks and storage: SwiftData, UserDefaults, Core Bluetooth, HealthKit, StoreKit, WatchConnectivity, haptics and sounds. In-memory versions for previews and tests. | Domain, system frameworks |
 | **Stores** | Application state the screens read and the use cases they call — `SessionHistory`, `SettingsStore`, `HeartRateMonitor`, `MindfulMinutesStore`, `AppIconStore`, `BreathingSessionModel`, `BreathingSessionFactory`, `SessionRecorder`, `ReviewPrompter`; on the watch, `WatchSessionRunner`. | Domain contracts (never concrete infrastructure) |
-| **Features / DesignSystem / Navigation** | SwiftUI screens and components; routes and their registration (NavigationKit). | Stores, Domain |
-| **App** | The composition root (`AppDependencies`, `WatchDependencies`): the only place that picks concrete infrastructure and wires everything together. Nothing is put in the environment app-wide — on iPhone each route in `AppRoutes` provides only the stores its screen reads; on the watch, screens get what they need as parameters. | Everything |
+| **Features / DesignSystem / Navigation** | SwiftUI screens and components; the navigation state and the layouts that show it. | Stores, Domain |
+| **App** | The composition root (`AppDependencies`, `WatchDependencies`): the only place that picks concrete infrastructure and wires everything together. Nothing is put in the environment app-wide — on iPhone the views in `Navigation/Columns` give each screen only the stores it reads; on the watch, screens get what they need as parameters. | Everything |
 
 ## Folders
 
@@ -50,8 +50,7 @@ that use them.
 `Breathia` is one multiplatform target: the same code builds a native macOS app. Differences
 are handled with `#if os(...)` at the edges, never in the domain:
 
-- **Layout** — Mac uses the iPad split view. NavigationKit presents full-screen covers as
-  sheets on macOS, so sessions and onboarding open as sheets there.
+- **Layout** — Mac uses the iPad split view. Sessions and onboarding open as sheets there.
 - **Infrastructure** — cue sounds without haptics (`SystemBreathingCuePlayer`), keeping the
   display awake during a session, the review prompt, mail, and device details each have a
   Mac branch.
@@ -95,12 +94,20 @@ repositories and inject the clock, so they need no device, sensor, or HealthKit.
 
 Navigation is split by concern (`Breathia/Navigation/`):
 
-- **`AppNavigator`** — where the user is: owns NavigationKit's `NavigationStore`, whose
-  three sections render as a tab bar (iPhone) or a split view with a sidebar (iPad, Mac), and
-  the intents that move between routes. Knows routes, not screens or stores.
-- **`AppRoutes`** — what each route shows: a NavigationKit `RouteModule` that builds the
-  screen, gives it only the stores it reads, and connects what the screen reports to the
-  navigator, stores, and flows.
+- **`AppNavigator`** — where the user is: an `@Observable` state with the selected section,
+  each section's opened page (`AppDetail`), the modals, the running session, and the question
+  asked over the app (`AppDialog`), plus the intents that change them. Knows destinations,
+  not screens or stores.
+- **Layouts** (`Navigation/Layout/`) — plain SwiftUI. `AppRootView` picks `TabLayout` (a
+  `TabView` with a `NavigationStack` per section, whose path is the section's opened page)
+  in a narrow window and `SplitLayout` (a three-column `NavigationSplitView`) in a wide one.
+  Both read the same state, so a page stays open when the window changes width. Sheets, the
+  onboarding cover, and alerts are attached in `AppRootView`. On iPhone and iPad the running
+  session is a layer over the whole window (`SessionLayer`) rather than a full-screen cover,
+  which iPhone Duo left sideways after unfolding; on the Mac it's a sheet.
+- **Columns** (`Navigation/Columns/`) — what each section's list and detail page show: they
+  build the screen, give it only the stores it reads (from `AppScreens`), and connect what it
+  reports to the navigator, stores, and flows.
 - **Flows** (`Navigation/Flows/`) — conversations that span screens, such as `RatingFlow`.
 - Onboarding's Health step is built by `HealthAccessStep.make(mindfulMinutes:settingsStore:)`
   next to the onboarding screens.

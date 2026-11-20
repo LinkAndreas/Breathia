@@ -21,6 +21,15 @@ struct SettingsPageContent: View {
                 }
             }
 
+        case .sound:
+            Form {
+                Section {
+                    SoundSettingsRows()
+                } footer: {
+                    Text(SoundSettingsRows.footer)
+                }
+            }
+
         case .biofeedback:
             Form {
                 Section {
@@ -41,6 +50,11 @@ struct SettingsPageContent: View {
                     AppearanceSettingsRows()
                 }
                 AppIconSection()
+            }
+
+        case .history:
+            Form {
+                HistorySettingsSection()
             }
 
         case .privacy:

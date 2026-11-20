@@ -6,8 +6,13 @@ import UIKit
 /// Root of the full-screen session cover: countdown → session → results. The
 /// session comes from `makeSession`, so this screen doesn't know which sensor,
 /// cue player, or recorder it runs with.
+///
+/// The session belongs to `keeper`, not to this screen: when a layout change
+/// rebuilds the cover, the new screen picks up the same session where it was.
 struct SessionFlowView: View {
-    /// Builds the session when the screen first appears.
+    /// Holds the session across rebuilds of this screen and ends it when it's left.
+    let keeper: SessionKeeper
+    /// Builds the session when the first screen of this presentation appears.
     let makeSession: () -> BreathingSessionModel
     /// Leaves without a result (cancelled during the countdown).
     let onCancel: () -> Void
@@ -38,17 +43,22 @@ struct SessionFlowView: View {
             onReturn: { model?.continueAfterInterruption() }
         )
         .onDisappear {
-            model?.cancel()
-            keepDisplayAwake(false)
+            keeper.detach()
+            // A rebuilt screen that's already showing keeps the display awake.
+            if !keeper.isOnScreen {
+                keepDisplayAwake(false)
+            }
         }
     }
 
     private func startIfNeeded() {
-        guard model == nil else { return }
-        let model = makeSession()
-        self.model = model
-        model.start()
+        keeper.attach()
         keepDisplayAwake(true)
+        guard model == nil else { return }
+        let model = keeper.session(make: makeSession)
+        self.model = model
+        // Starting is a no-op for a session that's already running.
+        model.start()
     }
 
     /// Keeps the screen on while breathing.
@@ -73,6 +83,7 @@ struct SessionFlowView: View {
 #Preview {
     let factory = PreviewStores.sessionFactory()
     SessionFlowView(
+        keeper: SessionKeeper(),
         makeSession: { factory.makeSession(for: TechniqueCatalog.all[1]) },
         onCancel: {},
         onFinish: { _ in }

@@ -15,11 +15,15 @@ struct SettingsCategoryList: View {
             }
             Section {
                 SettingsCategoryRow(page: .breathing, position: .first)
+                SettingsCategoryRow(page: .sound, position: .middle)
                 SettingsCategoryRow(page: .biofeedback, position: .middle)
                 if mindfulMinutes.isAvailable {
                     SettingsCategoryRow(page: .health, position: .middle)
                 }
                 SettingsCategoryRow(page: .appearance, position: .last)
+            }
+            Section {
+                SettingsCategoryRow(page: .history, position: .single)
             }
             Section {
                 SettingsCategoryRow(page: .privacy, position: .first)

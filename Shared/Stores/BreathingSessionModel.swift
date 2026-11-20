@@ -117,6 +117,8 @@ final class BreathingSessionModel {
         guard stage == .running, startedAt != nil, pausedAt == nil else { return }
         pausedAt = now()
         isPaused = true
+        // A cue that lasts the whole phase mustn't keep sounding through the pause.
+        cuePlayer.stop()
         reportActivity()
     }
 
@@ -178,12 +180,14 @@ final class BreathingSessionModel {
     func cancel() {
         loop?.cancel()
         loop = nil
+        cuePlayer.stop()
         activity.end()
     }
 
     // MARK: Private
 
     private func run() async {
+        cuePlayer.preload(technique.phases)
         cuePlayer.prepare()
         if case .countdown = stage {
             countdownStartedAt = now()

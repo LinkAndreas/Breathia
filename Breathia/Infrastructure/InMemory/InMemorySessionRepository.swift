@@ -22,4 +22,8 @@ final class InMemorySessionRepository: SessionRepository {
     func delete(sessionID: SessionRecord.ID) {
         sessions.removeAll { $0.id == sessionID }
     }
+
+    func deleteAll() {
+        sessions.removeAll()
+    }
 }

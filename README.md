@@ -95,8 +95,12 @@ and HRV respond while you breathe.
   synced to History on iPhone
 - **History** — every session with its heart-rate and HRV trends, stored on device
 - **Apple Health** — optionally saves sessions as mindful minutes
-- **iPad and Mac** — a three-column layout; on the Mac, a native app with soft sound cues and the
-  same Bluetooth sensor support
+- **Sound cues** — four soft, natural sounds (a singing bowl, a handbell and a marimba bar, each
+  struck with a soft mallet in a small room, and a breath-like wave that swells and recedes with
+  the breath) with their own section in Settings and their own volume, played as media so they
+  follow the volume buttons and headphones and mix with music
+- **iPad and Mac** — a three-column layout; on the Mac, a native app with the same sound cues and
+  Bluetooth sensor support
 - **App icons** — eight icons to choose from in Settings; on iPhone and iPad the app takes on the
   chosen icon's colors
 - **Free** — every feature included, with no ads and no in-app purchases
@@ -121,8 +125,7 @@ Apple Health only if you turn that on. Read the privacy policy in
   HRV needs a sensor that sends beat-to-beat (RR) intervals, such as the Polar H10; every
   session also works without a sensor.
 
-The only dependency, [NavigationKit](https://github.com/LinkAndreas/NavigationKit), is fetched
-by Swift Package Manager when you open the project.
+The app has no third-party dependencies.
 
 ## Getting started
 

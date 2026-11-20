@@ -50,4 +50,17 @@ final class SessionHistory {
             logger.error("Deleting a session failed: \(String(describing: error), privacy: .public)")
         }
     }
+
+    /// Removes every session from History. Mindful minutes already saved to Apple
+    /// Health stay there; they belong to Health.
+    func deleteAll() {
+        do {
+            try repository.deleteAll()
+            sessions.removeAll()
+        } catch {
+            logger.error("Deleting all sessions failed: \(String(describing: error), privacy: .public)")
+            // Show what's actually left, in case some were removed before the failure.
+            reload()
+        }
+    }
 }

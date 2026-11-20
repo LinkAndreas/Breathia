@@ -5106,6 +5106,216 @@
         }
       }
     },
+    "settings.cuePreview" : {
+      "comment" : "Button that plays a breath in and a breath out with the chosen cue sound",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probe anhören"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play Sample"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escuchar muestra"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écouter un extrait"
+          }
+        }
+      }
+    },
+    "settings.cueSound" : {
+      "comment" : "Name of the setting that picks the sound of the breathing cues",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klang"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cue Sound"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sonido de las señales"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son des signaux"
+          }
+        }
+      }
+    },
+    "settings.cueSound.bell" : {
+      "comment" : "Breathing cue sound: a small bell",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glocke"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bell"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campana"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloche"
+          }
+        }
+      }
+    },
+    "settings.cueSound.bowl" : {
+      "comment" : "Breathing cue sound: a singing bowl",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klangschale"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Singing Bowl"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuenco tibetano"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bol chantant"
+          }
+        }
+      }
+    },
+    "settings.cueSound.wave" : {
+      "comment" : "Breathing cue sound: a tone that rises while breathing in and falls while breathing out",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atemwelle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breath Wave"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ola de respiración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vague de respiration"
+          }
+        }
+      }
+    },
+    "settings.cueSound.wood" : {
+      "comment" : "Breathing cue sound: a soft wooden mallet",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Holz"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wood"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Madera"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bois"
+          }
+        }
+      }
+    },
+    "settings.cueVolume" : {
+      "comment" : "Name of the slider that sets how loud the breathing cues play",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lautstärke der Signale"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cue Volume"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen de las señales"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume des signaux"
+          }
+        }
+      }
+    },
     "settings.eachCompletedBreathingSession" : {
       "localizations" : {
         "de" : {
@@ -5186,6 +5396,186 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Retour haptique"
+          }
+        }
+      }
+    },
+    "settings.history.deleteAll" : {
+      "comment" : "Button in Settings that deletes every session from History",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Sitzungen löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete All Sessions"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar todas las sesiones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer toutes les séances"
+          }
+        }
+      }
+    },
+    "settings.history.deleteAllButton" : {
+      "comment" : "Destructive button in the dialog that deletes every session",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete All"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar todo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout supprimer"
+          }
+        }
+      }
+    },
+    "settings.history.deleteAllMessage" : {
+      "comment" : "Message of the dialog that confirms deleting every session, on iPhone and iPad",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Sitzungen mit ihren Herzfrequenz- und HRV-Daten werden von diesem Gerät gelöscht. Das lässt sich nicht rückgängig machen. In Apple Health gesicherte Achtsamkeitsminuten bleiben dort erhalten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every session and its heart-rate and HRV data will be deleted from this device. This can't be undone. Mindful minutes saved to Apple Health stay there."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se eliminarán de este dispositivo todas las sesiones con sus datos de pulso y VFC. Esta acción no se puede deshacer. Los minutos de atención plena guardados en Apple Salud se conservan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes les séances et leurs données de pouls et de VFC seront supprimées de cet appareil. Cette action est irréversible. Les minutes de pleine conscience enregistrées dans Apple Santé y restent."
+          }
+        }
+      }
+    },
+    "settings.history.deleteAllMessageMac" : {
+      "comment" : "Message of the dialog that confirms deleting every session, on the Mac",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Sitzungen mit ihren Herzfrequenz- und HRV-Daten werden von diesem Mac gelöscht. Das lässt sich nicht rückgängig machen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every session and its heart-rate and HRV data will be deleted from this Mac. This can't be undone."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se eliminarán de este Mac todas las sesiones con sus datos de pulso y VFC. Esta acción no se puede deshacer."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes les séances et leurs données de pouls et de VFC seront supprimées de ce Mac. Cette action est irréversible."
+          }
+        }
+      }
+    },
+    "settings.history.deleteAllQuestion" : {
+      "comment" : "Title of the dialog that confirms deleting every session",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Sitzungen löschen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete all sessions?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar todas las sesiones?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer toutes les séances ?"
+          }
+        }
+      }
+    },
+    "settings.history.footer" : {
+      "comment" : "Footer under the button that deletes every session",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löscht alle Sitzungen aus dem Verlauf auf diesem Gerät. Eine einzelne Sitzung löschst du, indem du sie im Verlauf nach links wischst."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletes every session from History on this device. To delete a single session, swipe it to the left in History."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina todas las sesiones del historial de este dispositivo. Para eliminar una sola, deslízala hacia la izquierda en el Historial."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprime toutes les séances de l'Historique sur cet appareil. Pour en supprimer une seule, balayez-la vers la gauche dans l'Historique."
           }
         }
       }
@@ -5531,25 +5921,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Streiche im Verlauf über eine Sitzung, um sie zu löschen. Wenn du die App löschst, werden alle ihre Daten entfernt."
+            "value" : "Wische im Verlauf eine Sitzung nach links, um sie zu löschen, oder lösche alle unter Einstellungen › Verlauf. Wenn du die App löschst, werden alle ihre Daten entfernt."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Swipe a session in History to delete it. Deleting the app removes all of its data."
+            "value" : "Swipe a session to the left in History to delete it, or delete them all in Settings › History. Deleting the app removes all of its data."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desliza una sesión en Historial para eliminarla. Al eliminar la app se borran todos sus datos."
+            "value" : "Desliza una sesión hacia la izquierda en Historial para eliminarla, o elimínalas todas en Ajustes › Historial. Al eliminar la app se borran todos sus datos."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Balayez une séance dans l'Historique pour la supprimer. Supprimer l'app efface toutes ses données."
+            "value" : "Balayez une séance vers la gauche dans l'Historique pour la supprimer, ou supprimez-les toutes dans Réglages › Historique. Supprimer l'app efface toutes ses données."
           }
         }
       }
@@ -5920,6 +6310,66 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Son"
+          }
+        }
+      }
+    },
+    "settings.sound.footer" : {
+      "comment" : "Footer below the sound settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein sanfter Klang markiert jeden Wechsel der Atmung: höher beim Einatmen, tiefer beim Ausatmen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A soft sound marks each turn of the breath: higher when breathing in, lower when breathing out."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un sonido suave marca cada cambio de la respiración: más agudo al inspirar, más grave al espirar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un son doux marque chaque changement de la respiration : plus aigu à l'inspiration, plus grave à l'expiration."
+          }
+        }
+      }
+    },
+    "settings.soundCues" : {
+      "comment" : "Toggle: play a sound at each turn of the breath",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klangsignale"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound Cues"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Señales sonoras"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signaux sonores"
           }
         }
       }

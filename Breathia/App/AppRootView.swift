@@ -1,19 +1,16 @@
-import NavigationKit
 import SwiftUI
 
-/// Renders the app's navigation tree and applies the user's appearance
-/// preference to the whole window. What each route shows is decided by `AppRoutes`.
+/// The app's window: tabs when it's narrow, a split view when it's wide, with the
+/// sheets, the running session, and questions over it. Applies the user's
+/// appearance preference to the whole window.
 struct AppRootView: View {
-    let navigator: AppNavigator
-    let routes: AppRoutes
-    let settingsStore: SettingsStore
-    let appIconStore: AppIconStore
+    let screens: AppScreens
 
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
 
-    /// The split view's criterion — the same one NavigationKit's adaptive layout uses.
+    /// Whether the window is wide enough for the split view.
     private var isRegularWidth: Bool {
         #if os(iOS)
         horizontalSizeClass == .regular
@@ -22,15 +19,78 @@ struct AppRootView: View {
         #endif
     }
 
+    private var navigator: AppNavigator { screens.navigator }
+
     var body: some View {
-        NavigationRoot(store: navigator.store)
-            .routes(routes)
+        @Bindable var navigator = navigator
+        ZStack {
+            Group {
+                if isRegularWidth {
+                    SplitLayout(screens: screens)
+                } else {
+                    TabLayout(screens: screens)
+                }
+            }
             .onChange(of: isRegularWidth, initial: true) { _, isRegular in
                 navigator.windowWidthDidChange(isRegular: isRegular)
             }
+            .sheet(isPresented: $navigator.isShowingSensor) {
+                NavigationStack {
+                    SensorSheetView(onDone: { navigator.isShowingSensor = false })
+                }
+                .environment(screens.heartRateMonitor)
+            }
+            #if os(iOS)
+            // Behind a session, the app is out of reach for VoiceOver too.
+            .accessibilityHidden(navigator.runningTechniqueID != nil)
+            .fullScreenCover(isPresented: isPresentingOnboarding(as: .cover)) {
+                OnboardingModal(screens: screens)
+            }
+            #endif
+
+            #if os(iOS)
+            if let techniqueID = navigator.runningTechniqueID {
+                SessionLayer(techniqueID: techniqueID, screens: screens)
+                    // Slides up and away as a full-screen cover does.
+                    .transition(.move(edge: .bottom))
+                    .zIndex(1)
+            }
+            #endif
+        }
         #if os(iOS)
-        .tabBarMinimizeBehavior(.never)
+        .animation(.smooth, value: navigator.runningTechniqueID)
+        #else
+        .sheet(isPresented: isRunningSession) {
+            if let techniqueID = navigator.runningTechniqueID {
+                SessionLayer(techniqueID: techniqueID, screens: screens)
+            }
+        }
         #endif
+        .sheet(isPresented: isPresentingOnboarding(as: .sheet)) {
+            OnboardingModal(screens: screens)
+        }
+        .alert(
+            navigator.dialog.map { Text($0.title) } ?? Text(verbatim: ""),
+            isPresented: Binding(
+                get: { navigator.dialog != nil },
+                set: { isPresented in
+                    if !isPresented { navigator.answer(nil) }
+                }
+            ),
+            presenting: navigator.dialog
+        ) { dialog in
+            ForEach(dialog.actions) { action in
+                Button(role: action.role) {
+                    navigator.answer(action.id)
+                } label: {
+                    Text(action.title)
+                }
+            }
+        } message: { dialog in
+            if let message = dialog.message {
+                Text(message)
+            }
+        }
         // Applies to every list, form, and scroll view, including sheets.
         .scrollIndicators(.hidden)
         #if os(macOS)
@@ -42,20 +102,36 @@ struct AppRootView: View {
         // The app's controls take the icon's main color, and change with it. A Mac keeps its
         // own colors: its sidebar follows the system accent color whatever the app sets, so a
         // theme would only ever be partial there. The icon changes in the Dock alone.
-        .tint(appIconStore.current.palette.accent)
+        .tint(screens.appIconStore.current.palette.accent)
         #endif
-        .preferredColorScheme(settingsStore.settings.appearance.colorScheme)
+        .preferredColorScheme(screens.settingsStore.settings.appearance.colorScheme)
     }
+
+    private func isPresentingOnboarding(as presentation: OnboardingPresentation) -> Binding<Bool> {
+        Binding(
+            get: { navigator.onboarding == presentation },
+            set: { isPresented in
+                if !isPresented, navigator.onboarding == presentation { navigator.closeOnboarding() }
+            }
+        )
+    }
+
+    #if os(macOS)
+    /// The session sheet; Escape closes it, and the session ends with it.
+    private var isRunningSession: Binding<Bool> {
+        Binding(
+            get: { navigator.runningTechniqueID != nil },
+            set: { isPresented in
+                if !isPresented { navigator.endSession() }
+            }
+        )
+    }
+    #endif
 }
 
 extension AppRootView {
     init(dependencies: AppDependencies) {
-        self.init(
-            navigator: dependencies.navigator,
-            routes: dependencies.routes,
-            settingsStore: dependencies.settingsStore,
-            appIconStore: dependencies.appIconStore
-        )
+        self.init(screens: dependencies.screens)
     }
 }
 
@@ -71,24 +147,12 @@ private extension Appearance {
 
 #if DEBUG
 #Preview("Main") {
-    let dependencies = AppDependencies.preview()
-    AppRootView(
-        navigator: dependencies.navigator,
-        routes: dependencies.routes,
-        settingsStore: dependencies.settingsStore,
-        appIconStore: dependencies.appIconStore
-    )
+    AppRootView(dependencies: AppDependencies.preview())
 }
 #endif
 
 #if DEBUG
 #Preview("First Launch") {
-    let dependencies = AppDependencies.preview(hasCompletedOnboarding: false)
-    AppRootView(
-        navigator: dependencies.navigator,
-        routes: dependencies.routes,
-        settingsStore: dependencies.settingsStore,
-        appIconStore: dependencies.appIconStore
-    )
+    AppRootView(dependencies: AppDependencies.preview(hasCompletedOnboarding: false))
 }
 #endif

@@ -13,4 +13,6 @@ protocol SessionRepository {
     /// sessions delivered twice (e.g. from Apple Watch) are kept once.
     func insert(_ session: SessionRecord) throws
     func delete(sessionID: SessionRecord.ID) throws
+    /// Removes every session.
+    func deleteAll() throws
 }

@@ -16,9 +16,6 @@ struct BreathingSettingsRows: View {
             SettingsLabel("settings.hapticFeedback", systemImage: "hand.tap.fill", color: .orange)
         }
         #endif
-        Toggle(isOn: $store.settings.soundEnabled) {
-            SettingsLabel("settings.sound", systemImage: "speaker.wave.2.fill", color: .pink)
-        }
         Toggle(isOn: $store.settings.countdownEnabled) {
             SettingsLabel("settings.countdown", systemImage: "timer", color: .blue)
         }

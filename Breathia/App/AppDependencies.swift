@@ -1,15 +1,14 @@
-import NavigationKit
 import OSLog
 import SwiftUI
 
 /// Composition root. Builds the object graph once — the only place that picks
 /// concrete storage, Bluetooth, HealthKit, StoreKit, and WatchConnectivity types —
-/// and wires navigation (`AppNavigator`), screens (`AppRoutes`), and flows.
-/// Nothing is put in the environment up front: `AppRoutes` hands each screen only
+/// and wires navigation (`AppNavigator`), screens (`AppScreens`), and flows.
+/// Nothing is put in the environment up front: each screen is handed only
 /// the stores it reads.
 final class AppDependencies {
     let navigator: AppNavigator
-    let routes: AppRoutes
+    let screens: AppScreens
     let settingsStore: SettingsStore
     /// The app's icon, which the app takes its accent color from.
     let appIconStore: AppIconStore
@@ -57,13 +56,15 @@ final class AppDependencies {
 
         let monitor = HeartRateMonitor(source: heartRateSource)
         let mindful = MindfulMinutesStore(service: mindfulMinutesService)
+        // One audio engine for every session and for the preview in Settings.
+        let cueSounds = CueSoundPlayer()
         let factory = BreathingSessionFactory(
             monitor: monitor,
             settingsStore: store,
             source: Self.sessionSource,
             recorder: SessionRecorder(keepingIn: history.record, mindfulMinutes: mindful, settingsStore: store),
             makeCuePlayer: { settings in
-                SystemBreathingCuePlayer(hapticsEnabled: settings.hapticsEnabled, soundEnabled: settings.soundEnabled)
+                SystemBreathingCuePlayer(settings: settings, sounds: cueSounds)
             },
             makeActivity: {
                 #if os(iOS) // ActivityKit is importable on macOS, but unavailable.
@@ -84,7 +85,7 @@ final class AppDependencies {
             sessionHistory: history,
             navigator: navigator
         )
-        routes = AppRoutes(
+        screens = AppScreens(
             navigator: navigator,
             sessionHistory: history,
             settingsStore: store,
@@ -92,7 +93,8 @@ final class AppDependencies {
             mindfulMinutes: mindful,
             appIconStore: appIconStore,
             sessionFactory: factory,
-            ratingFlow: ratingFlow
+            ratingFlow: ratingFlow,
+            auditionCue: CueAuditioner { sound, volume in cueSounds.audition(sound, volume: volume) }
         )
 
         self.navigator = navigator

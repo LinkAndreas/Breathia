@@ -21,6 +21,14 @@ struct SettingsView: View {
             }
 
             Section {
+                SoundSettingsRows()
+            } header: {
+                Text("settings.sound")
+            } footer: {
+                Text(SoundSettingsRows.footer)
+            }
+
+            Section {
                 BiofeedbackSettingsRows()
             } header: {
                 Text("settings.biofeedback")
@@ -35,6 +43,8 @@ struct SettingsView: View {
             }
 
             AppIconSection()
+
+            HistorySettingsSection()
 
             Section {
                 SettingsPageRow(page: .privacy) { onOpenPage(.privacy) }
@@ -68,5 +78,6 @@ struct SettingsView: View {
     .environment(PreviewStores.settingsStore())
     .environment(PreviewStores.mindfulMinutes())
     .environment(AppIconStore.preview())
+    .environment(PreviewStores.sessionHistory())
 }
 #endif
