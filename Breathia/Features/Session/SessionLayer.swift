@@ -13,7 +13,7 @@ struct SessionLayer: View {
 
     var body: some View {
         NavigationStack {
-            screens.sessionScreen(techniqueID: techniqueID)
+            SessionScreen(techniqueID: techniqueID, screens: screens)
         }
         #if os(macOS)
         // Large enough for the breathing circle.

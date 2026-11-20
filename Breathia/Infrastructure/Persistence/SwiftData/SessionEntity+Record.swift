@@ -16,7 +16,12 @@ extension SessionEntity {
             hrvAverage: record.hrv?.average,
             hrvTrend: record.hrv?.trend?.rawValue,
             heartRateTrace: record.heartRateTrace,
-            source: record.source?.rawValue
+            source: record.source?.rawValue,
+            heartRateTimes: record.heartRateTimeline?.times,
+            heartRateValues: record.heartRateTimeline?.values,
+            hrvTimes: record.hrvTimeline?.times,
+            hrvValues: record.hrvTimeline?.values,
+            breathSwings: record.breathSwings
         )
     }
 
@@ -43,7 +48,15 @@ extension SessionEntity {
             heartRate: heartRate,
             hrv: hrv,
             heartRateTrace: heartRateTrace,
-            source: source.flatMap(SessionSource.init(rawValue:))
+            source: source.flatMap(SessionSource.init(rawValue:)),
+            heartRateTimeline: Self.timeline(times: heartRateTimes, values: heartRateValues),
+            hrvTimeline: Self.timeline(times: hrvTimes, values: hrvValues),
+            breathSwings: breathSwings
         )
+    }
+
+    private static func timeline(times: [Double]?, values: [Double]?) -> SessionTimeline? {
+        guard let times, let values, !values.isEmpty else { return nil }
+        return SessionTimeline(times: times, values: values)
     }
 }

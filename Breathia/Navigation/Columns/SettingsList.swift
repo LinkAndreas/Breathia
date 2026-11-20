@@ -16,7 +16,8 @@ struct SettingsList: View {
                     }
                 ),
                 onShowOnboarding: { navigator.showOnboarding() },
-                onShowWhatsNew: { navigator.showWhatsNew() }
+                onShowWhatsNew: { navigator.showWhatsNew() },
+                onSendFeedback: { screens.ratingFlow.sendFeedback() }
             )
             .environment(screens.mindfulMinutes)
         } else {
@@ -24,7 +25,8 @@ struct SettingsList: View {
                 onShowSensor: { navigator.showSensor() },
                 onOpenPage: { navigator.settingsPage = $0 },
                 onShowOnboarding: { navigator.showOnboarding() },
-                onShowWhatsNew: { navigator.showWhatsNew() }
+                onShowWhatsNew: { navigator.showWhatsNew() },
+                onSendFeedback: { screens.ratingFlow.sendFeedback() }
             )
             .environment(screens.heartRateMonitor)
             .environment(screens.settingsStore)

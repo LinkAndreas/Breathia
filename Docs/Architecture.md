@@ -114,13 +114,27 @@ Navigation is split by concern (`Breathia/Navigation/`):
 
 `AppDependencies` creates all of them and shows onboarding on first launch.
 
-## Rating prompt
+## Rating and feedback
 
-After the third recorded session, once the session screen closes, `RatingFlow` asks
-"Do you enjoy Breathia?" exactly once (`ReviewPromptPolicy`; the flag is stored in
-UserDefaults under `com.breathia.reviewPrompt.hasAsked`). "Yes!" requests the
-App Store rating dialog; "Not Really" opens a `mailto:` email to feedback@linkandreas.de
-with the app version, build, device model, system version and language at the bottom.
+Breathia follows Apple's guidance for ratings (App Review Guideline 5.6.1 and the Human
+Interface Guidelines): it uses only the system's rating dialog, never a rating prompt of its
+own, and never asks a question first that sends only happy users to the App Store.
+
+- **When** — `ReviewPromptPolicy`: after a recorded session that lasted at least 80% of its
+  planned length, once the user has 3 recorded sessions on at least 2 different days; at most
+  once per app version and 120 days apart. The system itself shows the dialog at most three
+  times a year.
+- **How** — `RatingFlow` waits until the session screen has closed and History has settled,
+  checks that nothing is in the way (no session, sheet or question, `AppNavigator.isCalm`),
+  records the request and asks `AppRootView` to call SwiftUI's `requestReview`.
+- **Always available** — Settings › Feedback: *Rate Breathia* opens the App Store on writing a
+  review (`AppStoreLinks.writeReview`), *Send Feedback* opens an email to
+  feedback@linkandreas.de with the app version, build, device model, system version and
+  language at the bottom, and *Share Breathia* shares the App Store link.
+
+Requests are stored in UserDefaults (`com.breathia.reviewPrompt.lastRequestDate` and
+`…lastRequestVersion`). Someone asked by a version before 1.7 counts as asked on the day they
+update.
 
 ## History storage
 

@@ -6,6 +6,7 @@ struct SettingsCategoryList: View {
     @Binding var selection: SettingsPage?
     let onShowOnboarding: () -> Void
     let onShowWhatsNew: () -> Void
+    let onSendFeedback: () -> Void
 
     @Environment(MindfulMinutesStore.self) private var mindfulMinutes
 
@@ -25,6 +26,18 @@ struct SettingsCategoryList: View {
             }
             Section {
                 SettingsCategoryRow(page: .history, position: .single)
+            }
+            Section {
+                RateAppRow()
+                    .modifier(CategoryListAction(position: .first))
+                SendFeedbackRow(action: onSendFeedback)
+                    .modifier(CategoryListAction(position: .middle))
+                ShareAppRow()
+                    .modifier(CategoryListAction(position: .last))
+            } header: {
+                Text("settings.feedback.header")
+            } footer: {
+                Text("settings.feedback.footer")
             }
             Section {
                 SettingsCategoryRow(page: .privacy, position: .first)
@@ -79,7 +92,7 @@ struct SettingsCategoryList: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        SettingsCategoryList(selection: .constant(.breathing), onShowOnboarding: {}, onShowWhatsNew: {})
+        SettingsCategoryList(selection: .constant(.breathing), onShowOnboarding: {}, onShowWhatsNew: {}, onSendFeedback: {})
     }
     .environment(PreviewStores.mindfulMinutes())
 }
