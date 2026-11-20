@@ -95,8 +95,11 @@ and HRV respond while you breathe.
   synced to History on iPhone
 - **History** — every session with its heart-rate and HRV trends, stored on device
 - **Apple Health** — optionally saves sessions as mindful minutes
-- **iPad and Mac** — a three-column layout; on the Mac, a native app with soft sound cues and the
-  same Bluetooth sensor support
+- **Sound cues** — four sounds (singing bowl, bell, wood, and a breath wave that rises and falls
+  with the breath) with their own volume, played as media so they follow the volume buttons and
+  headphones and mix with music
+- **iPad and Mac** — a three-column layout; on the Mac, a native app with the same sound cues and
+  Bluetooth sensor support
 - **App icons** — eight icons to choose from in Settings; on iPhone and iPad the app takes on the
   chosen icon's colors
 - **Free** — every feature included, with no ads and no in-app purchases

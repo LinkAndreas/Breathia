@@ -57,13 +57,15 @@ final class AppDependencies {
 
         let monitor = HeartRateMonitor(source: heartRateSource)
         let mindful = MindfulMinutesStore(service: mindfulMinutesService)
+        // One audio engine for every session and for the preview in Settings.
+        let cueSounds = CueSoundPlayer()
         let factory = BreathingSessionFactory(
             monitor: monitor,
             settingsStore: store,
             source: Self.sessionSource,
             recorder: SessionRecorder(keepingIn: history.record, mindfulMinutes: mindful, settingsStore: store),
             makeCuePlayer: { settings in
-                SystemBreathingCuePlayer(hapticsEnabled: settings.hapticsEnabled, soundEnabled: settings.soundEnabled)
+                SystemBreathingCuePlayer(settings: settings, sounds: cueSounds)
             },
             makeActivity: {
                 #if os(iOS) // ActivityKit is importable on macOS, but unavailable.
@@ -92,7 +94,8 @@ final class AppDependencies {
             mindfulMinutes: mindful,
             appIconStore: appIconStore,
             sessionFactory: factory,
-            ratingFlow: ratingFlow
+            ratingFlow: ratingFlow,
+            auditionCue: CueAuditioner { sound, volume in cueSounds.audition(sound, volume: volume) }
         )
 
         self.navigator = navigator

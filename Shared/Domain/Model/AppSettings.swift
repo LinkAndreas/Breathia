@@ -64,6 +64,11 @@ struct AppSettings: Codable, Equatable {
     /// user turns it on in onboarding or Settings — which is also when Health access
     /// is requested, never at the end of a session.
     var savesMindfulMinutes = false
+    /// The sound that marks each phase while `soundEnabled` is on.
+    var cueSound: CueSound = .bowl
+    /// Loudness of the breathing cues, from 0 (quietest) to 1 (loudest), on top of
+    /// the device volume.
+    var cueVolume = 0.9
 }
 
 extension AppSettings {
@@ -88,5 +93,9 @@ extension AppSettings {
         appearance = try value(.appearance, default: defaults.appearance)
         hasCompletedOnboarding = try value(.hasCompletedOnboarding, default: defaults.hasCompletedOnboarding)
         savesMindfulMinutes = try value(.savesMindfulMinutes, default: defaults.savesMindfulMinutes)
+        // A sound added by a newer version (e.g. on a synced device) falls back to
+        // the default instead of failing the whole decode.
+        cueSound = (try? container.decodeIfPresent(CueSound.self, forKey: .cueSound)) ?? defaults.cueSound
+        cueVolume = min(1, max(0, try value(.cueVolume, default: defaults.cueVolume)))
     }
 }

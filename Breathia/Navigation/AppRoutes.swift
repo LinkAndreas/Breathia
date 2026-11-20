@@ -14,6 +14,8 @@ final class AppRoutes: RouteModule {
     private let appIconStore: AppIconStore
     private let sessionFactory: BreathingSessionFactory
     private let ratingFlow: RatingFlow
+    /// Plays a cue sound for the Settings preview.
+    private let auditionCue: CueAuditioner
 
     init(
         navigator: AppNavigator,
@@ -23,7 +25,8 @@ final class AppRoutes: RouteModule {
         mindfulMinutes: MindfulMinutesStore,
         appIconStore: AppIconStore,
         sessionFactory: BreathingSessionFactory,
-        ratingFlow: RatingFlow
+        ratingFlow: RatingFlow,
+        auditionCue: CueAuditioner
     ) {
         self.navigator = navigator
         self.sessionHistory = sessionHistory
@@ -33,6 +36,7 @@ final class AppRoutes: RouteModule {
         self.appIconStore = appIconStore
         self.sessionFactory = sessionFactory
         self.ratingFlow = ratingFlow
+        self.auditionCue = auditionCue
     }
 
     /// Registers every route's screen. The registry's closures keep this object
@@ -131,6 +135,7 @@ final class AppRoutes: RouteModule {
                 .environment(self.settingsStore)
                 .environment(self.mindfulMinutes)
                 .environment(self.appIconStore)
+                .environment(\.auditionCue, self.auditionCue)
 
             case let .page(page):
                 SettingsPageDestination(
@@ -140,6 +145,7 @@ final class AppRoutes: RouteModule {
                     mindfulMinutes: self.mindfulMinutes,
                     appIconStore: self.appIconStore
                 )
+                .environment(\.auditionCue, self.auditionCue)
             }
         }
     }
