@@ -84,7 +84,7 @@ struct NavigationTests {
 
     @Test func aQuestionReturnsTheChosenAction() async {
         let navigator = AppNavigator()
-        let dialog = AppDialog("rating.doYouEnjoyBreathia", actions: [AppDialog.Action("rating.yes", id: "yes")])
+        let dialog = AppDialog("rating.couldntOpenMail", actions: [AppDialog.Action("rating.ok", id: "yes")])
         async let choice = navigator.ask(dialog)
         while navigator.dialog == nil { await Task.yield() }
 

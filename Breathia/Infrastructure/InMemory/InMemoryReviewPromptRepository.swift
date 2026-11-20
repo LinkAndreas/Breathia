@@ -4,14 +4,14 @@ import Foundation
 
 /// `ReviewPromptRepository` held in memory — for previews and tests.
 final class InMemoryReviewPromptRepository: ReviewPromptRepository {
-    private(set) var hasAsked: Bool
+    private(set) var history: ReviewPromptHistory
 
-    init(hasAsked: Bool = false) {
-        self.hasAsked = hasAsked
+    init(history: ReviewPromptHistory = ReviewPromptHistory()) {
+        self.history = history
     }
 
-    func markAsked() {
-        hasAsked = true
+    func recordRequest(version: String, date: Date) {
+        history = ReviewPromptHistory(lastRequestDate: date, lastRequestVersion: version)
     }
 }
 #endif

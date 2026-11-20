@@ -26,7 +26,6 @@ final class AppDependencies {
         mindfulMinutesService: MindfulMinutesService,
         appIconStore: AppIconStore,
         reviewPromptRepository: ReviewPromptRepository,
-        reviewRequester: ReviewRequesting,
         feedbackMailer: FeedbackMailing,
         appMetadata: AppMetadataProviding,
         syncsWithWatch: Bool,
@@ -78,7 +77,6 @@ final class AppDependencies {
         let ratingFlow = RatingFlow(
             prompter: ReviewPrompter(
                 repository: reviewPromptRepository,
-                reviewRequester: reviewRequester,
                 mailer: feedbackMailer,
                 metadataProvider: appMetadata
             ),
@@ -123,7 +121,6 @@ final class AppDependencies {
             mindfulMinutesService: makeMindfulMinutesService(),
             appIconStore: .live(),
             reviewPromptRepository: UserDefaultsReviewPromptRepository(),
-            reviewRequester: StoreKitReviewRequester(),
             feedbackMailer: SystemFeedbackMailer(),
             appMetadata: DeviceAppMetadataProvider(),
             syncsWithWatch: true,
@@ -178,7 +175,6 @@ final class AppDependencies {
             mindfulMinutesService: InMemoryMindfulMinutesService(),
             appIconStore: .preview(),
             reviewPromptRepository: InMemoryReviewPromptRepository(),
-            reviewRequester: StoreKitReviewRequester(),
             feedbackMailer: SystemFeedbackMailer(),
             appMetadata: DeviceAppMetadataProvider(),
             syncsWithWatch: false,

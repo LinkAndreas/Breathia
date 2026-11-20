@@ -6,6 +6,7 @@ struct SettingsView: View {
     let onOpenPage: (SettingsPage) -> Void
     let onShowOnboarding: () -> Void
     let onShowWhatsNew: () -> Void
+    let onSendFeedback: () -> Void
 
     var body: some View {
         Form {
@@ -47,6 +48,8 @@ struct SettingsView: View {
 
             HistorySettingsSection()
 
+            FeedbackSettingsSection(onSendFeedback: onSendFeedback)
+
             Section {
                 SettingsPageRow(page: .privacy) { onOpenPage(.privacy) }
                 SettingsPageRow(page: .aboutSensor) { onOpenPage(.aboutSensor) }
@@ -77,7 +80,7 @@ struct SettingsView: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        SettingsView(onShowSensor: {}, onOpenPage: { _ in }, onShowOnboarding: {}, onShowWhatsNew: {})
+        SettingsView(onShowSensor: {}, onOpenPage: { _ in }, onShowOnboarding: {}, onShowWhatsNew: {}, onSendFeedback: {})
     }
     .environment(PreviewStores.heartRateMonitor())
     .environment(PreviewStores.settingsStore())

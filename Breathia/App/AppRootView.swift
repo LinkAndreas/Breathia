@@ -1,3 +1,4 @@
+import StoreKit
 import SwiftUI
 
 /// The app's window: tabs when it's narrow, a split view when it's wide, with the
@@ -9,6 +10,8 @@ struct AppRootView: View {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
+    /// The system's App Store rating dialog; the system decides whether it shows.
+    @Environment(\.requestReview) private var requestReview
 
     /// Whether the window is wide enough for the split view.
     private var isRegularWidth: Bool {
@@ -94,6 +97,9 @@ struct AppRootView: View {
             if let message = dialog.message {
                 Text(message)
             }
+        }
+        .onChange(of: navigator.reviewRequest) {
+            requestReview()
         }
         // Applies to every list, form, and scroll view, including sheets.
         .scrollIndicators(.hidden)

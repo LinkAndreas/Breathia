@@ -43,6 +43,10 @@ final class AppNavigator {
     /// Mac it's a sheet.
     private(set) var runningTechniqueID: Technique.ID?
 
+    /// Changes whenever the App Store rating dialog should be requested;
+    /// `AppRootView` passes it on to the system.
+    private(set) var reviewRequest = 0
+
     /// The question asked over the whole app, while it's waiting for an answer.
     private(set) var dialog: AppDialog?
     @ObservationIgnored private var dialogAnswer: CheckedContinuation<AppDialog.Action.ID?, Never>?
@@ -158,6 +162,18 @@ final class AppNavigator {
         dialog = nil
         dialogAnswer?.resume(returning: actionID)
         dialogAnswer = nil
+    }
+
+    // MARK: Rating
+
+    /// Whether nothing is in the user's way: no session, sheet or question. The
+    /// rating dialog only comes then, never during a task.
+    var isCalm: Bool {
+        runningTechniqueID == nil && !isShowingSensor && onboarding == nil && !isShowingWhatsNew && dialog == nil
+    }
+
+    func requestReview() {
+        reviewRequest += 1
     }
 
     // MARK: Sections

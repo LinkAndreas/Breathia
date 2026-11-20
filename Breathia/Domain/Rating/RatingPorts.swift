@@ -2,16 +2,10 @@ import Foundation
 
 // Contracts the rating flow depends on. Implementations live in Infrastructure.
 
-/// Remembers whether the user was already asked if they enjoy the app.
+/// Remembers when the App Store rating dialog was last requested.
 protocol ReviewPromptRepository {
-    var hasAsked: Bool { get }
-    func markAsked()
-}
-
-/// Shows the system's App Store rating dialog. The system decides whether it
-/// actually appears, so callers must not rely on it.
-protocol ReviewRequesting {
-    func requestReview()
+    var history: ReviewPromptHistory { get }
+    func recordRequest(version: String, date: Date)
 }
 
 /// Opens a prepared email in the user's mail app.

@@ -2714,34 +2714,6 @@
         }
       }
     },
-    "rating.doYouEnjoyBreathia" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gefällt dir Breathia?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Do you enjoy Breathia?"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¿Te gusta Breathia?"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous aimez Breathia ?"
-          }
-        }
-      }
-    },
     "rating.feedbackEmail.breathiaFeedback" : {
       "localizations" : {
         "de" : {
@@ -2798,34 +2770,6 @@
         }
       }
     },
-    "rating.notReally" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nicht wirklich"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Not Really"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No mucho"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pas vraiment"
-          }
-        }
-      }
-    },
     "rating.ok" : {
       "localizations" : {
         "de" : {
@@ -2854,34 +2798,6 @@
         }
       }
     },
-    "rating.yes" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ja!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yes!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¡Sí!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oui !"
-          }
-        }
-      }
-    },
     "rating.youCanWrite %@" : {
       "localizations" : {
         "de" : {
@@ -2906,34 +2822,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vous pouvez nous écrire à %@."
-          }
-        }
-      }
-    },
-    "rating.yourAnswerHelpsUs" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deine Antwort hilft uns, die App zu verbessern."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your answer helps us make the app better."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tu respuesta nos ayuda a mejorar la app."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Votre réponse nous aide à améliorer l'app."
           }
         }
       }
@@ -6030,6 +5918,246 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Breathia utilise Apple Health (HealthKit) pour enregistrer chaque séance de respiration terminée en tant que minutes de pleine conscience."
+          }
+        }
+      }
+    },
+    "settings.feedback.footer" : {
+      "comment" : "Footer below rating and feedback",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia ist kostenlos und wird von einer Person entwickelt. Eine Bewertung, eine Idee oder ein Hinweis, was nicht funktioniert hat, hilft mehr, als du denkst."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia is free and made by one person. A rating, an idea or a note about what didn't work helps more than you'd think."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia es gratis y lo crea una sola persona. Una valoración, una idea o un aviso de lo que no funcionó ayuda más de lo que crees."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia est gratuite et créée par une seule personne. Une note, une idée ou un mot sur ce qui n'a pas marché aide plus que vous ne le pensez."
+          }
+        }
+      }
+    },
+    "settings.feedback.header" : {
+      "comment" : "Settings section with rating, feedback and sharing",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comentarios"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos impressions"
+          }
+        }
+      }
+    },
+    "settings.feedback.rate" : {
+      "comment" : "Opens the App Store to write a review",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia bewerten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rate Breathia"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valorar Breathia"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noter Breathia"
+          }
+        }
+      }
+    },
+    "settings.feedback.rateHint" : {
+      "comment" : "Accessibility hint of Rate Breathia",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffnet den App Store."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens the App Store."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre el App Store."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre l'App Store."
+          }
+        }
+      }
+    },
+    "settings.feedback.send" : {
+      "comment" : "Opens an email to the developer",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedback senden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send Feedback"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar comentarios"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer un commentaire"
+          }
+        }
+      }
+    },
+    "settings.feedback.sendHint" : {
+      "comment" : "Accessibility hint of Send Feedback",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schreibt eine E-Mail an den Entwickler."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Writes an email to the developer."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escribe un correo al desarrollador."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rédige un e-mail au développeur."
+          }
+        }
+      }
+    },
+    "settings.feedback.share" : {
+      "comment" : "Shares the App Store link",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia teilen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Breathia"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartir Breathia"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager Breathia"
+          }
+        }
+      }
+    },
+    "settings.feedback.shareMessage" : {
+      "comment" : "Message shared with the App Store link",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia hilft mir, ruhiger zu atmen – mit Live-Feedback von meinem Herzen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia helps me breathe calmer, with live feedback from my heart."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia me ayuda a respirar con más calma, con información en directo de mi corazón."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia m'aide à respirer plus calmement, avec un retour en direct de mon cœur."
           }
         }
       }

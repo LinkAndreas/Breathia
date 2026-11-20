@@ -22,7 +22,7 @@ struct SessionScreen: View {
                 navigator.endSession()
                 if let recordedSession {
                     navigator.showHistory(with: recordedSession.id)
-                    screens.ratingFlow.askIfAppropriate()
+                    screens.ratingFlow.sessionRecorded(recordedSession)
                 } else {
                     navigator.showBreathe()
                 }
