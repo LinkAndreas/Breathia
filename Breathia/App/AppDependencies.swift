@@ -1,15 +1,14 @@
-import NavigationKit
 import OSLog
 import SwiftUI
 
 /// Composition root. Builds the object graph once — the only place that picks
 /// concrete storage, Bluetooth, HealthKit, StoreKit, and WatchConnectivity types —
-/// and wires navigation (`AppNavigator`), screens (`AppRoutes`), and flows.
-/// Nothing is put in the environment up front: `AppRoutes` hands each screen only
+/// and wires navigation (`AppNavigator`), screens (`AppScreens`), and flows.
+/// Nothing is put in the environment up front: each screen is handed only
 /// the stores it reads.
 final class AppDependencies {
     let navigator: AppNavigator
-    let routes: AppRoutes
+    let screens: AppScreens
     let settingsStore: SettingsStore
     /// The app's icon, which the app takes its accent color from.
     let appIconStore: AppIconStore
@@ -86,7 +85,7 @@ final class AppDependencies {
             sessionHistory: history,
             navigator: navigator
         )
-        routes = AppRoutes(
+        screens = AppScreens(
             navigator: navigator,
             sessionHistory: history,
             settingsStore: store,

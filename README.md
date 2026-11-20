@@ -124,8 +124,7 @@ Apple Health only if you turn that on. Read the privacy policy in
   HRV needs a sensor that sends beat-to-beat (RR) intervals, such as the Polar H10; every
   session also works without a sensor.
 
-The only dependency, [NavigationKit](https://github.com/LinkAndreas/NavigationKit), is fetched
-by Swift Package Manager when you open the project.
+The app has no third-party dependencies.
 
 ## Getting started
 

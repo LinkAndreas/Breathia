@@ -2,10 +2,9 @@ import Foundation
 
 /// Keeps the running session alive while its screen is rebuilt.
 ///
-/// On iPhone and iPad the session sits above the navigation layout, so a layout switch
-/// leaves it alone. The Mac's session sheet hangs off the navigation stack, though, and
-/// any screen can be rebuilt with new state. Without a keeper, a rebuilt screen would
-/// start the session over.
+/// The session sits above the navigation layout, so a layout switch leaves it alone,
+/// but SwiftUI can still rebuild its screen with new state. Without a keeper, a rebuilt
+/// screen would start the session over.
 ///
 /// The keeper hands every screen of one presentation the same session. It ends the
 /// session when the user leaves it, or when no session screen has been on screen for

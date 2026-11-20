@@ -1,5 +1,4 @@
 import Foundation
-import NavigationKit
 
 /// The "Do you enjoy Breathia?" conversation after a session: asks once,
 /// when `ReviewPrompter` says it's time, then requests an App Store rating or opens
@@ -30,12 +29,12 @@ final class RatingFlow {
     private func ask() async {
         prompter.markAsked()
         let notReally = "notReally"
-        let choice = await navigator.dialog(Dialog(
+        let choice = await navigator.ask(AppDialog(
             "rating.doYouEnjoyBreathia",
             message: "rating.yourAnswerHelpsUs",
             actions: [
-                Dialog.Action("rating.notReally", id: notReally),
-                Dialog.Action("rating.yes"),
+                AppDialog.Action("rating.notReally", id: notReally),
+                AppDialog.Action("rating.yes", id: "yes"),
             ]
         ))
         switch choice {
@@ -47,11 +46,13 @@ final class RatingFlow {
 
     private func sendFeedback() async {
         guard await !prompter.userDoesNotEnjoyApp() else { return }
-        // No mail app is set up; give the address instead.
-        _ = await navigator.dialog(Dialog(
+        // No mail app is set up; give the address instead, once the first
+        // question has finished closing.
+        try? await Task.sleep(for: .seconds(0.5))
+        _ = await navigator.ask(AppDialog(
             "rating.couldntOpenMail",
             message: "rating.youCanWrite \(FeedbackEmail.supportAddress)",
-            actions: [Dialog.Action("rating.ok")]
+            actions: [AppDialog.Action("rating.ok", id: "ok")]
         ))
     }
 }

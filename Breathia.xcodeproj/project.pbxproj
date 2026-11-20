@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000000000000000131000000 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000171000000 /* NavigationKit */; };
 		000000000000000151000000 /* BreathiaWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 000000000000000000000121 /* BreathiaWatch.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		000000000000000153000000 /* BreathiaWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 000000000000000000000122 /* BreathiaWidgets.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -106,7 +105,6 @@
 		000000000000000130000000 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				000000000000000131000000 /* NavigationKit in Frameworks */,
 			);
 		};
 		000000000000000230000000 /* Frameworks */ = {
@@ -178,7 +176,6 @@
 			);
 			name = Breathia;
 			packageProductDependencies = (
-				000000000000000171000000 /* NavigationKit */,
 			);
 			productName = Breathia;
 			productReference = 000000000000000000000120 /* Breathia.app */;
@@ -281,7 +278,6 @@
 			mainGroup = 000000000000000000000001;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				000000000000000170000000 /* XCRemoteSwiftPackageReference "NavigationKit" */,
 			);
 			preferredProjectObjectVersion = 90;
 			productRefGroup = 000000000000000000000020 /* Products */;
@@ -817,22 +813,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		000000000000000170000000 /* XCRemoteSwiftPackageReference "NavigationKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/LinkAndreas/NavigationKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		000000000000000171000000 /* NavigationKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 000000000000000170000000 /* XCRemoteSwiftPackageReference "NavigationKit" */;
-			productName = NavigationKit;
-		};
 /* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 000000000000000000000000 /* Project object */;
