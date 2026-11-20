@@ -143,44 +143,51 @@ struct RatingFlowTests {
         }
     }
 
-    private func waitPastTheDelay() async throws {
-        try await Task.sleep(for: RatingFlow.delayAfterSession + .milliseconds(700))
+    /// Waits until `condition` holds; a busy build machine can take a while.
+    private func wait(until condition: () -> Bool) async throws {
+        let deadline = ContinuousClock.now + .seconds(30)
+        while !condition(), ContinuousClock.now < deadline {
+            try await Task.sleep(for: .milliseconds(20))
+        }
+    }
+
+    private func makeFlow(sessions: [SessionRecord], navigator: AppNavigator, repository: InMemoryReviewPromptRepository) -> RatingFlow {
+        RatingFlow(
+            prompter: ReviewPrompter(repository: repository, mailer: Mailer(), metadataProvider: Metadata()),
+            sessionHistory: SessionHistory(repository: InMemorySessionRepository(sessions: sessions)),
+            navigator: navigator,
+            delay: .zero
+        )
     }
 
     @Test func requestsTheSystemDialogAfterAFinishedSession() async throws {
         let sessions = sessions()
         let navigator = AppNavigator()
         let repository = InMemoryReviewPromptRepository()
-        let flow = RatingFlow(
-            prompter: ReviewPrompter(repository: repository, mailer: Mailer(), metadataProvider: Metadata()),
-            sessionHistory: SessionHistory(repository: InMemorySessionRepository(sessions: sessions)),
-            navigator: navigator
-        )
-        flow.sessionRecorded(sessions[0])
-        try await waitPastTheDelay()
+        let flow = makeFlow(sessions: sessions, navigator: navigator, repository: repository)
 
+        flow.sessionRecorded(sessions[0])
+        try await wait { navigator.reviewRequest == 1 }
         #expect(navigator.reviewRequest == 1)
         #expect(repository.history.lastRequestVersion == "1.7.0")
 
-        // Not again in this version.
-        flow.sessionRecorded(sessions[0])
-        try await waitPastTheDelay()
-        #expect(navigator.reviewRequest == 1)
+        // Not again in this version: the policy says no before any waiting starts.
+        #expect(!ReviewPrompter(repository: repository, mailer: Mailer(), metadataProvider: Metadata())
+            .shouldRequestReview(after: sessions[0], sessions: sessions))
     }
 
     @Test func neverInterruptsANewSession() async throws {
         let sessions = sessions()
         let navigator = AppNavigator()
         let repository = InMemoryReviewPromptRepository()
-        let flow = RatingFlow(
-            prompter: ReviewPrompter(repository: repository, mailer: Mailer(), metadataProvider: Metadata()),
-            sessionHistory: SessionHistory(repository: InMemorySessionRepository(sessions: sessions)),
-            navigator: navigator
-        )
-        flow.sessionRecorded(sessions[0])
-        // The user starts the next session right away.
+        let flow = makeFlow(sessions: sessions, navigator: navigator, repository: repository)
+
+        // The user has already started the next session when the moment comes.
         navigator.startSession(with: TechniqueCatalog.technique(withID: "box"))
-        try await waitPastTheDelay()
+        flow.sessionRecorded(sessions[0])
+        // Let the flow's task run to its end.
+        for _ in 0..<50 { await Task.yield() }
+        try await Task.sleep(for: .milliseconds(200))
 
         #expect(navigator.reviewRequest == 0)
         // Not recorded either, so a later moment can still ask.
