@@ -19,7 +19,7 @@ struct WhatsNewFeatureRow: View {
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
                 if let destination = feature.destination {
-                    Button("whatsNew.openSoundSettings") { onTry(destination) }
+                    Button(destination.title) { onTry(destination) }
                         .font(.subheadline.weight(.semibold))
                         .buttonStyle(.borderless)
                         .padding(.top, 4)

@@ -9,6 +9,22 @@ struct WhatsNewTests {
         #expect(!WhatsNew.shouldShow(lastSeen: WhatsNew.version, hasCompletedOnboarding: true))
     }
 
+    /// Someone who saw the 1.6 features sees this release's once more.
+    @Test func showsAgainForTheNextRelease() {
+        #expect(WhatsNew.shouldShow(lastSeen: "1.6", hasCompletedOnboarding: true))
+    }
+
+    @MainActor
+    @Test func tryingAFeatureOpensWhereItIs() {
+        let navigator = AppNavigator()
+        navigator.tryNewFeature(.history)
+        #expect(navigator.selectedTab == .history)
+        navigator.settingsPage = .health
+        navigator.tryNewFeature(.feedback)
+        #expect(navigator.selectedTab == .settings)
+        #expect(navigator.settingsPage == nil)
+    }
+
     @Test func newUsersGetOnboardingInstead() {
         #expect(!WhatsNew.shouldShow(lastSeen: nil, hasCompletedOnboarding: false))
     }
