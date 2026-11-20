@@ -5,7 +5,14 @@ import SwiftUI
 struct SplitLayout: View {
     let screens: AppScreens
 
+    /// On iPad, the section's list and the open page side by side, even upright,
+    /// so the list is always in view; the sidebar comes in with its button. A Mac
+    /// window shows all three.
+    #if os(iOS)
+    @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    #else
     @State private var columnVisibility: NavigationSplitViewVisibility = .automatic
+    #endif
 
     var body: some View {
         let navigator = screens.navigator
