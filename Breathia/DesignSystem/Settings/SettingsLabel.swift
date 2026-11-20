@@ -4,32 +4,32 @@ import SwiftUI
 struct SettingsLabel: View {
     private let title: Text
     private let systemImage: String
-    private let color: Color
+    private let tone: SettingsTone
 
-    init(_ title: LocalizedStringKey, systemImage: String, color: Color) {
+    init(_ title: LocalizedStringKey, systemImage: String, tone: SettingsTone) {
         self.title = Text(title)
         self.systemImage = systemImage
-        self.color = color
+        self.tone = tone
     }
 
-    init(verbatim title: String, systemImage: String, color: Color) {
+    init(verbatim title: String, systemImage: String, tone: SettingsTone) {
         self.title = Text(verbatim: title)
         self.systemImage = systemImage
-        self.color = color
+        self.tone = tone
     }
 
     var body: some View {
         #if os(macOS)
         // Lists on the Mac don't space a custom label icon from its title.
         HStack(spacing: 8) {
-            SettingsIcon(systemImage: systemImage, color: color)
+            SettingsIcon(systemImage: systemImage, tone: tone)
             title
         }
         #else
         Label {
             title
         } icon: {
-            SettingsIcon(systemImage: systemImage, color: color)
+            SettingsIcon(systemImage: systemImage, tone: tone)
         }
         #endif
     }
@@ -38,8 +38,8 @@ struct SettingsLabel: View {
 #if DEBUG
 #Preview {
     List {
-        SettingsLabel("settings.sound", systemImage: "speaker.wave.2.fill", color: .pink)
-        SettingsLabel(verbatim: "Polar H10", systemImage: "antenna.radiowaves.left.and.right", color: .red)
+        SettingsLabel("settings.sound", systemImage: "speaker.wave.2.fill", tone: .soundCues)
+        SettingsLabel(verbatim: "Polar H10", systemImage: "antenna.radiowaves.left.and.right", tone: .heart)
     }
 }
 #endif

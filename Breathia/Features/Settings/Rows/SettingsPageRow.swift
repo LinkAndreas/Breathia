@@ -8,7 +8,7 @@ struct SettingsPageRow: View {
     var body: some View {
         Button(action: action) {
             HStack {
-                SettingsLabel(verbatim: page.title, systemImage: page.systemImage, color: page.iconColor)
+                SettingsLabel(verbatim: page.title, systemImage: page.systemImage, tone: page.tone)
                 Spacer()
                 DisclosureChevron()
             }

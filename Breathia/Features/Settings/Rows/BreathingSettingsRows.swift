@@ -13,11 +13,11 @@ struct BreathingSettingsRows: View {
         #if os(iOS)
         // Macs have no Taptic Engine to play breathing cues.
         Toggle(isOn: $store.settings.hapticsEnabled) {
-            SettingsLabel("settings.hapticFeedback", systemImage: "hand.tap.fill", color: .orange)
+            SettingsLabel("settings.hapticFeedback", systemImage: "hand.tap.fill", tone: .haptics)
         }
         #endif
         Toggle(isOn: $store.settings.countdownEnabled) {
-            SettingsLabel("settings.countdown", systemImage: "timer", color: .blue)
+            SettingsLabel("settings.countdown", systemImage: "timer", tone: .countdown)
         }
     }
 }

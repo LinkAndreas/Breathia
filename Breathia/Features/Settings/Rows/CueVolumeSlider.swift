@@ -8,7 +8,7 @@ struct CueVolumeSlider: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            SettingsLabel("settings.cueVolume", systemImage: "speaker.wave.2.fill", color: .indigo)
+            SettingsLabel("settings.cueVolume", systemImage: "speaker.wave.3.fill", tone: .cueVolume)
             Slider(value: $volume, in: 0...1) {
                 Text("settings.cueVolume")
             } minimumValueLabel: {

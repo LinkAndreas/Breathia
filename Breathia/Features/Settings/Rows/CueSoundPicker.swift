@@ -17,7 +17,7 @@ struct CueSoundPicker: View {
                 }
             }
         } label: {
-            SettingsLabel("settings.cueSound", systemImage: "music.note", color: .purple)
+            SettingsLabel("settings.cueSound", systemImage: "music.note", tone: .cueSound)
         }
     }
 }

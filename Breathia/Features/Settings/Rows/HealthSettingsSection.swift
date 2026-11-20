@@ -10,7 +10,7 @@ struct HealthSettingsSection: View {
         if mindfulMinutes.isAvailable {
             Section {
                 Toggle(isOn: savesMindfulMinutes) {
-                    SettingsLabel("common.saveMindfulMinutes", systemImage: "heart.fill", color: .pink)
+                    SettingsLabel("common.saveMindfulMinutes", systemImage: "heart.fill", tone: .health)
                 }
             } header: {
                 Text("settings.appleHealth")

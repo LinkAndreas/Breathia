@@ -15,14 +15,14 @@ struct BiofeedbackSettingsRows: View {
                 Text(metric.title).tag(metric)
             }
         } label: {
-            SettingsLabel("settings.hrvMetric", systemImage: "waveform.path.ecg", color: .green)
+            SettingsLabel("settings.hrvMetric", systemImage: "waveform.path.ecg", tone: .hrvMetric)
         }
         Picker(selection: $store.settings.feedbackSensitivity) {
             ForEach(FeedbackSensitivity.allCases) { sensitivity in
                 Text(sensitivity.title).tag(sensitivity)
             }
         } label: {
-            SettingsLabel("settings.feedbackSensitivity", systemImage: "slider.horizontal.3", color: .teal)
+            SettingsLabel("settings.feedbackSensitivity", systemImage: "slider.horizontal.3", tone: .sensitivity)
         }
     }
 }

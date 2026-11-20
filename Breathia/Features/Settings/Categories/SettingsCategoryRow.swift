@@ -7,7 +7,7 @@ struct SettingsCategoryRow: View {
     let position: GroupPosition
 
     var body: some View {
-        SettingsLabel(verbatim: page.title, systemImage: page.systemImage, color: page.iconColor)
+        SettingsLabel(verbatim: page.title, systemImage: page.systemImage, tone: page.tone)
             .lineLimit(1)
             .frame(maxWidth: .infinity, alignment: .leading)
             #if os(macOS)

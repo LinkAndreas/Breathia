@@ -8,7 +8,7 @@ struct ShareAppRow: View {
             subject: Text(verbatim: "Breathia"),
             message: Text("settings.feedback.shareMessage")
         ) {
-            SettingsLabel("settings.feedback.share", systemImage: "square.and.arrow.up.fill", color: .green)
+            SettingsLabel("settings.feedback.share", systemImage: "square.and.arrow.up.fill", tone: .share)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(.rect)
         }

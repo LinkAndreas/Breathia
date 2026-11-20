@@ -6,7 +6,7 @@ struct SendFeedbackRow: View {
 
     var body: some View {
         Button(action: action) {
-            SettingsLabel("settings.feedback.send", systemImage: "envelope.fill", color: .blue)
+            SettingsLabel("settings.feedback.send", systemImage: "envelope.fill", tone: .feedback)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(.rect)
         }
