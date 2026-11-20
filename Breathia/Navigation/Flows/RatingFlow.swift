@@ -14,18 +14,26 @@ final class RatingFlow {
     private let prompter: ReviewPrompter
     private let sessionHistory: SessionHistory
     private let navigator: AppNavigator
+    private let delay: Duration
 
-    init(prompter: ReviewPrompter, sessionHistory: SessionHistory, navigator: AppNavigator) {
+    init(
+        prompter: ReviewPrompter,
+        sessionHistory: SessionHistory,
+        navigator: AppNavigator,
+        delay: Duration = RatingFlow.delayAfterSession
+    ) {
         self.prompter = prompter
         self.sessionHistory = sessionHistory
         self.navigator = navigator
+        self.delay = delay
     }
 
     /// A session was finished and recorded: the moment of success to ask after.
     func sessionRecorded(_ session: SessionRecord) {
         guard prompter.shouldRequestReview(after: session, sessions: sessionHistory.sessions) else { return }
+        let delay = delay
         Task { [weak self] in
-            try? await Task.sleep(for: Self.delayAfterSession)
+            try? await Task.sleep(for: delay)
             guard let self, navigator.isCalm else { return }
             prompter.recordRequest()
             navigator.requestReview()
