@@ -16,6 +16,17 @@ final class AppNavigator {
     /// screen. Reported by `AppRootView` from the same size class NavigationKit uses.
     private(set) var isRegularWidth: Bool?
 
+    #if os(iOS)
+    /// The technique of the session on screen, shown over the whole app by
+    /// `AppRootView`. `nil` when no session runs.
+    ///
+    /// A layer in the window rather than a full-screen cover: a cover presented on
+    /// iPhone Duo's outer display came up sideways once the phone was unfolded, and
+    /// a layout switch would rebuild it. The layer stays in place and turns with the
+    /// window.
+    private(set) var runningTechniqueID: Technique.ID?
+    #endif
+
     /// Onboarding asked for before the app is on screen. Whether it covers the
     /// screen or comes up as a sheet depends on the layout, which isn't known yet.
     @ObservationIgnored private var isOnboardingPending = false
@@ -93,7 +104,20 @@ final class AppNavigator {
         if !usesSplitLayout {
             nav.popToRoot()
         }
+        #if os(iOS)
+        runningTechniqueID = technique.id
+        #else
         nav.present(SessionRoute.run(technique.id))
+        #endif
+    }
+
+    /// Takes the session off screen.
+    func endSession(from nav: any Navigator) {
+        #if os(iOS)
+        runningTechniqueID = nil
+        #else
+        nav.dismiss()
+        #endif
     }
 
     func showSensor() {
@@ -148,11 +172,12 @@ extension AppNavigator {
         case .technique:
             nav.navigate([.select(AppTab.breathe), .show(technique)])
         case .session:
-            nav.navigate(
-                [.select(AppTab.breathe)]
-                    + (usesSplitLayout ? [.show(technique)] : [])
-                    + [.present(SessionRoute.run(ScreenshotScreen.techniqueID))]
-            )
+            nav.navigate([.select(AppTab.breathe)] + (usesSplitLayout ? [.show(technique)] : []))
+            #if os(iOS)
+            runningTechniqueID = ScreenshotScreen.techniqueID
+            #else
+            nav.present(SessionRoute.run(ScreenshotScreen.techniqueID))
+            #endif
         case .history:
             showHistory(with: session.id)
         case .historyDetail:

@@ -154,33 +154,41 @@ final class AppRoutes: RouteModule {
         }
     }
 
+    /// The session for `techniqueID`, from countdown to results. Leaving it takes it
+    /// off screen through `nav`.
+    func sessionScreen(techniqueID: Technique.ID, nav: any Navigator) -> SessionFlowView {
+        SessionFlowView(
+            keeper: sessionKeeper,
+            makeSession: { self.sessionFactory.makeSession(for: TechniqueCatalog.technique(withID: techniqueID)) },
+            onCancel: {
+                self.sessionKeeper.release()
+                self.navigator.endSession(from: nav)
+            },
+            onFinish: { recordedSession in
+                self.sessionKeeper.release()
+                self.navigator.endSession(from: nav)
+                if let recordedSession {
+                    self.navigator.showHistory(with: recordedSession.id)
+                    self.ratingFlow.askIfAppropriate()
+                } else {
+                    self.navigator.showBreathe()
+                }
+            }
+        )
+    }
+
     private func registerModals(in registry: RouteRegistry) {
         registry.register { (_: SensorRoute, nav) in
             SensorSheetView(onDone: { nav.dismiss() })
                 .environment(self.heartRateMonitor)
         }
 
+        // A sheet on the Mac. On iPhone and iPad, `AppRootView` shows the session
+        // over the app instead, from `sessionScreen(techniqueID:nav:)`.
         registry.register { (route: SessionRoute, nav) in
             switch route {
             case let .run(id):
-                SessionFlowView(
-                    keeper: self.sessionKeeper,
-                    makeSession: { self.sessionFactory.makeSession(for: TechniqueCatalog.technique(withID: id)) },
-                    onCancel: {
-                        self.sessionKeeper.release()
-                        nav.dismiss()
-                    },
-                    onFinish: { recordedSession in
-                        self.sessionKeeper.release()
-                        nav.dismiss()
-                        if let recordedSession {
-                            self.navigator.showHistory(with: recordedSession.id)
-                            self.ratingFlow.askIfAppropriate()
-                        } else {
-                            self.navigator.showBreathe()
-                        }
-                    }
-                )
+                self.sessionScreen(techniqueID: id, nav: nav)
                 #if os(macOS)
                 // A sheet on the Mac: large enough for the breathing circle.
                 .frame(minWidth: 560, idealWidth: 720, minHeight: 680, idealHeight: 760)

@@ -23,11 +23,29 @@ struct AppRootView: View {
     }
 
     var body: some View {
-        NavigationRoot(store: navigator.store)
-            .routes(routes)
-            .onChange(of: isRegularWidth, initial: true) { _, isRegular in
-                navigator.windowWidthDidChange(isRegular: isRegular)
+        ZStack {
+            NavigationRoot(store: navigator.store)
+                .routes(routes)
+                .onChange(of: isRegularWidth, initial: true) { _, isRegular in
+                    navigator.windowWidthDidChange(isRegular: isRegular)
+                }
+                #if os(iOS)
+                // Behind a session, the app is out of reach for VoiceOver too.
+                .accessibilityHidden(navigator.runningTechniqueID != nil)
+                #endif
+
+            #if os(iOS)
+            if let techniqueID = navigator.runningTechniqueID {
+                SessionLayer(techniqueID: techniqueID, routes: routes, navigator: navigator)
+                    // Slides up and away as a full-screen cover does.
+                    .transition(.move(edge: .bottom))
+                    .zIndex(1)
             }
+            #endif
+        }
+        #if os(iOS)
+        .animation(.smooth, value: navigator.runningTechniqueID)
+        #endif
         #if os(iOS)
         .tabBarMinimizeBehavior(.never)
         #endif

@@ -2,10 +2,10 @@ import Foundation
 
 /// Keeps the running session alive while its screen is rebuilt.
 ///
-/// Turning a large iPhone sideways makes the window regular width, so the app swaps
-/// the tab bar for the split view. The session cover hangs off the navigation stack,
-/// so it is presented again in the new layout, with a new `SessionFlowView` and new
-/// state. Without a keeper, that rebuilt screen would start the session over.
+/// On iPhone and iPad the session sits above the navigation layout, so a layout switch
+/// leaves it alone. The Mac's session sheet hangs off the navigation stack, though, and
+/// any screen can be rebuilt with new state. Without a keeper, a rebuilt screen would
+/// start the session over.
 ///
 /// The keeper hands every screen of one presentation the same session. It ends the
 /// session when the user leaves it, or when no session screen has been on screen for
