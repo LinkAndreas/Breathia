@@ -6,7 +6,7 @@ struct CuePreviewButton: View {
 
     var body: some View {
         Button(action: action) {
-            SettingsLabel("settings.cuePreview", systemImage: "play.fill", color: .green)
+            SettingsLabel("settings.cuePreview", systemImage: "play.fill", tone: .cuePreview)
         }
         .foregroundStyle(.primary)
     }

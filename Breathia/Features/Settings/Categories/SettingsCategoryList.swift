@@ -44,7 +44,7 @@ struct SettingsCategoryList: View {
                 SettingsCategoryRow(page: .aboutSensor, position: .middle)
                 // Actions rather than pages, so they aren't selectable.
                 Button(action: onShowWhatsNew) {
-                    SettingsLabel("settings.whatsNew", systemImage: "gift.fill", color: .mint)
+                    SettingsLabel("settings.whatsNew", systemImage: "gift.fill", tone: .whatsNew)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(.rect)
                 }
@@ -54,7 +54,7 @@ struct SettingsCategoryList: View {
                 #endif
                 .tint(.primary)
                 Button(action: onShowOnboarding) {
-                    SettingsLabel("settings.showOnboarding", systemImage: "sparkles", color: .purple)
+                    SettingsLabel("settings.showOnboarding", systemImage: "sparkles", tone: .onboarding)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(.rect)
                 }

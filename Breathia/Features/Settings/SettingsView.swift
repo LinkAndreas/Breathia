@@ -54,11 +54,11 @@ struct SettingsView: View {
                 SettingsPageRow(page: .privacy) { onOpenPage(.privacy) }
                 SettingsPageRow(page: .aboutSensor) { onOpenPage(.aboutSensor) }
                 Button(action: onShowWhatsNew) {
-                    SettingsLabel("settings.whatsNew", systemImage: "gift.fill", color: .mint)
+                    SettingsLabel("settings.whatsNew", systemImage: "gift.fill", tone: .whatsNew)
                 }
                 .tint(.primary)
                 Button(action: onShowOnboarding) {
-                    SettingsLabel("settings.showOnboarding", systemImage: "sparkles", color: .purple)
+                    SettingsLabel("settings.showOnboarding", systemImage: "sparkles", tone: .onboarding)
                 }
                 .tint(.primary)
             } header: {

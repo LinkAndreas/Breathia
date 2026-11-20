@@ -13,7 +13,7 @@ struct AppearanceSettingsRows: View {
         Picker(selection: $store.settings.appearance) {
             AppearanceOptions()
         } label: {
-            SettingsLabel("settings.appearance", systemImage: SettingsPage.appearance.systemImage, color: SettingsPage.appearance.iconColor)
+            SettingsLabel("settings.appearance", systemImage: SettingsPage.appearance.systemImage, tone: SettingsPage.appearance.tone)
         }
         .pickerStyle(.segmented)
         #else

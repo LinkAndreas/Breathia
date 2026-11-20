@@ -29,17 +29,17 @@ extension SettingsPage {
         }
     }
 
-    var iconColor: Color {
+    var tone: SettingsTone {
         switch self {
-        case .sensor: .red
-        case .breathing: .teal
-        case .sound: .pink
-        case .biofeedback: .green
-        case .health: .pink
-        case .appearance: .indigo
-        case .history: .orange
-        case .privacy: .blue
-        case .aboutSensor: .gray
+        case .sensor: .heart
+        case .breathing: .breathing
+        case .sound: .sound
+        case .biofeedback: .biofeedback
+        case .health: .health
+        case .appearance: .appearance
+        case .history: .history
+        case .privacy: .privacy
+        case .aboutSensor: .information
         }
     }
 }

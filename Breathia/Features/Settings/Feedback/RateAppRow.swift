@@ -6,7 +6,7 @@ struct RateAppRow: View {
     var body: some View {
         Link(destination: AppStoreLinks.writeReview) {
             HStack {
-                SettingsLabel("settings.feedback.rate", systemImage: "star.fill", color: .yellow)
+                SettingsLabel("settings.feedback.rate", systemImage: "star.fill", tone: .rate)
                 Spacer()
                 Image(systemName: "arrow.up.forward")
                     .font(.footnote.weight(.semibold))

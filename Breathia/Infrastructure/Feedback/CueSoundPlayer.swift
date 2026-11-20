@@ -10,8 +10,9 @@ import OSLog
 /// Settings share one engine and one set of rendered sounds.
 final class CueSoundPlayer {
     /// Voices take turns, so a cue keeps ringing out when the next one starts —
-    /// even in one-second phases — instead of being cut off.
-    private static let voiceCount = 4
+    /// even in one-second phases, where a voice comes round again after ten
+    /// seconds, longer than any cue rings — instead of being cut off.
+    private static let voiceCount = 10
 
     private let engine = AVAudioEngine()
     private let mixer = AVAudioMixerNode()
@@ -25,9 +26,12 @@ final class CueSoundPlayer {
         componentFlagsMask: 0
     ))
     private let voices = (0..<CueSoundPlayer.voiceCount).map { _ in AVAudioPlayerNode() }
-    private let format = AVAudioFormat(standardFormatWithSampleRate: CueSynthesizer.sampleRate, channels: 1)!
+    private let format = AVAudioFormat(standardFormatWithSampleRate: CueSynthesizer.sampleRate, channels: 2)!
     private var buffers: [CueSynthesizer.Request: AVAudioPCMBuffer] = [:]
     private var nextVoice = 0
+    /// Which of a cue's slightly different strikes plays next, so no two in a
+    /// row sound exactly alike.
+    private var nextVariant = 0
     private var isConnected = false
     private var audition: Task<Void, Never>?
     private let logger = Logger(subsystem: "Breathia", category: "Cues")
@@ -45,7 +49,9 @@ final class CueSoundPlayer {
     /// Renders the cues a session will need, so none is made at the turn of a breath.
     func preload(_ phases: [BreathPhase], sound: CueSound) {
         for phase in phases {
-            _ = buffer(for: CueSynthesizer.Request(sound: sound, phase: phase))
+            for variant in 0..<CueSynthesizer.variantCount {
+                _ = buffer(for: CueSynthesizer.Request(sound: sound, phase: phase, variant: variant))
+            }
         }
     }
 
@@ -70,7 +76,8 @@ final class CueSoundPlayer {
     }
 
     func play(_ phase: BreathPhase, sound: CueSound, volume: Double) {
-        play(CueSynthesizer.Request(sound: sound, phase: phase), volume: volume)
+        play(CueSynthesizer.Request(sound: sound, phase: phase, variant: nextVariant), volume: volume)
+        nextVariant = (nextVariant + 1) % CueSynthesizer.variantCount
     }
 
     /// Silences every cue and lets other apps' audio return to full volume.
@@ -88,8 +95,9 @@ final class CueSoundPlayer {
     func audition(_ sound: CueSound, volume: Double) {
         audition?.cancel()
         voices.forEach { $0.stop() }
-        // A wave is heard best over a couple of seconds; struck sounds need less.
-        let seconds = sound == .wave ? 3 : 2
+        // A sound that follows the breath is heard best over a few seconds;
+        // struck sounds need less.
+        let seconds = sound.lastsWholePhase ? 4 : 2
         let inhale = BreathPhase.inhale(seconds)
         let exhale = BreathPhase.exhale(seconds)
         audition = Task { [weak self] in
@@ -113,11 +121,13 @@ final class CueSoundPlayer {
 
     private func buffer(for request: CueSynthesizer.Request) -> AVAudioPCMBuffer {
         if let buffer = buffers[request] { return buffer }
-        let samples = CueSynthesizer.render(request)
-        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(samples.count))!
-        buffer.frameLength = AVAudioFrameCount(samples.count)
-        samples.withUnsafeBufferPointer { source in
-            buffer.floatChannelData![0].update(from: source.baseAddress!, count: samples.count)
+        let audio = CueSynthesizer.render(request)
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(audio.frameCount))!
+        buffer.frameLength = AVAudioFrameCount(audio.frameCount)
+        for (channel, samples) in [audio.left, audio.right].enumerated() {
+            samples.withUnsafeBufferPointer { source in
+                buffer.floatChannelData![channel].update(from: source.baseAddress!, count: samples.count)
+            }
         }
         buffers[request] = buffer
         return buffer

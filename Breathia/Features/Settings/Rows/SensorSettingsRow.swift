@@ -18,7 +18,7 @@ struct SensorSettingsRow: View {
                 SettingsLabel(
                     verbatim: monitor.sensorName,
                     systemImage: SettingsPage.sensor.systemImage,
-                    color: SettingsPage.sensor.iconColor
+                    tone: SettingsPage.sensor.tone
                 )
             }
         }

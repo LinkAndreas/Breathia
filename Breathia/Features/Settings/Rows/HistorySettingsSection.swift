@@ -10,7 +10,7 @@ struct HistorySettingsSection: View {
             Button(role: .destructive) {
                 isConfirmingDeletion = true
             } label: {
-                SettingsLabel("settings.history.deleteAll", systemImage: "trash.fill", color: .red)
+                SettingsLabel("settings.history.deleteAll", systemImage: "trash.fill", tone: .destructive)
                     // The row's label keeps its colors when disabled; dim it so an
                     // empty History reads as nothing to delete.
                     .opacity(history.sessions.isEmpty ? 0.4 : 1)

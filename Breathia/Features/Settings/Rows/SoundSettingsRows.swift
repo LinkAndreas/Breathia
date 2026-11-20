@@ -13,7 +13,7 @@ struct SoundSettingsRows: View {
         @Bindable var store = settingsStore
 
         Toggle(isOn: $store.settings.soundEnabled) {
-            SettingsLabel("settings.soundCues", systemImage: "speaker.wave.2.fill", color: .pink)
+            SettingsLabel("settings.soundCues", systemImage: "speaker.wave.2.fill", tone: .soundCues)
         }
         if store.settings.soundEnabled {
             CueSoundPicker(selection: $store.settings.cueSound)
