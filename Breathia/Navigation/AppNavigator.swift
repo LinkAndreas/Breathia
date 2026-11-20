@@ -143,6 +143,12 @@ final class AppNavigator {
         case .soundSettings:
             selectedTab = .settings
             settingsPage = .sound
+        case .history:
+            selectedTab = .history
+        case .feedback:
+            // Feedback has no page of its own: it's in the settings list.
+            selectedTab = .settings
+            settingsPage = nil
         }
     }
 

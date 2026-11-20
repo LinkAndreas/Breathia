@@ -16514,6 +16514,66 @@
         }
       }
     },
+    "whatsNew.charts.text" : {
+      "comment" : "New feature description",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach einer Sitzung mit Herzfrequenzsensor siehst du Herzfrequenz und HRV Sekunde für Sekunde und wie dein Herz mit jedem Atemzug stieg und fiel – jeweils in einfachen Worten erklärt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After a session with a heart-rate sensor, see your heart rate and HRV second by second, and how your heart rose and fell with each breath — each explained in plain words."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tras una sesión con sensor de frecuencia cardiaca, ve tu frecuencia cardiaca y tu VFC segundo a segundo, y cómo tu corazón subió y bajó con cada respiración, todo explicado con palabras sencillas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après une séance avec un capteur cardiaque, voyez votre fréquence cardiaque et votre VFC seconde par seconde, et comment votre cœur a monté et baissé à chaque respiration, le tout expliqué simplement."
+          }
+        }
+      }
+    },
+    "whatsNew.charts.title" : {
+      "comment" : "New feature title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Herz im Detail"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Heart, in Detail"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu corazón, en detalle"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre cœur, en détail"
+          }
+        }
+      }
+    },
     "whatsNew.continue" : {
       "comment" : "Closes the What's New sheet",
       "extractionState" : "manual",
@@ -16544,62 +16604,122 @@
         }
       }
     },
-    "whatsNew.history.text" : {
+    "whatsNew.feedback.text" : {
       "comment" : "New feature description",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wische über eine Sitzung, um sie zu löschen, oder lösche alle auf einmal in den Einstellungen."
+            "value" : "Bewerte Breathia, schick eine Idee oder teile die App mit Freunden – jederzeit im neuen Bereich „Feedback“ in den Einstellungen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Swipe a session to delete it, or delete all sessions at once in Settings."
+            "value" : "Rate Breathia, send an idea or share the app with a friend — any time, from the new Feedback section in Settings."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desliza una sesión para eliminarla o elimina todas a la vez en Ajustes."
+            "value" : "Valora Breathia, envía una idea o comparte la app con un amigo, cuando quieras, desde la nueva sección Comentarios de Ajustes."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Balayez une séance pour la supprimer, ou supprimez-les toutes d'un coup dans les Réglages."
+            "value" : "Notez Breathia, envoyez une idée ou partagez l'app avec un ami, à tout moment, depuis la nouvelle section Vos impressions des Réglages."
           }
         }
       }
     },
-    "whatsNew.history.title" : {
+    "whatsNew.feedback.title" : {
       "comment" : "New feature title",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verlauf aufräumen"
+            "value" : "Sag uns deine Meinung"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tidy Up Your History"
+            "value" : "Tell Us What You Think"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ordena tu historial"
+            "value" : "Cuéntanos qué te parece"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rangez votre historique"
+            "value" : "Dites-nous ce que vous en pensez"
+          }
+        }
+      }
+    },
+    "whatsNew.openFeedback" : {
+      "comment" : "Button below a new feature: opens Settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Ajustes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir les Réglages"
+          }
+        }
+      }
+    },
+    "whatsNew.openHistory" : {
+      "comment" : "Button below a new feature: opens History",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verlauf öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open History"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir historial"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir l'historique"
           }
         }
       }
@@ -16634,122 +16754,62 @@
         }
       }
     },
-    "whatsNew.rotation.text" : {
+    "whatsNew.sounds18.text" : {
       "comment" : "New feature description",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deine Sitzung läuft weiter, wenn du dein iPhone drehst oder aufklappst, und die Ansicht passt sich an."
+            "value" : "Neu: Kristallklangschale, Windspiel, Kalimba und Meeresrauschen. Alle Klänge spielen jetzt in Stereo in einem warmen Raum, und kein Anschlag klingt ganz wie der andere."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your session carries on when you turn or unfold your iPhone, and the screen adapts."
+            "value" : "New: crystal bowl, wind chimes, kalimba and ocean waves. Every sound now plays in stereo in a warm room, and no two strikes sound quite alike."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tu sesión continúa cuando giras o despliegas el iPhone, y la pantalla se adapta."
+            "value" : "Nuevos: cuenco de cristal, campanillas de viento, kalimba y olas del mar. Todos los sonidos suenan ahora en estéreo en una sala cálida, y ningún golpe suena igual que otro."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Votre séance continue quand vous tournez ou dépliez votre iPhone, et l'écran s'adapte."
+            "value" : "Nouveaux : bol de cristal, carillon à vent, kalimba et vagues de l'océan. Chaque son est désormais en stéréo dans une pièce chaleureuse, et aucun coup ne sonne tout à fait pareil."
           }
         }
       }
     },
-    "whatsNew.rotation.title" : {
+    "whatsNew.sounds18.title" : {
       "comment" : "New feature title",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Drehen ohne Unterbrechung"
+            "value" : "Acht ruhige, natürliche Klänge"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Turn Your iPhone Freely"
+            "value" : "Eight Calm, Natural Sounds"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gira el iPhone sin interrupciones"
+            "value" : "Ocho sonidos tranquilos y naturales"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tournez l'iPhone sans interruption"
-          }
-        }
-      }
-    },
-    "whatsNew.sounds.text" : {
-      "comment" : "New feature description",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vier natürliche Klänge – Klangschale, Glocke, Holz und eine Atemwelle – mit eigener Lautstärke. Sie haben jetzt einen eigenen Bereich in den Einstellungen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Four natural sounds — singing bowl, bell, wood and a breath-like wave — with a volume of their own. They now have their own section in Settings."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cuatro sonidos naturales (cuenco tibetano, campana, madera y una ola como una respiración) con su propio volumen. Ahora tienen su propia sección en Ajustes."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quatre sons naturels (bol chantant, cloche, bois et une vague semblable à un souffle) avec leur propre volume. Ils ont désormais leur propre section dans les Réglages."
-          }
-        }
-      }
-    },
-    "whatsNew.sounds.title" : {
-      "comment" : "New feature title",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sanftere, klarere Signale"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Softer, Clearer Cues"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Señales más suaves y claras"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Des signaux plus doux et plus clairs"
+            "value" : "Huit sons calmes et naturels"
           }
         }
       }
