@@ -5751,25 +5751,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Glocke"
+            "value" : "Handglocke"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bell"
+            "value" : "Handbell"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Campana"
+            "value" : "Campanilla"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cloche"
+            "value" : "Clochette"
           }
         }
       }
@@ -5800,6 +5800,186 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bol chantant"
+          }
+        }
+      }
+    },
+    "settings.cueSound.chimes" : {
+      "comment" : "Breathing cue sound: a wind chime",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Windspiel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wind Chimes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campanillas de viento"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carillon à vent"
+          }
+        }
+      }
+    },
+    "settings.cueSound.crystal" : {
+      "comment" : "Breathing cue sound: a crystal singing bowl",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kristallklangschale"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crystal Bowl"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuenco de cristal"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bol de cristal"
+          }
+        }
+      }
+    },
+    "settings.cueSound.group.flowing" : {
+      "comment" : "Group of cue sounds that last the whole phase",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durch den ganzen Atemzug"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Through the Whole Breath"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durante toda la respiración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pendant toute la respiration"
+          }
+        }
+      }
+    },
+    "settings.cueSound.group.struck" : {
+      "comment" : "Group of cue sounds that mark the start of a phase",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei jedem Atemwechsel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At Each Turn of the Breath"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En cada cambio de la respiración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À chaque changement de respiration"
+          }
+        }
+      }
+    },
+    "settings.cueSound.kalimba" : {
+      "comment" : "Breathing cue sound: a kalimba (thumb piano)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalimba"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalimba"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalimba"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalimba"
+          }
+        }
+      }
+    },
+    "settings.cueSound.ocean" : {
+      "comment" : "Breathing cue sound: ocean waves for the whole phase",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meeresrauschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocean Waves"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olas del mar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vagues de l'océan"
           }
         }
       }
@@ -5841,25 +6021,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Holz"
+            "value" : "Marimba"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wood"
+            "value" : "Marimba"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Madera"
+            "value" : "Marimba"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bois"
+            "value" : "Marimba"
           }
         }
       }

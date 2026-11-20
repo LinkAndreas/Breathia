@@ -6,8 +6,15 @@ struct CueSoundPicker: View {
 
     var body: some View {
         Picker(selection: $selection) {
-            ForEach(CueSound.allCases) { sound in
-                Text(sound.title).tag(sound)
+            Section("settings.cueSound.group.struck") {
+                ForEach(CueSound.struck) { sound in
+                    Text(sound.title).tag(sound)
+                }
+            }
+            Section("settings.cueSound.group.flowing") {
+                ForEach(CueSound.flowing) { sound in
+                    Text(sound.title).tag(sound)
+                }
             }
         } label: {
             SettingsLabel("settings.cueSound", systemImage: "music.note", color: .purple)
