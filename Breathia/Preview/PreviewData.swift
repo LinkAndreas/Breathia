@@ -20,21 +20,54 @@ enum PreviewData {
         hrv: Double?,
         trend: HRVTrend?
     ) -> SessionRecord {
-        let heartRate = trace.isEmpty ? nil : HeartRateStats(
-            start: Int(trace[0]),
-            average: Int((trace.reduce(0, +) / Double(trace.count)).rounded()),
-            end: Int(trace[trace.count - 1])
+        let date = Calendar.current.date(byAdding: .day, value: -daysAgo, to: .now) ?? .now
+        let source: SessionSource = daysAgo == 3 ? .watch : .iPhone
+        let technique = TechniqueCatalog.technique(withID: technique)
+        guard !trace.isEmpty else {
+            return SessionRecord(
+                id: UUID(), date: date, techniqueID: technique.id, duration: duration,
+                heartRate: nil, hrv: nil, heartRateTrace: [], source: source
+            )
+        }
+
+        // One reading a second: the trace's slow settling, plus the rise and fall
+        // with each breath, which grows as the session goes on.
+        let seconds = Int(duration)
+        let cycle = Double(max(1, technique.cycleDuration))
+        var heartRates: [Int] = []
+        var hrvValues: [Double] = []
+        for second in 0..<seconds {
+            let progress = Double(second) / Double(max(1, seconds - 1))
+            let base = interpolate(trace, at: progress)
+            let swing = 2.5 + 3.5 * progress
+            let breath = sin(2 * .pi * Double(second) / cycle)
+            let wobble = sin(Double(second) * 1.7) * 0.6
+            heartRates.append(Int((base + swing * breath + wobble).rounded()))
+            if let hrv {
+                let change: Double = switch trend {
+                case .increasing: 0.3
+                case .decreasing: -0.2
+                default: 0
+                }
+                hrvValues.append(hrv * (1 - change / 2 + change * progress) + sin(Double(second) / 9) * 2)
+            }
+        }
+        let made = SessionRecordFactory.makeRecord(
+            technique: technique, startedAt: date, duration: duration,
+            heartRates: heartRates, hrvValues: hrvValues,
+            heartRateTimes: Array(0..<seconds), hrvTimes: hrvValues.isEmpty ? [] : Array(0..<seconds),
+            metric: .rmssd, source: source
         )
-        return SessionRecord(
-            id: UUID(),
-            date: Calendar.current.date(byAdding: .day, value: -daysAgo, to: .now) ?? .now,
-            techniqueID: technique,
-            duration: duration,
-            heartRate: heartRate,
-            hrv: hrv.map { HRVStats(metric: .rmssd, average: $0, trend: trend) },
-            heartRateTrace: trace,
-            source: daysAgo == 3 ? .watch : .iPhone
-        )
+        return made
+    }
+
+    private static func interpolate(_ values: [Double], at progress: Double) -> Double {
+        guard values.count > 1 else { return values.first ?? 0 }
+        let position = progress * Double(values.count - 1)
+        let lower = Int(position)
+        let upper = min(values.count - 1, lower + 1)
+        let fraction = position - Double(lower)
+        return values[lower] + (values[upper] - values[lower]) * fraction
     }
 }
 #endif

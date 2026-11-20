@@ -17,8 +17,9 @@ enum SessionSource: String, Codable, Hashable {
 }
 
 /// A finished breathing session as stored in History. Summary statistics are
-/// computed once when the session ends; only a downsampled heart-rate trace is kept
-/// for the chart.
+/// computed once when the session ends, together with chart-sized timelines of the
+/// measurements. Sessions recorded before the timelines existed only have the
+/// short heart-rate trace.
 struct SessionRecord: Identifiable, Codable, Hashable {
     let id: UUID
     let date: Date
@@ -30,6 +31,12 @@ struct SessionRecord: Identifiable, Codable, Hashable {
     let heartRateTrace: [Double]
     /// The device the session was performed on.
     let source: SessionSource?
+    /// Heart rate over the session, about one reading a second.
+    var heartRateTimeline: SessionTimeline? = nil
+    /// HRV over the session, in the metric of `hrv`.
+    var hrvTimeline: SessionTimeline? = nil
+    /// How much the heart rate rose and fell within each whole breath, in bpm.
+    var breathSwings: [Double]? = nil
 
     var technique: Technique { TechniqueCatalog.technique(withID: techniqueID) }
     var hasSensorData: Bool { heartRate != nil }

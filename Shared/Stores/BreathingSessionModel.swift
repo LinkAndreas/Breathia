@@ -27,6 +27,9 @@ final class BreathingSessionModel {
     private(set) var elapsed: TimeInterval = 0
     private(set) var heartRateSamples: [Int] = []
     private(set) var hrvSamples: [Double] = []
+    /// The second of the session each heart-rate and HRV sample was taken at.
+    @ObservationIgnored private var heartRateSeconds: [Int] = []
+    @ObservationIgnored private var hrvSeconds: [Int] = []
     /// Whether the finished session was long enough to be handed to `onComplete`.
     private(set) var wasRecorded = false
     /// When the current countdown began; `nil` while it waits to start (again).
@@ -166,6 +169,8 @@ final class BreathingSessionModel {
             duration: duration,
             heartRates: heartRateSamples,
             hrvValues: hrvSamples,
+            heartRateTimes: heartRateSeconds,
+            hrvTimes: hrvSeconds,
             metric: hrvMetric,
             source: source
         )
@@ -260,9 +265,11 @@ final class BreathingSessionModel {
         guard monitor.isConnected else { return }
         if let heartRate = monitor.heartRate {
             heartRateSamples.append(heartRate)
+            heartRateSeconds.append(second)
         }
         if let hrv = monitor.hrv {
             hrvSamples.append(hrvMetric.value(from: hrv))
+            hrvSeconds.append(second)
         }
     }
 

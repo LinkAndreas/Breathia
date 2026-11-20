@@ -3,6 +3,8 @@ import Foundation
 /// Condenses the raw samples of a finished session into a `SessionRecord`.
 enum SessionRecordFactory {
     static let maximumTracePoints = 120
+    /// One reading a second for a quarter of an hour; longer sessions are averaged.
+    static let maximumTimelinePoints = 900
 
     static func makeRecord(
         technique: Technique,
@@ -10,9 +12,17 @@ enum SessionRecordFactory {
         duration: TimeInterval,
         heartRates: [Int],
         hrvValues: [Double],
+        heartRateTimes: [Int] = [],
+        hrvTimes: [Int] = [],
         metric: HRVMetric,
         source: SessionSource
     ) -> SessionRecord {
+        let rates = heartRates.map(Double.init)
+        let rateTimes = times(heartRateTimes, count: rates.count)
+        let heartRateTimeline = rates.isEmpty ? nil : SessionTimeline(times: rateTimes, values: rates)
+        let hrvTimeline = hrvValues.isEmpty ? nil : SessionTimeline(times: times(hrvTimes, count: hrvValues.count), values: hrvValues)
+        let swings = BreathSwing.swings(times: rateTimes, heartRates: rates, cycleLength: technique.cycleDuration)
+
         let heartRate: HeartRateStats? = if let first = heartRates.first, let last = heartRates.last {
             HeartRateStats(
                 start: first,
@@ -36,9 +46,18 @@ enum SessionRecordFactory {
             duration: duration,
             heartRate: heartRate,
             hrv: hrv,
-            heartRateTrace: downsample(heartRates.map(Double.init), to: maximumTracePoints),
-            source: source
+            heartRateTrace: downsample(rates, to: maximumTracePoints),
+            source: source,
+            heartRateTimeline: heartRateTimeline?.downsampled(to: maximumTimelinePoints),
+            hrvTimeline: hrvTimeline?.downsampled(to: maximumTimelinePoints),
+            breathSwings: swings.isEmpty ? nil : swings
         )
+    }
+
+    /// The seconds the samples were taken at; one a second from the start when
+    /// they weren't recorded.
+    private static func times(_ seconds: [Int], count: Int) -> [Double] {
+        seconds.count == count ? seconds.map(Double.init) : (0..<count).map(Double.init)
     }
 
     /// Averages consecutive buckets so long sessions keep a chart-sized trace.
