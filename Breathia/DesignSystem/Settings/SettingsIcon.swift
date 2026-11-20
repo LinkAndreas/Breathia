@@ -16,15 +16,25 @@ struct SettingsIcon: View {
     private static let side: CGFloat = 29
     #endif
 
+    /// The box a symbol fits in, as a share of the tile: about a fifth of the
+    /// tile stays clear on every side, as on the system's icons.
+    private static let symbolWidth: CGFloat = 0.64
+    private static let symbolHeight: CGFloat = 0.58
+
     private var shape: RoundedRectangle {
         RoundedRectangle(cornerRadius: Self.side * 0.26, style: .continuous)
     }
 
     var body: some View {
         Image(systemName: systemImage)
-            .font(.system(size: Self.side * 0.5, weight: .medium))
+            .resizable()
+            .scaledToFit()
+            .fontWeight(.medium)
             .symbolRenderingMode(.monochrome)
             .foregroundStyle(.white)
+            // Every symbol fits the same inner box, so wide ones like a speaker
+            // with three waves keep as much room to the edge as narrow ones.
+            .frame(width: Self.side * Self.symbolWidth, height: Self.side * Self.symbolHeight)
             // A breath of depth under the symbol, so it sits on the tile.
             .shadow(color: .black.opacity(0.12), radius: 0.5, y: 0.5)
             .frame(width: Self.side, height: Self.side)
