@@ -5,6 +5,7 @@ struct SettingsView: View {
     let onShowSensor: () -> Void
     let onOpenPage: (SettingsPage) -> Void
     let onShowOnboarding: () -> Void
+    let onShowWhatsNew: () -> Void
 
     var body: some View {
         Form {
@@ -49,6 +50,10 @@ struct SettingsView: View {
             Section {
                 SettingsPageRow(page: .privacy) { onOpenPage(.privacy) }
                 SettingsPageRow(page: .aboutSensor) { onOpenPage(.aboutSensor) }
+                Button(action: onShowWhatsNew) {
+                    SettingsLabel("settings.whatsNew", systemImage: "gift.fill", color: .mint)
+                }
+                .tint(.primary)
                 Button(action: onShowOnboarding) {
                     SettingsLabel("settings.showOnboarding", systemImage: "sparkles", color: .purple)
                 }
@@ -72,7 +77,7 @@ struct SettingsView: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        SettingsView(onShowSensor: {}, onOpenPage: { _ in }, onShowOnboarding: {})
+        SettingsView(onShowSensor: {}, onOpenPage: { _ in }, onShowOnboarding: {}, onShowWhatsNew: {})
     }
     .environment(PreviewStores.heartRateMonitor())
     .environment(PreviewStores.settingsStore())

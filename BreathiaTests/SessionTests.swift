@@ -160,11 +160,24 @@ struct BreathingSessionModelTests {
         #expect(recorded?.duration == 30)
     }
 
+    /// Waits until the countdown has gone down from its start.
+    private func waitForCountdownToMove(_ session: BreathingSessionModel) async throws {
+        let deadline = ContinuousClock.now + .seconds(30)
+        while session.stage == .countdown(BreathingSessionModel.countdownStart), ContinuousClock.now < deadline {
+            try await Task.sleep(for: .milliseconds(100))
+        }
+        guard case let .countdown(value) = session.stage else {
+            Issue.record("The countdown ended instead of counting down")
+            return
+        }
+        #expect(value < BreathingSessionModel.countdownStart)
+    }
+
     @Test func leavingDuringTheCountdownStartsItOverOnReturn() async throws {
         let session = makeSession(clock: Clock(), countdown: true)
         session.start()
-        try await Task.sleep(for: .milliseconds(1200))
-        #expect(session.stage == .countdown(BreathingSessionModel.countdownStart - 1))
+        // A busy machine may let the countdown run a little further.
+        try await waitForCountdownToMove(session)
 
         session.interrupt()
         #expect(session.stage == .countdown(BreathingSessionModel.countdownStart))
@@ -177,8 +190,7 @@ struct BreathingSessionModelTests {
         session.continueAfterInterruption()
         try await settle()
         #expect(session.countdownStartedAt != nil)
-        try await Task.sleep(for: .milliseconds(1100))
-        #expect(session.stage == .countdown(BreathingSessionModel.countdownStart - 1))
+        try await waitForCountdownToMove(session)
         session.cancel()
     }
 

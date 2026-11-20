@@ -5,6 +5,7 @@ import SwiftUI
 struct SettingsCategoryList: View {
     @Binding var selection: SettingsPage?
     let onShowOnboarding: () -> Void
+    let onShowWhatsNew: () -> Void
 
     @Environment(MindfulMinutesStore.self) private var mindfulMinutes
 
@@ -28,7 +29,17 @@ struct SettingsCategoryList: View {
             Section {
                 SettingsCategoryRow(page: .privacy, position: .first)
                 SettingsCategoryRow(page: .aboutSensor, position: .middle)
-                // An action rather than a page, so it isn't selectable.
+                // Actions rather than pages, so they aren't selectable.
+                Button(action: onShowWhatsNew) {
+                    SettingsLabel("settings.whatsNew", systemImage: "gift.fill", color: .mint)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(.rect)
+                }
+                #if os(macOS)
+                .buttonStyle(.plain)
+                .macListRow(in: .middle)
+                #endif
+                .tint(.primary)
                 Button(action: onShowOnboarding) {
                     SettingsLabel("settings.showOnboarding", systemImage: "sparkles", color: .purple)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -68,7 +79,7 @@ struct SettingsCategoryList: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        SettingsCategoryList(selection: .constant(.breathing), onShowOnboarding: {})
+        SettingsCategoryList(selection: .constant(.breathing), onShowOnboarding: {}, onShowWhatsNew: {})
     }
     .environment(PreviewStores.mindfulMinutes())
 }

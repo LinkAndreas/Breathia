@@ -62,12 +62,23 @@ final class AppScreens {
         )
     }
 
+    /// The release's new features, marked as seen once they're on screen.
+    func whatsNewScreen() -> WhatsNewView {
+        WhatsNewView(
+            onTry: { self.navigator.tryNewFeature($0) },
+            onDone: { self.navigator.isShowingWhatsNew = false },
+            onSeen: { self.settingsStore.markWhatsNewSeen(WhatsNew.version) }
+        )
+    }
+
     /// Onboarding, which closes itself when done.
     func onboardingScreen() -> OnboardingView {
         OnboardingView(
             healthAccess: HealthAccessStep.make(mindfulMinutes: mindfulMinutes, settingsStore: settingsStore),
             completion: {
                 self.settingsStore.completeOnboarding()
+                // New users learn the app from onboarding, not from a list of changes.
+                self.settingsStore.markWhatsNewSeen(WhatsNew.version)
                 self.navigator.closeOnboarding()
             }
         )

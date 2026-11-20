@@ -6430,6 +6430,36 @@
         }
       }
     },
+    "settings.whatsNew" : {
+      "comment" : "Settings row that shows the release's new features",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu in Breathia"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What's New"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novedades"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveautés"
+          }
+        }
+      }
+    },
     "tab.breathe" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -15482,6 +15512,276 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Synchronisé avec l'historique de l'iPhone"
+          }
+        }
+      }
+    },
+    "whatsNew.continue" : {
+      "comment" : "Closes the What's New sheet",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer"
+          }
+        }
+      }
+    },
+    "whatsNew.history.text" : {
+      "comment" : "New feature description",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wische über eine Sitzung, um sie zu löschen, oder lösche alle auf einmal in den Einstellungen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe a session to delete it, or delete all sessions at once in Settings."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desliza una sesión para eliminarla o elimina todas a la vez en Ajustes."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balayez une séance pour la supprimer, ou supprimez-les toutes d'un coup dans les Réglages."
+          }
+        }
+      }
+    },
+    "whatsNew.history.title" : {
+      "comment" : "New feature title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verlauf aufräumen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidy Up Your History"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordena tu historial"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rangez votre historique"
+          }
+        }
+      }
+    },
+    "whatsNew.openSoundSettings" : {
+      "comment" : "Button below a new feature: opens the sound settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ton-Einstellungen öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Sound Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir ajustes de sonido"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir les réglages du son"
+          }
+        }
+      }
+    },
+    "whatsNew.rotation.text" : {
+      "comment" : "New feature description",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Sitzung läuft weiter, wenn du dein iPhone drehst oder aufklappst, und die Ansicht passt sich an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your session carries on when you turn or unfold your iPhone, and the screen adapts."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu sesión continúa cuando giras o despliegas el iPhone, y la pantalla se adapta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre séance continue quand vous tournez ou dépliez votre iPhone, et l'écran s'adapte."
+          }
+        }
+      }
+    },
+    "whatsNew.rotation.title" : {
+      "comment" : "New feature title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drehen ohne Unterbrechung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn Your iPhone Freely"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gira el iPhone sin interrupciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tournez l'iPhone sans interruption"
+          }
+        }
+      }
+    },
+    "whatsNew.sounds.text" : {
+      "comment" : "New feature description",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vier natürliche Klänge – Klangschale, Glocke, Holz und eine Atemwelle – mit eigener Lautstärke. Sie haben jetzt einen eigenen Bereich in den Einstellungen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Four natural sounds — singing bowl, bell, wood and a breath-like wave — with a volume of their own. They now have their own section in Settings."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuatro sonidos naturales (cuenco tibetano, campana, madera y una ola como una respiración) con su propio volumen. Ahora tienen su propia sección en Ajustes."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quatre sons naturels (bol chantant, cloche, bois et une vague semblable à un souffle) avec leur propre volume. Ils ont désormais leur propre section dans les Réglages."
+          }
+        }
+      }
+    },
+    "whatsNew.sounds.title" : {
+      "comment" : "New feature title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sanftere, klarere Signale"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Softer, Clearer Cues"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Señales más suaves y claras"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Des signaux plus doux et plus clairs"
+          }
+        }
+      }
+    },
+    "whatsNew.title" : {
+      "comment" : "Title of the sheet listing a release's new features",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu in Breathia"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What's New"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novedades"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveautés"
           }
         }
       }

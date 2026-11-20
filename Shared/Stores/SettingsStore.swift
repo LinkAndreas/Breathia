@@ -21,4 +21,9 @@ final class SettingsStore {
     func completeOnboarding() {
         settings.hasCompletedOnboarding = true
     }
+
+    /// Remembers that the new features of `version` were shown.
+    func markWhatsNewSeen(_ version: String) {
+        settings.lastSeenWhatsNew = version
+    }
 }
