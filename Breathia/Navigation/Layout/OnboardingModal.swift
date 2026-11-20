@@ -7,7 +7,7 @@ struct OnboardingModal: View {
 
     var body: some View {
         NavigationStack {
-            screens.onboardingScreen()
+            OnboardingScreen(screens: screens)
                 #if os(iOS)
                 .toolbar(.hidden, for: .navigationBar)
                 #endif

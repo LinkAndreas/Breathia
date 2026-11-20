@@ -1,8 +1,8 @@
 import SwiftUI
 
 /// What the screens need to be built: the navigator they report intents to, the
-/// stores, and the flows. The views in `Navigation/Layout` take what each screen
-/// reads from here and hand it over — screens receive data and closures, plus only
+/// stores, and the flows. The views in `Navigation/Columns` and `Navigation/Screens`
+/// take what each screen reads from here and hand it over — screens receive data and closures, plus only
 /// the stores they read, so no store is in the environment where it isn't used.
 final class AppScreens {
     let navigator: AppNavigator
@@ -13,10 +13,10 @@ final class AppScreens {
     let appIconStore: AppIconStore
     /// Plays a cue sound for the Settings preview.
     let auditionCue: CueAuditioner
-    private let sessionFactory: BreathingSessionFactory
-    private let ratingFlow: RatingFlow
+    let sessionFactory: BreathingSessionFactory
+    let ratingFlow: RatingFlow
     /// The running session, kept while its screen is rebuilt.
-    private let sessionKeeper = SessionKeeper()
+    let sessionKeeper = SessionKeeper()
 
     init(
         navigator: AppNavigator,
@@ -38,49 +38,5 @@ final class AppScreens {
         self.sessionFactory = sessionFactory
         self.ratingFlow = ratingFlow
         self.auditionCue = auditionCue
-    }
-
-    /// The session for `techniqueID`, from countdown to results.
-    func sessionScreen(techniqueID: Technique.ID) -> SessionFlowView {
-        SessionFlowView(
-            keeper: sessionKeeper,
-            makeSession: { self.sessionFactory.makeSession(for: TechniqueCatalog.technique(withID: techniqueID)) },
-            onCancel: {
-                self.sessionKeeper.release()
-                self.navigator.endSession()
-            },
-            onFinish: { recordedSession in
-                self.sessionKeeper.release()
-                self.navigator.endSession()
-                if let recordedSession {
-                    self.navigator.showHistory(with: recordedSession.id)
-                    self.ratingFlow.askIfAppropriate()
-                } else {
-                    self.navigator.showBreathe()
-                }
-            }
-        )
-    }
-
-    /// The release's new features, marked as seen once they're on screen.
-    func whatsNewScreen() -> WhatsNewView {
-        WhatsNewView(
-            onTry: { self.navigator.tryNewFeature($0) },
-            onDone: { self.navigator.isShowingWhatsNew = false },
-            onSeen: { self.settingsStore.markWhatsNewSeen(WhatsNew.version) }
-        )
-    }
-
-    /// Onboarding, which closes itself when done.
-    func onboardingScreen() -> OnboardingView {
-        OnboardingView(
-            healthAccess: HealthAccessStep.make(mindfulMinutes: mindfulMinutes, settingsStore: settingsStore),
-            completion: {
-                self.settingsStore.completeOnboarding()
-                // New users learn the app from onboarding, not from a list of changes.
-                self.settingsStore.markWhatsNewSeen(WhatsNew.version)
-                self.navigator.closeOnboarding()
-            }
-        )
     }
 }

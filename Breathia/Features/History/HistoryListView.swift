@@ -13,64 +13,25 @@ struct HistoryListView: View {
     @Environment(SessionHistory.self) private var history
 
     var body: some View {
-        content
-            .background(Theme.Palette.background)
-            .navigationTitle("history.title")
-            #if os(macOS)
-            // A Mac window has one title, taken from this column; the open session's
-            // day shows as its subtitle, as the selected mailbox's details do in Mail.
-            .navigationSubtitle(selectedSession.map { Formatters.relativeDay($0.date) } ?? "")
-            #endif
-    }
-
-    @ViewBuilder
-    private var content: some View {
-        if history.sessions.isEmpty {
-            HistoryEmptyView(onStartSession: onStartSession)
-        } else {
-            sessionList
-        }
-    }
-
-    private var sessionList: some View {
-        ScrollView {
-            // Laid out like the techniques in Breathe: cards grouped under headers,
-            // here by when the sessions happened, newest first.
-            VStack(spacing: 0) {
-                ForEach(SessionGroup.grouping(history.sessions)) { group in
-                    CardListHeader {
-                        Text(group.period.title())
-                    }
-                    LazyVStack(spacing: 10) {
-                        ForEach(group.sessions) { session in
-                            HistoryRow(
-                                session: session,
-                                period: group.period,
-                                isSelected: usesSelection && session.id == selectedSessionID,
-                                showsDisclosure: !usesSelection
-                            ) {
-                                onOpen(session.id)
-                            }
-                            // Swipe left to delete; a full swipe deletes at once, as in Mail.
-                            .swipeActions {
-                                Button("common.delete", systemImage: "trash", role: .destructive) {
-                                    delete(session)
-                                }
-                            }
-                            .contextMenu {
-                                Button("common.delete", systemImage: "trash", role: .destructive) {
-                                    delete(session)
-                                }
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                }
+        Group {
+            if history.sessions.isEmpty {
+                HistoryEmptyView(onStartSession: onStartSession)
+            } else {
+                HistorySessionList(
+                    usesSelection: usesSelection,
+                    selectedSessionID: selectedSessionID,
+                    onOpen: onOpen,
+                    onDelete: delete
+                )
             }
-            .padding(.bottom, 16)
         }
-        // Lets the cards take swipe actions outside a List.
-        .swipeActionsContainer()
+        .background(Theme.Palette.background)
+        .navigationTitle("history.title")
+        #if os(macOS)
+        // A Mac window has one title, taken from this column; the open session's
+        // day shows as its subtitle, as the selected mailbox's details do in Mail.
+        .navigationSubtitle(selectedSession.map { Formatters.relativeDay($0.date) } ?? "")
+        #endif
     }
 
     #if os(macOS)

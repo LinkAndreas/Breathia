@@ -70,7 +70,7 @@ struct AppRootView: View {
             OnboardingModal(screens: screens)
         }
         .sheet(isPresented: $navigator.isShowingWhatsNew) {
-            screens.whatsNewScreen()
+            WhatsNewScreen(screens: screens)
                 .presentationSizing(.form)
         }
         .alert(
