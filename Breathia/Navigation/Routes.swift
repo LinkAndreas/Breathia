@@ -48,6 +48,7 @@ nonisolated enum SettingsPage: Hashable, Codable, Sendable {
     case biofeedback
     case health
     case appearance
+    case history
     case privacy
     case aboutSensor
 }

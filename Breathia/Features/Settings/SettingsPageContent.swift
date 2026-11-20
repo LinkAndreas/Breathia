@@ -43,6 +43,11 @@ struct SettingsPageContent: View {
                 AppIconSection()
             }
 
+        case .history:
+            Form {
+                HistorySettingsSection()
+            }
+
         case .privacy:
             PrivacyInfoView()
 

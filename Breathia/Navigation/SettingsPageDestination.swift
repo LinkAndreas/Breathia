@@ -7,6 +7,7 @@ struct SettingsPageDestination: View {
     let settingsStore: SettingsStore
     let mindfulMinutes: MindfulMinutesStore
     let appIconStore: AppIconStore
+    let sessionHistory: SessionHistory
 
     var body: some View {
         let detail = SettingsDetailView(page: page).id(page)
@@ -19,6 +20,8 @@ struct SettingsPageDestination: View {
             detail.environment(settingsStore).environment(appIconStore)
         case .health:
             detail.environment(settingsStore).environment(mindfulMinutes)
+        case .history:
+            detail.environment(sessionHistory)
         case .privacy, .aboutSensor:
             detail
         }

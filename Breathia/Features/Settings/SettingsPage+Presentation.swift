@@ -8,6 +8,7 @@ extension SettingsPage {
         case .biofeedback: String(localized: "settings.biofeedback")
         case .health: String(localized: "settings.appleHealth")
         case .appearance: String(localized: "settings.appearance")
+        case .history: String(localized: "history.title")
         case .privacy: String(localized: "common.privacy")
         case .aboutSensor: String(localized: "common.aboutBluetoothSensors")
         }
@@ -20,6 +21,7 @@ extension SettingsPage {
         case .biofeedback: "waveform.path.ecg"
         case .health: "heart.fill"
         case .appearance: "circle.lefthalf.filled"
+        case .history: "clock.fill"
         case .privacy: "hand.raised.fill"
         case .aboutSensor: "info"
         }
@@ -32,6 +34,7 @@ extension SettingsPage {
         case .biofeedback: .green
         case .health: .pink
         case .appearance: .indigo
+        case .history: .orange
         case .privacy: .blue
         case .aboutSensor: .gray
         }

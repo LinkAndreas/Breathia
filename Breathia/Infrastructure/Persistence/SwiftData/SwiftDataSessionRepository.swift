@@ -27,6 +27,11 @@ final class SwiftDataSessionRepository: SessionRepository {
         try context.save()
     }
 
+    func deleteAll() throws {
+        try context.delete(model: SessionEntity.self)
+        try context.save()
+    }
+
     private func contains(_ id: SessionRecord.ID) throws -> Bool {
         var descriptor = FetchDescriptor<SessionEntity>(predicate: #Predicate { $0.id == id })
         descriptor.fetchLimit = 1

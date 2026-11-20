@@ -34,6 +34,14 @@ struct SessionHistoryTests {
         history.delete(session)
         #expect(history.sessions.isEmpty)
     }
+
+    @Test func deletesEverySession() {
+        let repository = InMemorySessionRepository(sessions: [record(100), record(200), record(300)])
+        let history = SessionHistory(repository: repository)
+        history.deleteAll()
+        #expect(history.sessions.isEmpty)
+        #expect(repository.fetchAll().isEmpty)
+    }
 }
 
 struct BreathingSessionModelTests {

@@ -51,6 +51,12 @@ struct HistoryListView: View {
                             ) {
                                 onOpen(session.id)
                             }
+                            // Swipe left to delete; a full swipe deletes at once, as in Mail.
+                            .swipeActions {
+                                Button("common.delete", systemImage: "trash", role: .destructive) {
+                                    delete(session)
+                                }
+                            }
                             .contextMenu {
                                 Button("common.delete", systemImage: "trash", role: .destructive) {
                                     delete(session)
@@ -63,6 +69,8 @@ struct HistoryListView: View {
             }
             .padding(.bottom, 16)
         }
+        // Lets the cards take swipe actions outside a List.
+        .swipeActionsContainer()
     }
 
     #if os(macOS)

@@ -16,6 +16,8 @@ final class AppRoutes: RouteModule {
     private let ratingFlow: RatingFlow
     /// Plays a cue sound for the Settings preview.
     private let auditionCue: CueAuditioner
+    /// The running session, kept while a layout change rebuilds its cover.
+    private let sessionKeeper = SessionKeeper()
 
     init(
         navigator: AppNavigator,
@@ -135,6 +137,7 @@ final class AppRoutes: RouteModule {
                 .environment(self.settingsStore)
                 .environment(self.mindfulMinutes)
                 .environment(self.appIconStore)
+                .environment(self.sessionHistory)
                 .environment(\.auditionCue, self.auditionCue)
 
             case let .page(page):
@@ -143,7 +146,8 @@ final class AppRoutes: RouteModule {
                     heartRateMonitor: self.heartRateMonitor,
                     settingsStore: self.settingsStore,
                     mindfulMinutes: self.mindfulMinutes,
-                    appIconStore: self.appIconStore
+                    appIconStore: self.appIconStore,
+                    sessionHistory: self.sessionHistory
                 )
                 .environment(\.auditionCue, self.auditionCue)
             }
@@ -160,9 +164,14 @@ final class AppRoutes: RouteModule {
             switch route {
             case let .run(id):
                 SessionFlowView(
+                    keeper: self.sessionKeeper,
                     makeSession: { self.sessionFactory.makeSession(for: TechniqueCatalog.technique(withID: id)) },
-                    onCancel: { nav.dismiss() },
+                    onCancel: {
+                        self.sessionKeeper.release()
+                        nav.dismiss()
+                    },
                     onFinish: { recordedSession in
+                        self.sessionKeeper.release()
                         nav.dismiss()
                         if let recordedSession {
                             self.navigator.showHistory(with: recordedSession.id)

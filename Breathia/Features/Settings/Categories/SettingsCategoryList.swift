@@ -22,6 +22,9 @@ struct SettingsCategoryList: View {
                 SettingsCategoryRow(page: .appearance, position: .last)
             }
             Section {
+                SettingsCategoryRow(page: .history, position: .single)
+            }
+            Section {
                 SettingsCategoryRow(page: .privacy, position: .first)
                 SettingsCategoryRow(page: .aboutSensor, position: .middle)
                 // An action rather than a page, so it isn't selectable.

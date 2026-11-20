@@ -36,6 +36,8 @@ struct SettingsView: View {
 
             AppIconSection()
 
+            HistorySettingsSection()
+
             Section {
                 SettingsPageRow(page: .privacy) { onOpenPage(.privacy) }
                 SettingsPageRow(page: .aboutSensor) { onOpenPage(.aboutSensor) }
@@ -68,5 +70,6 @@ struct SettingsView: View {
     .environment(PreviewStores.settingsStore())
     .environment(PreviewStores.mindfulMinutes())
     .environment(AppIconStore.preview())
+    .environment(PreviewStores.sessionHistory())
 }
 #endif
