@@ -62,6 +62,9 @@ struct SettingsPageContent: View {
 
         case .aboutSensor:
             SensorInfoView()
+
+        case .versionHistory:
+            VersionHistoryView()
         }
     }
 }

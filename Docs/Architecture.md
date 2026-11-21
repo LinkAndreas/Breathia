@@ -154,7 +154,8 @@ To change the stored shape, add `HistorySchemaV2` and a stage in
 ## Localization
 
 All text lives in `Shared/Localizable.xcstrings` (English, German, Spanish,
-French), shared by both apps. Code uses semantic keys, never English text:
+French, Italian, Brazilian Portuguese, Dutch, Japanese, Korean, Simplified
+Chinese, Russian), shared by both apps. Code uses semantic keys, never English text:
 
 - `<screen>.<name>` for text on one screen — `history.detail.deleteSession`,
   `sensor.status.connecting`, `watch.summary.avg`.

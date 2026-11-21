@@ -19,6 +19,9 @@ struct SessionReportColumn<Header: View, Action: View>: View {
             .padding(.bottom, 30)
             .readableContentWidth()
         }
+        #if DEBUG
+        .defaultScrollAnchor(ScreenshotScreen.requested == .historyCharts ? UnitPoint(x: 0.5, y: 0.75) : nil)
+        #endif
         .safeAreaBar(edge: .bottom) {
             if Action.self != EmptyView.self {
                 action

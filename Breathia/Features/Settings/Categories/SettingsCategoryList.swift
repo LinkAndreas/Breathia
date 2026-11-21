@@ -53,6 +53,7 @@ struct SettingsCategoryList: View {
                 .macListRow(in: .middle)
                 #endif
                 .tint(.primary)
+                SettingsCategoryRow(page: .versionHistory, position: .middle)
                 Button(action: onShowOnboarding) {
                     SettingsLabel("settings.showOnboarding", systemImage: "sparkles", tone: .onboarding)
                         .frame(maxWidth: .infinity, alignment: .leading)

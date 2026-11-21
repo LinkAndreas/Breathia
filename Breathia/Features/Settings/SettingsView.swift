@@ -57,6 +57,7 @@ struct SettingsView: View {
                     SettingsLabel("settings.whatsNew", systemImage: "gift.fill", tone: .whatsNew)
                 }
                 .tint(.primary)
+                SettingsPageRow(page: .versionHistory) { onOpenPage(.versionHistory) }
                 Button(action: onShowOnboarding) {
                     SettingsLabel("settings.showOnboarding", systemImage: "sparkles", tone: .onboarding)
                 }

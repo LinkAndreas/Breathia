@@ -16,10 +16,14 @@ enum ScreenshotScreen: String {
     case history
     /// A past session's report.
     case historyDetail
+    /// A past session's report, scrolled down to the charts of each breath and HRV.
+    case historyCharts
     /// Settings.
     case settings
     /// The sensor sheet with the sensor connected.
     case sensor
+    /// Settings' Version History page.
+    case versionHistory
 
     /// The screen asked for at launch, if any.
     static let requested: ScreenshotScreen? = {
