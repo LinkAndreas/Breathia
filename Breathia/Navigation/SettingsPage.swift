@@ -11,4 +11,5 @@ nonisolated enum SettingsPage: Hashable, Codable, Sendable {
     case history
     case privacy
     case aboutSensor
+    case versionHistory
 }

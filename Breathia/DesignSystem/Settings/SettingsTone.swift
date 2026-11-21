@@ -56,5 +56,6 @@ struct SettingsTone: Equatable {
     static let privacy = SettingsTone(hue: 240)
     static let information = SettingsTone(hue: 240, chroma: 0.03)
     static let whatsNew = SettingsTone(hue: 226)
+    static let versionHistory = SettingsTone(hue: 212)
     static let onboarding = SettingsTone(hue: 258)
 }

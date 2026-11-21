@@ -22,6 +22,8 @@ struct SettingsPageDestination: View {
             detail.environment(settingsStore).environment(mindfulMinutes)
         case .history:
             detail.environment(sessionHistory)
+        case .versionHistory:
+            detail.environment(appIconStore)
         case .privacy, .aboutSensor:
             detail
         }
