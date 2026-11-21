@@ -27,6 +27,48 @@
             "state" : "translated",
             "value" : "Breathia"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
         }
       }
     },
@@ -52,6 +94,48 @@
           }
         },
         "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia"
+          }
+        },
+        "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Breathia"
@@ -83,7 +167,49 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia utilise le Bluetooth pour se connecter à votre capteur de fréquence cardiaque."
+            "value" : "Breathia utilise le Bluetooth pour se connecter à ton capteur de fréquence cardiaque."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia usa il Bluetooth per collegarsi al tuo sensore di frequenza cardiaca."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Breathia usa o Bluetooth para se conectar ao seu sensor de frequência cardíaca."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia gebruikt Bluetooth om verbinding te maken met je hartslagsensor."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathiaは心拍センサーに接続するためにBluetoothを使用します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia는 심박 센서에 연결하기 위해 Bluetooth를 사용해요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia 使用蓝牙连接你的心率传感器。"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia использует Bluetooth для подключения к твоему датчику пульса."
           }
         }
       }
@@ -106,13 +232,55 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "En el Apple Watch, Breathia lee tu frecuencia cardiaca de Apple Health durante las sesiones de respiración para mostrar información en directo."
+            "value" : "En el Apple Watch, Breathia lee tu frecuencia cardiaca de la app Salud durante las sesiones de respiración para mostrar información en directo."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sur Apple Watch, Breathia lit votre fréquence cardiaque dans Apple Health pendant les séances de respiration pour afficher un retour en direct."
+            "value" : "Sur Apple Watch, Breathia lit ta fréquence cardiaque dans Apple Santé pendant les séances de respiration pour afficher un retour en direct."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Su Apple Watch, Breathia legge la tua frequenza cardiaca dall’app Salute durante le sessioni di respirazione per mostrare un feedback in tempo reale."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Apple Watch, o Breathia lê sua frequência cardíaca do app Saúde durante as sessões de respiração para mostrar feedback ao vivo."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Op de Apple Watch leest Breathia tijdens ademsessies je hartslag uit de Gezondheid-app om live feedback te tonen."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watchでは、Breathiaは呼吸セッション中にヘルスケアから心拍数を読み取り、リアルタイムのフィードバックを表示します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch에서 Breathia는 호흡 세션 중 실시간 피드백을 보여 주기 위해 건강 앱에서 심박수를 읽어요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 Apple Watch 上，Breathia 会在呼吸练习期间从“健康”App 读取你的心率，以显示实时反馈。"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "На Apple Watch Breathia считывает твой пульс из приложения «Здоровье» во время дыхательных сеансов, чтобы показывать обратную связь в реальном времени."
           }
         }
       }
@@ -135,13 +303,55 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia guarda tus sesiones de respiración en Apple Health como minutos de atención plena y, en el Apple Watch, también como entrenamientos."
+            "value" : "Breathia guarda tus sesiones de respiración en la app Salud como minutos de atención plena y, en el Apple Watch, también como entrenamientos."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Breathia enregistre vos séances de respiration dans Apple Health en tant que minutes de pleine conscience et, sur Apple Watch, également en tant qu'entraînements."
+            "value" : "Breathia enregistre tes séances de respiration dans Apple Santé en tant que minutes de pleine conscience et, sur Apple Watch, également en tant qu'entraînements."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia salva le tue sessioni di respirazione nell’app Salute come minuti di consapevolezza e, su Apple Watch, anche come allenamenti."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Breathia salva suas sessões de respiração no app Saúde como Minutos de Atenção Plena e, no Apple Watch, também como treinos."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia bewaart je ademsessies in de Gezondheid-app als mindfulnessminuten, en op de Apple Watch ook als workouts."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathiaは呼吸セッションをマインドフルネスの時間としてヘルスケアに保存します。Apple Watchではワークアウトとしても保存します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia는 호흡 세션을 건강 앱에 마음 챙기기 시간으로 저장하고, Apple Watch에서는 운동으로도 저장해요."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia 会将你的呼吸练习作为正念分钟数存储到“健康”App；在 Apple Watch 上，还会存储为体能训练。"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia сохраняет твои дыхательные сеансы в приложении «Здоровье» как минуты осознанности, а на Apple Watch — ещё и как тренировки."
           }
         }
       }
