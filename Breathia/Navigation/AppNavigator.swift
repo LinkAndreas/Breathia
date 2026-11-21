@@ -149,6 +149,9 @@ final class AppNavigator {
             // Feedback has no page of its own: it's in the settings list.
             selectedTab = .settings
             settingsPage = nil
+        case .versionHistory:
+            selectedTab = .settings
+            settingsPage = .versionHistory
         }
     }
 
@@ -226,7 +229,7 @@ extension AppNavigator {
             runningTechniqueID = ScreenshotScreen.techniqueID
         case .history:
             showHistory(with: session.id)
-        case .historyDetail:
+        case .historyDetail, .historyCharts:
             selectedTab = .history
             sessionID = session.id
         case .settings:
@@ -236,6 +239,9 @@ extension AppNavigator {
             }
         case .sensor:
             showSensor()
+        case .versionHistory:
+            selectedTab = .settings
+            settingsPage = .versionHistory
         }
     }
 }

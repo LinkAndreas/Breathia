@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/Xcode-27%2B-147EFB?logo=xcode&amp;logoColor=white" alt="Xcode 27 or later">
   <img src="https://img.shields.io/badge/UI-SwiftUI-0D96F6" alt="SwiftUI">
   <img src="https://img.shields.io/badge/tests-Swift%20Testing-34C759" alt="Swift Testing">
-  <img src="https://img.shields.io/badge/localized-EN%20%7C%20DE%20%7C%20ES%20%7C%20FR-8E8E93" alt="Localized in English, German, Spanish and French">
+  <img src="https://img.shields.io/badge/localized-11%20languages-8E8E93" alt="Localized in English, German, Spanish, French, Italian, Brazilian Portuguese, Dutch, Japanese, Korean, Simplified Chinese and Russian">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow" alt="License: MIT"></a>
   <a href="https://github.com/LinkAndreas/Breathia/actions/workflows/deploy.yml"><img src="https://github.com/LinkAndreas/Breathia/actions/workflows/deploy.yml/badge.svg" alt="Deploy to App Store Connect"></a>
 </p>
@@ -106,7 +106,8 @@ and HRV respond while you breathe.
 - **App icons** — eight icons to choose from in Settings; on iPhone and iPad the app takes on the
   chosen icon's colors
 - **Free** — every feature included, with no ads and no in-app purchases
-- **Localized** in English, German, Spanish and French
+- **Localized** in English, German, Spanish, French, Italian, Brazilian Portuguese, Dutch, Japanese,
+  Korean, Simplified Chinese and Russian
 
 ## Privacy
 

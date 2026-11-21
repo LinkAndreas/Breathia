@@ -48,4 +48,19 @@ struct WhatsNewTests {
         #expect(navigator.selectedTab == .settings)
         #expect(navigator.settingsPage == .sound)
     }
+
+    @MainActor
+    @Test func tryingTheVersionHistoryOpensItsPage() {
+        let navigator = AppNavigator()
+        navigator.showWhatsNew()
+        navigator.tryNewFeature(.versionHistory)
+        #expect(!navigator.isShowingWhatsNew)
+        #expect(navigator.selectedTab == .settings)
+        #expect(navigator.settingsPage == .versionHistory)
+    }
+
+    /// Someone who saw the 1.8 features sees 1.8.3's once more.
+    @Test func showsAgainForAPatchRelease() {
+        #expect(WhatsNew.shouldShow(lastSeen: "1.8", hasCompletedOnboarding: true))
+    }
 }

@@ -12,6 +12,7 @@ extension SettingsPage {
         case .history: String(localized: "history.title")
         case .privacy: String(localized: "common.privacy")
         case .aboutSensor: String(localized: "common.aboutBluetoothSensors")
+        case .versionHistory: String(localized: "settings.versionHistory")
         }
     }
 
@@ -26,6 +27,7 @@ extension SettingsPage {
         case .history: "clock.fill"
         case .privacy: "hand.raised.fill"
         case .aboutSensor: "info"
+        case .versionHistory: "clock.arrow.circlepath"
         }
     }
 
@@ -40,6 +42,7 @@ extension SettingsPage {
         case .history: .history
         case .privacy: .privacy
         case .aboutSensor: .information
+        case .versionHistory: .versionHistory
         }
     }
 }
