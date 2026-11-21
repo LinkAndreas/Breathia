@@ -226,7 +226,7 @@ extension AppNavigator {
             runningTechniqueID = ScreenshotScreen.techniqueID
         case .history:
             showHistory(with: session.id)
-        case .historyDetail:
+        case .historyDetail, .historyCharts:
             selectedTab = .history
             sessionID = session.id
         case .settings:
@@ -236,6 +236,9 @@ extension AppNavigator {
             }
         case .sensor:
             showSensor()
+        case .versionHistory:
+            selectedTab = .settings
+            settingsPage = .versionHistory
         }
     }
 }
