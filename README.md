@@ -236,7 +236,7 @@ note, and stop if you feel unwell.
 
 ## License
 
-Breathia is available under the MIT license. See [LICENSE](LICENSE).
+Breathia is available under the MIT license. See [LICENSE](LICENSE). The Breathia name, app icons and screenshots are not covered by it; see [NOTICE](NOTICE.md).
 
 The name "Breathia" and the app icon identify the published app; please use your own name and
 icon if you ship a fork on the App Store.
