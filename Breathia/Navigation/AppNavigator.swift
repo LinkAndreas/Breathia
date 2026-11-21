@@ -149,6 +149,9 @@ final class AppNavigator {
             // Feedback has no page of its own: it's in the settings list.
             selectedTab = .settings
             settingsPage = nil
+        case .versionHistory:
+            selectedTab = .settings
+            settingsPage = .versionHistory
         }
     }
 

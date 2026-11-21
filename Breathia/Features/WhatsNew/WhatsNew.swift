@@ -4,7 +4,7 @@ import SwiftUI
 /// any time from Settings.
 enum WhatsNew {
     /// The release these features came with; raising it shows the sheet again.
-    static let version = "1.8"
+    static let version = "1.8.3"
 
     struct Feature: Identifiable {
         /// Where a feature can be tried right away.
@@ -12,6 +12,7 @@ enum WhatsNew {
             case soundSettings
             case history
             case feedback
+            case versionHistory
 
             /// The button that goes there.
             var title: LocalizedStringKey {
@@ -19,6 +20,7 @@ enum WhatsNew {
                 case .soundSettings: "whatsNew.openSoundSettings"
                 case .history: "whatsNew.openHistory"
                 case .feedback: "whatsNew.openFeedback"
+                case .versionHistory: "whatsNew.openVersionHistory"
                 }
             }
         }
@@ -33,19 +35,13 @@ enum WhatsNew {
 
     static let features: [Feature] = [
         Feature(
-            id: "sounds", symbol: "speaker.wave.2.fill", color: Color(oklch: 0.62, chroma: 0.15, hue: 285),
-            title: "whatsNew.sounds18.title", text: "whatsNew.sounds18.text",
-            destination: .soundSettings
+            id: "versionHistory", symbol: "clock.arrow.circlepath", color: Color(oklch: 0.62, chroma: 0.13, hue: 212),
+            title: "whatsNew.versionHistory.title", text: "whatsNew.versionHistory.text",
+            destination: .versionHistory
         ),
         Feature(
-            id: "charts", symbol: "waveform.path.ecg", color: Color(oklch: 0.62, chroma: 0.15, hue: 352),
-            title: "whatsNew.charts.title", text: "whatsNew.charts.text",
-            destination: .history
-        ),
-        Feature(
-            id: "feedback", symbol: "star.fill", color: Color(oklch: 0.68, chroma: 0.14, hue: 78),
-            title: "whatsNew.feedback.title", text: "whatsNew.feedback.text",
-            destination: .feedback
+            id: "languages", symbol: "globe", color: Color(oklch: 0.62, chroma: 0.14, hue: 160),
+            title: "whatsNew.languages.title", text: "whatsNew.languages.text"
         ),
     ]
 

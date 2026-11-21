@@ -41482,6 +41482,150 @@
         }
       }
     },
+    "versionHistory.1_8_3.note1" : {
+      "comment" : "Version History: note 1 of what Breathia 1.8.3 brought, shown as a bullet point. Same text as the release notes on Breathia's website.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Versionshistorie in den Einstellungen: alle Versionen von Breathia und was sie jeweils gebracht haben."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A new Version History in Settings lists every release of Breathia with what it brought."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo Historial de versiones en Ajustes: todas las versiones de Breathia y lo que trajo cada una."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvel historique des versions dans les Réglages : toutes les versions de Breathia et ce que chacune a apporté."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuova Cronologia versioni in Impostazioni: tutte le versioni di Breathia e le novità di ciascuna."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「設定」に新しく「バージョン履歴」を追加：Breathiaのすべてのバージョンと、それぞれの新機能を確認できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정에 새로운 버전 기록이 추가되어 Breathia의 모든 버전과 각 버전에서 달라진 점을 볼 수 있어요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieuwe Versiegeschiedenis in Instellingen: alle versies van Breathia en wat elke versie bracht."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novo Histórico de versões nos Ajustes: todas as versões do Breathia e o que cada uma trouxe."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новая «История версий» в Настройках: все версии Breathia и что нового было в каждой."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“设置”中新增“版本历史”，列出 Breathia 的每个版本及其带来的变化。"
+          }
+        }
+      }
+    },
+    "versionHistory.1_8_3.note2" : {
+      "comment" : "Version History: note 2 of what Breathia 1.8.3 brought, shown as a bullet point. Same text as the release notes on Breathia's website.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia spricht jetzt elf Sprachen – neu: Italienisch, Portugiesisch (Brasilien), Niederländisch, Japanisch, Koreanisch, Chinesisch (vereinfacht) und Russisch."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia now speaks eleven languages — new: Italian, Portuguese (Brazil), Dutch, Japanese, Korean, Chinese (Simplified) and Russian."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia ahora habla once idiomas. Nuevos: italiano, portugués (Brasil), neerlandés, japonés, coreano, chino simplificado y ruso."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia parle désormais onze langues. Nouveautés : italien, portugais du Brésil, néerlandais, japonais, coréen, chinois simplifié et russe."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia ora parla undici lingue – le novità: italiano, portoghese (Brasile), olandese, giapponese, coreano, cinese semplificato e russo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathiaが11の言語に対応しました。新たにイタリア語、ポルトガル語（ブラジル）、オランダ語、日本語、韓国語、中国語（簡体字）、ロシア語が加わりました。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이제 Breathia를 11개 언어로 사용할 수 있어요. 이탈리아어, 포르투갈어(브라질), 네덜란드어, 일본어, 한국어, 중국어(간체), 러시아어가 새로 추가되었어요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia spreekt nu elf talen – nieuw: Italiaans, Portugees (Brazilië), Nederlands, Japans, Koreaans, Chinees (vereenvoudigd) en Russisch."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Breathia agora fala onze idiomas — novos: italiano, português (Brasil), holandês, japonês, coreano, chinês simplificado e russo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia теперь говорит на одиннадцати языках — новые: итальянский, португальский (Бразилия), нидерландский, японский, корейский, китайский (упрощённый) и русский."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia 现已支持十一种语言，新增意大利语、葡萄牙语（巴西）、荷兰语、日语、韩语、简体中文和俄语。"
+          }
+        }
+      }
+    },
     "versionHistory.installed" : {
       "comment" : "Version History: a small badge on the release (version) that is running on this device",
       "extractionState" : "manual",
@@ -42580,6 +42724,150 @@
         }
       }
     },
+    "whatsNew.languages.text" : {
+      "comment" : "New feature description: the seven languages added in this release; the app uses the device's language automatically",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia spricht jetzt auch Italienisch, Portugiesisch (Brasilien), Niederländisch, Japanisch, Koreanisch, Chinesisch (vereinfacht) und Russisch – ganz automatisch in der Sprache deines Geräts."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia now also speaks Italian, Portuguese (Brazil), Dutch, Japanese, Korean, Chinese (Simplified) and Russian — and follows your device's language."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia ahora también habla italiano, portugués (Brasil), neerlandés, japonés, coreano, chino simplificado y ruso, y se muestra automáticamente en el idioma de tu dispositivo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia parle désormais aussi italien, portugais du Brésil, néerlandais, japonais, coréen, chinois simplifié et russe, et s'affiche automatiquement dans la langue de ton appareil."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia ora parla anche italiano, portoghese (Brasile), olandese, giapponese, coreano, cinese semplificato e russo, e usa automaticamente la lingua del tuo dispositivo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathiaがイタリア語、ポルトガル語（ブラジル）、オランダ語、日本語、韓国語、中国語（簡体字）、ロシア語にも対応しました。お使いのデバイスの言語で自動的に表示されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이제 Breathia가 이탈리아어, 포르투갈어(브라질), 네덜란드어, 일본어, 한국어, 중국어(간체), 러시아어도 지원해요. 기기 언어에 맞춰 자동으로 표시돼요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia spreekt nu ook Italiaans, Portugees (Brazilië), Nederlands, Japans, Koreaans, Chinees (vereenvoudigd) en Russisch – automatisch in de taal van je apparaat."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Breathia agora também fala italiano, português (Brasil), holandês, japonês, coreano, chinês simplificado e russo, e usa automaticamente o idioma do seu dispositivo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia теперь доступна и на итальянском, португальском (Бразилия), нидерландском, японском, корейском, китайском (упрощённом) и русском — и сама подстраивается под язык твоего устройства."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathia 现已新增意大利语、葡萄牙语（巴西）、荷兰语、日语、韩语、简体中文和俄语，并会自动使用你设备的语言。"
+          }
+        }
+      }
+    },
+    "whatsNew.languages.title" : {
+      "comment" : "New feature title: the app is now translated into eleven languages",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt in elf Sprachen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Now in Eleven Languages"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahora en once idiomas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désormais en onze langues"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ora in undici lingue"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "11の言語に対応"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이제 11개 언어 지원"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu in elf talen"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agora em onze idiomas"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Теперь на одиннадцати языках"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "现已支持十一种语言"
+          }
+        }
+      }
+    },
     "whatsNew.openFeedback" : {
       "comment" : "Button below a new feature: opens Settings",
       "extractionState" : "manual",
@@ -42796,6 +43084,78 @@
         }
       }
     },
+    "whatsNew.openVersionHistory" : {
+      "comment" : "Button below a new feature: opens the Version History page in Settings",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versionshistorie öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Version History"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir historial de versiones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir l'historique des versions"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri cronologia versioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン履歴を開く"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버전 기록 열기"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Versiegeschiedenis"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Histórico de versões"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть Историю версий"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开“版本历史”"
+          }
+        }
+      }
+    },
     "whatsNew.sounds18.text" : {
       "comment" : "New feature description",
       "extractionState" : "manual",
@@ -43008,6 +43368,150 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新功能"
+          }
+        }
+      }
+    },
+    "whatsNew.versionHistory.text" : {
+      "comment" : "New feature description: the Version History page in Settings, listing every release with its release notes",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In der neuen Versionshistorie in den Einstellungen siehst du jede Version von Breathia und was sie gebracht hat."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See every release of Breathia and what it brought, in the new Version History in Settings."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En el nuevo Historial de versiones de Ajustes, consulta cada versión de Breathia y lo que trajo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dans le nouvel historique des versions des Réglages, retrouve chaque version de Breathia et ce qu'elle a apporté."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nella nuova Cronologia versioni in Impostazioni trovi ogni versione di Breathia e le sue novità."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「設定」の新しい「バージョン履歴」で、Breathiaのすべてのバージョンとそれぞれの新機能を確認できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정의 새로운 버전 기록에서 Breathia의 모든 버전과 각 버전에서 달라진 점을 확인해 보세요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In de nieuwe Versiegeschiedenis in Instellingen zie je elke versie van Breathia en wat die bracht."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No novo Histórico de versões dos Ajustes, veja cada versão do Breathia e o que ela trouxe."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В новой «Истории версий» в Настройках смотри все версии Breathia и что нового было в каждой."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在“设置”新增的“版本历史”中，查看 Breathia 的每个版本及其带来的变化。"
+          }
+        }
+      }
+    },
+    "whatsNew.versionHistory.title" : {
+      "comment" : "New feature title: the Version History page in Settings, listing every release with its release notes",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Versionen auf einen Blick"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every Release at a Glance"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas las versiones de un vistazo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes les versions en un coup d'œil"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutte le versioni a colpo d'occhio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてのバージョンをひと目で"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모든 버전을 한눈에"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle versies in één overzicht"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas as versões em um só lugar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Все версии в одном месте"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有版本，一目了然"
           }
         }
       }

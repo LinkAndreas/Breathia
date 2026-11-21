@@ -31,6 +31,10 @@ enum VersionHistory {
     }
 
     static let releases: [Release] = [
+        Release(version: "1.8.3", year: 2026, month: 11, notes: [
+            "versionHistory.1_8_3.note1",
+            "versionHistory.1_8_3.note2",
+        ]),
         Release(version: "1.8.2", year: 2026, month: 11, notes: [
             "versionHistory.1_8_2.note1",
             "versionHistory.1_8_2.note2",
